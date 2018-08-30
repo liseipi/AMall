@@ -1,0 +1,162 @@
+@layout('layout')
+
+@section('content')
+<style>
+  .ui.dropdown > .text > .image, .ui.dropdown > .text > img, .ui.dropdown .menu > .item > .image, .ui.dropdown .menu > .item > img {
+    width: 6rem;
+    max-height: 6rem;
+    height: 6rem;
+  }
+  .ui.search.selection.dropdown>input.search{
+    height: 6rem;
+  }
+</style>
+<div class="ui fluid container" id="page-app">
+  <h2 class="ui header" id="header">
+    创建管理员
+    <div class="sub header"></div>
+  </h2>
+  <div class="ui equal width grid">
+    <div class="column">
+      <div class="panel">
+        <div class="panel-alone-content">
+          <form class="ui form" id="sendForm" method="post" action="{{ route('ManagerController.SaveRegister') }}">
+            {{ csrfField() }}
+            <div class="fields three">
+              <div class="field"></div>
+              <div class="field">
+                <label>选择头像</label>
+                <div class="ui search dropdown selection text ev_dropdown">
+                  <input type="hidden" name="avatar" value="elliot.jpg">
+                  <input class="search" autocomplete="off" tabindex="0">
+                  <div class="text"><img class="ui avatar image" src="/images/avatar/stevie.jpg"></div>
+                  <div class="menu transition hidden" tabindex="-1">
+                    <div class="item active selected" data-value="elliot.jpg"><img class="ui avatar image" src="/images/avatar/elliot.jpg"></div>
+                    <div class="item" data-value="stevie.jpg"><img class="ui avatar image" src="/images/avatar/stevie.jpg"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="field"></div>
+            </div>
+            <div class="ui divider"></div>
+            <div class="two fields">
+              <div class="field required">
+                <label>用户名</label>
+                <input type="text" name="username" placeholder="不能少于6个字">
+              </div>
+              <div class="field required">
+                <label>邮箱</label>
+                <input type="email" name="email" placeholder="使用的邮箱地址">
+              </div>
+            </div>
+            <div class="two fields">
+              <div class="field required">
+                <label>密码</label>
+                <input type="password" name="password" placeholder="请保证大于8位">
+              </div>
+              <div class="field required">
+                <label>重复密码</label>
+                <input type="password" name="repassword" placeholder="请保证大于8位">
+              </div>
+            </div>
+            <div class="field">
+              <label>手机</label>
+              <input type="text" name="mobile" placeholder="手机号码">
+            </div>
+            <div class="two fields">
+              <div class="field">
+                <label>允许登录状态</label>
+                <div class="ui selection dropdown ev_dropdown" tabindex="0">
+                  <input name="status" type="hidden" value="1">
+                  <div class="text">关闭登录</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu transition hidden" tabindex="-1">
+                    <div class="item" data-value="0">开启登录</div>
+                    <div class="item active selected" data-value="1">关闭登录</div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label>性别</label>
+                <div class="ui selection dropdown ev_dropdown" tabindex="0">
+                  <input name="user_sex" type="hidden" value="0">
+                  <div class="text">帅哥</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu transition hidden" tabindex="-1">
+                    <div class="item active selected" data-value="0">帅哥</div>
+                    <div class="item" data-value="1">美女</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>角色</label>
+              <div class="ui selection dropdown ev_dropdown" tabindex="0">
+                <input name="user_level" type="hidden" value="0">
+                <div class="default text">选择角色</div>
+                <i class="dropdown icon"></i>
+                <div class="menu transition hidden" tabindex="-1">
+
+                </div>
+              </div>
+            </div>
+            <h4>分配权限</h4>
+            <table class="ui fluid celled table">
+              <tbody>
+              <tr>
+                <td class="two wide">Card Name</td>
+                <td class="six wide">Validation Name</td>
+              </tr>
+              <tr>
+                <td>Visa</td>
+                <td><code>visa</code></td>
+              </tr>
+              <tr>
+                <td>American Express</td>
+                <td><code>amex</code></td>
+              </tr>
+              <tr>
+                <td>Mastercard</td>
+                <td><code>mastercard</code></td>
+              </tr>
+              <tr>
+                <td>Discover</td>
+                <td><code>discover</code></td>
+              </tr>
+              <tr>
+                <td>Unionpay</td>
+                <td><code>unionpay</code></td>
+              </tr>
+              <tr>
+                <td>JCB</td>
+                <td><code>jcb</code></td>
+              </tr>
+              <tr>
+                <td>Diner's Club</td>
+                <td><code>dinersClub</code></td>
+              </tr>
+              <tr>
+                <td>Maestro</td>
+                <td><code>maestro</code></td>
+              </tr>
+              <tr>
+                <td>Laser</td>
+                <td><code>laser</code></td>
+              </tr>
+              <tr>
+                <td>Visa Electron</td>
+                <td><code>visaElectron</code></td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="ui divider"></div>
+            <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>
+            <div class="ui error message"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/app/register.js"></script>
+@endsection

@@ -1,0 +1,9 @@
+@if(flashMessage('notification'))
+<script>
+    require(['main'], function () {
+        require(['semantic', 'swal'], function (semantic, swal) {
+            swal("{{{ flashMessage('notification.message') }}}");
+        })
+    })
+</script>
+@endif

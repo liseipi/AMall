@@ -1,0 +1,63 @@
+@layout('layout')
+
+@section('content')
+
+<div id="index-page">
+  <div class="index-layout index-layout-admin">
+    <!--  <div class="index-header">
+      <div class="index-logo">
+        <img src="/images/logo.png" height="100%" alt="">
+      </div>
+      <div class="index-nav">
+        <li>
+          <a href="javascript:;" title="隐藏边栏" class="_option_side"><i class="outdent icon"></i></a>
+        </li>
+      </div>
+    </div>  -->
+    <div class="index-side" id="index-side">
+      <div class="index-user">
+        <div class="index-user-avatar"><img src="{{ appUrl('/images/avatar/'+auth.user.avatar) }}" alt=""></div>
+        <div class="index-user-info">
+          <a href="" class="nickname">
+            {{ auth.user.username }}
+            <i class="caret down icon"></i>
+          </a>
+          <a href="{{ route('ManagerController.Logout') }}" class="logout">退出</a>
+        </div>
+      </div>
+      <div class="index-menus">
+        <div class="ui vertical secondary inverted accordion fluid menu">
+          @each(menu in menusData)
+          <div class="item">
+            @if(menu.children)
+            <a class="title">
+              <i class="home icon"></i>
+              <i class="dropdown icon"></i>
+              {{menu.menuname}}
+            </a>
+            @else
+            <a class="title" href="#">
+              <i class="home icon"></i>
+              {{menu.menuname}}
+            </a>
+            @endif
+            @if(menu.children)
+            <div class="content">
+              @each(subMenu in menu.children)
+              <a class="item" target="contentFrame" href="{{ route('ManagerController.Register') }}">{{subMenu.menuname}}</a>
+              @endeach
+            </div>
+            @endif
+          </div>
+          @endeach
+        </div>
+      </div>
+    </div>
+    <div class="index-body" id="index-body">
+      <iframe id="IFrame" name="contentFrame" src="{{ route('dashboard') }}" frameborder="0" class="index-iframe"></iframe>
+    </div>
+  </div>
+</div>
+<script src="/js/app/index.js"></script>
+
+@endsection

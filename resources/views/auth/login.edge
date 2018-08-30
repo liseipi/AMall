@@ -1,0 +1,53 @@
+@layout('layout')
+
+@section('title')
+  AMall - Login
+@endsection
+
+@section('content')
+@include('notification')
+<div class="ui fluid container">
+  <div class="ui center aligned grid">
+    <div class="row">
+      <div class="fourteen wide mobile ten wide tablet six wide computer column" style="padding-top:10%">
+        <div class="ui left aligned segment">
+          <form action="/login"  action="{{ route('AuthController.InLogin') }}" method="post">
+            {{ csrfField() }}
+            <div id="form1" class="ui form">
+              <h1 class="ui header center aligned">
+                AMall
+              </h1>
+              <div class="field">
+                <label>登录邮箱:</label>
+                <div class="ui fluid icon input">
+                  <input name="email" id="email" type="text" placeholder="email" autocomplete="off" value="{{ old('email', '') }}">
+                  <i class="icon mail outline"></i>
+                </div>
+                {{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor('email'), hasErrorFor('email')) }}
+              </div>
+              <div class="field">
+                <label>
+                  密码:
+                </label>
+                <div class="ui fluid icon input">
+                  <input name="password" id="u_pass" type="password" placeholder="password" autocomplete="off">
+                  <i class="icon key"></i>
+                </div>
+                {{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor('password'), hasErrorFor('password')) }}
+              </div>
+              <div class="field">
+                <button class="ui teal right labeled icon button fluid">
+                  登录
+                  <i class="icon sign in"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/app/login.js"></script>
+
+@endsection
