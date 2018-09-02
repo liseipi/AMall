@@ -1,0 +1,32 @@
+'use strict'
+
+class Can {
+  register(Model, customOptions = {}) {
+    const defaultOptions = {}
+    const options = Object.assign(defaultOptions, customOptions)
+
+    Model.prototype.can = this.can
+    Model.prototype.getMenus = this.getMenus
+  }
+
+  async can(menus, all = true) {
+    const usermenu = await this.getMenus()
+
+    if(Array.isArray(menus)){
+      const result = menus.map( menu => {
+        return usermenu.includes(menu)
+      })
+      return all ? !result.includes(false) : result.includes(true)
+    }
+
+    return usermenu.includes(menus)
+  }
+
+  async getMenus() {
+    const usermenu = await this.menus().fetch()
+    const userMenu = usermenu.toJSON().map(menu => menu.controller)
+    return [...userMenu]
+  }
+}
+
+module.exports = Can

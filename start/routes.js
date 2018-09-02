@@ -31,6 +31,6 @@ Route.group(() => {
 
     //Route.resource('users', 'UserController')
 
-}).middleware(['auth'])
+}).middleware(['auth', 'can:/dashboard, /'])
 
 

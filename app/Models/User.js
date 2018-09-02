@@ -15,9 +15,18 @@ class User extends Model {
     return 'ni_id'
   }
 
+  // menu许可模型
+  menus() {
+    return this
+      .belongsToMany('App/Models/Menu')
+      .pivotTable('ni_admin_permission')
+      //.withTimestamps()
+  }
 
-  static boot () {
+  static boot() {
     super.boot()
+
+    this.addTrait('Can')
 
     /**
      * A hook to hash the user password before saving
@@ -40,7 +49,7 @@ class User extends Model {
    *
    * @return {Object}
    */
-  tokens () {
+  tokens() {
     return this.hasMany('App/Models/Token')
   }
 }

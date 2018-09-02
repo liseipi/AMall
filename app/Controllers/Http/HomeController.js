@@ -16,8 +16,11 @@ class HomeController {
 
   }
 
-  async Dashboard({ view }) {
-    return 'dashboard'
+  async Dashboard({  }) {
+    const user = await User.find(8985)
+    const menu = await user.getMenus()
+    const result = await user.can(['/dashboard', '/menu/del'])
+    return {menu, result}
   }
 
 }
