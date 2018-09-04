@@ -18,7 +18,7 @@
       <div class="index-user">
         <div class="index-user-avatar"><img src="{{ appUrl('/images/avatar/'+auth.user.avatar) }}" alt=""></div>
         <div class="index-user-info">
-          <a href="/demo" class="nickname">
+          <a href="/demo" target="contentFrame" class="nickname">
             {{ auth.user.username }}
             <i class="caret down icon"></i>
           </a>
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="index-body" id="index-body">
-      <iframe id="IFrame" name="contentFrame" src="{{ route('dashboard') }}" frameborder="0" class="index-iframe"></iframe>
+      <iframe id="IFrame" name="contentFrame" src="{{ route('HomeController.Dashboard') }}" frameborder="0" class="index-iframe"></iframe>
     </div>
   </div>
 </div>
