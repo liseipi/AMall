@@ -4,7 +4,9 @@ const {flatten, uniq} = use('lodash')
 
 const no_auth = [
   '/',
-  '/dashboard'
+  '/dashboard',
+  '/logout',
+  '/login'
 ]
 
 class Can {

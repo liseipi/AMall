@@ -17,20 +17,20 @@ const Route = use('Route')
 
 //登陆
 Route.group(() => {
-    Route.get('/login', 'AuthController.login').as('login')
+    Route.get('/login', 'AuthController.login')
     Route.post('/login', 'AuthController.InLogin').validator('Login')
 }).middleware(['authed'])
+
 //退出
-Route.get('/logout', 'AuthController.Logout').as('logout')
+Route.get('/logout', 'AuthController.Logout')
 
 Route.group(() => {
 
     Route.get('/', 'HomeController.Index')
 
-    Route.get('/dashboard', 'HomeController.Dashboard').as('dashboard')
+    Route.get('/dashboard', 'HomeController.Dashboard')
 
-    //Route.resource('users', 'UserController')
 
-}).middleware(['auth', /*'can:/dashboard, /', 'is:admin'*/])
+}).middleware(['auth'])
 
 

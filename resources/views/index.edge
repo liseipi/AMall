@@ -18,11 +18,11 @@
       <div class="index-user">
         <div class="index-user-avatar"><img src="{{ appUrl('/images/avatar/'+auth.user.avatar) }}" alt=""></div>
         <div class="index-user-info">
-          <a href="" class="nickname">
+          <a href="/demo" class="nickname">
             {{ auth.user.username }}
             <i class="caret down icon"></i>
           </a>
-          <a href="{{ route('ManagerController.Logout') }}" class="logout">退出</a>
+          <a href="{{ route('AuthController.Logout') }}" class="logout">退出</a>
         </div>
       </div>
       <div class="index-menus">
@@ -36,7 +36,7 @@
               {{menu.menuname}}
             </a>
             @else
-            <a class="title" href="#">
+            <a class="title" href="{{ menu.controller }}" target="contentFrame">
               <i class="home icon"></i>
               {{menu.menuname}}
             </a>
@@ -44,7 +44,7 @@
             @if(menu.children)
             <div class="content">
               @each(subMenu in menu.children)
-              <a class="item" target="contentFrame" href="{{ route('ManagerController.Register') }}">{{subMenu.menuname}}</a>
+              <a class="item" target="contentFrame" href="{{ subMenu.controller }}">{{subMenu.menuname}}</a>
               @endeach
             </div>
             @endif

@@ -1,16 +1,15 @@
 'use strict'
 
+const PermissionCheckException = use('App/Exceptions/PermissionCheckException')
+
 class Permission {
-  async handle ({ request, auth }, next) {
+  async handle({request, response, auth}, next) {
 
-    let permission = []
-    if(auth.user){
-      permission = await auth.user.getMenus()
-      console.log(permission)
-
-      console.log(request.url())
-      let aa = await auth.user.can(request.url())
-      console.log(aa)
+    if (auth.user) {
+      let permission = await auth.user.can(request.url())
+      if (!permission) {
+        throw new PermissionCheckException('权限出错', 403)
+      }
     }
 
     await next()
