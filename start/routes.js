@@ -30,6 +30,10 @@ Route.group(() => {
 
     Route.get('/dashboard', 'HomeController.Dashboard')
 
+    //菜单管理
+    Route.get('/menu/list', 'MenuController.List')
+    Route.get('/menu/add', 'MenuController.Add')
+
 
 }).middleware(['auth'])
 

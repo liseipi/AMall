@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: 'js/',
+    baseUrl: '/js/',
     paths: {
         'libs': 'libs',
         'components': './semantic/components',
