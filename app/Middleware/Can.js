@@ -7,6 +7,7 @@ class Can {
     const can = await auth.user.can(menus)
     if(!can){
       console.log('error: 999')
+      console.log(can)
     }
     await next()
   }

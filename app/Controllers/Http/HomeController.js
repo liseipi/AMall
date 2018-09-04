@@ -16,11 +16,13 @@ class HomeController {
 
   }
 
-  async Dashboard({  }) {
-    const user = await User.find(8985)
+  async Dashboard({ auth }) {
+    const user = await auth.user
     const menu = await user.getMenus()
-    const result = await user.can(['/dashboard', '/menu/del'])
-    return {menu, result}
+    const role = await user.getRoles()
+    // const result = await user.can(['/dashboard', '/menu/del'])
+    const result = await user.is('admin')
+    return {menu, result, role}
   }
 
 }

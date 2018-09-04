@@ -1,5 +1,12 @@
 'use strict'
 
+const {flatten, uniq} = use('lodash')
+
+const no_auth = [
+  '/',
+  '/dashboard'
+]
+
 class Can {
   register(Model, customOptions = {}) {
     const defaultOptions = {}
@@ -12,8 +19,8 @@ class Can {
   async can(menus, all = true) {
     const usermenu = await this.getMenus()
 
-    if(Array.isArray(menus)){
-      const result = menus.map( menu => {
+    if (Array.isArray(menus)) {
+      const result = menus.map(menu => {
         return usermenu.includes(menu)
       })
       return all ? !result.includes(false) : result.includes(true)
@@ -25,7 +32,12 @@ class Can {
   async getMenus() {
     const usermenu = await this.menus().fetch()
     const userMenu = usermenu.toJSON().map(menu => menu.controller)
-    return [...userMenu]
+
+    const roles = await this.roles().with('menus').fetch()
+    const _roleMenu = roles.toJSON().map(role => role.menus)
+    const roleMenu = flatten(_roleMenu).map(menu => menu.controller)
+
+    return uniq([...userMenu, ...roleMenu, ...no_auth])
   }
 }
 

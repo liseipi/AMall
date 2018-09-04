@@ -15,18 +15,26 @@ class User extends Model {
     return 'ni_id'
   }
 
-  // menu许可模型
+  // menu模型
   menus() {
     return this
       .belongsToMany('App/Models/Menu')
       .pivotTable('ni_admin_permission')
-      //.withTimestamps()
+      .withTimestamps()
+  }
+
+  // role模型
+  roles() {
+    return this
+      .belongsToMany('App/Models/Role')
+      .pivotTable('ni_user_role')
   }
 
   static boot() {
     super.boot()
 
     this.addTrait('Can')
+    this.addTrait('Is')
 
     /**
      * A hook to hash the user password before saving
