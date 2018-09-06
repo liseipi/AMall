@@ -1,0 +1,45 @@
+{{--
+  参数：(*必填，-可选)
+-------------------------
+    -className: '',
+    -selectClassName: '',
+    -label: '',
+    *name: '',
+    *items: data,
+    *value_field: '',
+    *name_field: '',
+    -defaultFirst: {
+      **value: 0,
+      **name: '根级菜单'
+    },
+    -disabled: false,
+    -disabledOption: 0,
+    -defaultOption: 0,
+    -level: true,
+    *getErrorFor,
+    *hasErrorFor,
+    *old
+-------------------------
+
+  当 disabledOption == defaultOption 时，select将不提交选择的值
+
+--}}
+
+<div class="{{ className }} field">
+  @if(label)
+  <label>{{ label }}</label>
+  @endif
+  <select class="{{ selectClassName }} ui search dropdown" id="{{ name }}" name="{{ name }}" {{ disabled ? 'disabled' : '' }} >
+    @if(defaultFirst)
+    <option value="{{ defaultFirst.value }}" {{ disabledOption===0 ? 'disabled' : '' }} {{ defaultOption==0 ? 'selected' : '' }}>{{ defaultFirst.name }}</option>
+    @endif
+    @each(item in items)
+    @if(level)
+    <option value="{{ item[value_field] }}" {{ disabledOption==item[value_field] ? 'disabled' : '' }} {{ defaultOption==item[value_field] ? 'selected' : '' }}>{{{ '&nbsp;&nbsp;'.repeat(item.level_id) }}}{{{ '├'.repeat(item.level_id>0?1:0) }}}{{ item[name_field] }}</option>
+    @else
+    <option value="{{ item[value_field] }}" {{ disabledOption==item[value_field] ? 'disabled' : '' }} {{ defaultOption==item[value_field] ? 'selected' : '' }}>{{ item[name_field] }}</option>
+    @endif
+    @endeach
+  </select>
+  {{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor(name), hasErrorFor(name)) }}
+</div>

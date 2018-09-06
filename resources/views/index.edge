@@ -33,18 +33,18 @@
             <a class="title">
               <i class="home icon"></i>
               <i class="dropdown icon"></i>
-              {{menu.menuname}}
+              {{menu.menu_name}}
             </a>
             @else
             <a class="title" href="{{ menu.controller }}" target="contentFrame">
               <i class="home icon"></i>
-              {{menu.menuname}}
+              {{menu.menu_name}}
             </a>
             @endif
             @if(menu.children)
             <div class="content">
               @each(subMenu in menu.children)
-              <a class="item" target="contentFrame" href="{{ subMenu.controller }}">{{subMenu.menuname}}</a>
+              <a class="item" target="contentFrame" href="{{ subMenu.controller }}">{{subMenu.menu_name}}</a>
               @endeach
             </div>
             @endif

@@ -1,0 +1,27 @@
+{{--
+  参数：(*必填，-可选)
+-------------------------
+    -className: '',
+    -label: '',
+    *name: '',
+    -type: 'text',
+    -placeholder: '',
+    -value: '',
+    *getErrorFor,
+    *hasErrorFor,
+    *old
+-------------------------
+--}}
+
+<div class="{{ className }} field">
+  @if(label)
+  <label>{{ label }}</label>
+  @endif
+  <input
+    name="{{ name }}"
+    id="{{ name }}"
+    type="{{ type || 'text' }}"
+    placeholder="{{ placeholder || label || '' }}"
+    value="{{ old(name, value) }}">
+  {{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor(name), hasErrorFor(name)) }}
+</div>

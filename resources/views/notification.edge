@@ -2,7 +2,7 @@
 <script>
     require(['main'], function () {
         require(['semantic', 'swal'], function (semantic, swal) {
-            swal("{{{ flashMessage('notification.message') }}}");
+            swal("{{{ flashMessage('notification.title') }}}", "{{{ flashMessage('notification.message') }}}", "{{{ flashMessage('notification.type') }}}");
         })
     })
 </script>

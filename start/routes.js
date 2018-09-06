@@ -33,6 +33,9 @@ Route.group(() => {
     //菜单管理
     Route.get('/menu/list', 'MenuController.List')
     Route.get('/menu/add', 'MenuController.Add')
+    Route.post('/menu/add', 'MenuController.AddSave').validator('menu')
+    Route.get('/menu/edit/:id', 'MenuController.Edit')
+    Route.post('/menu/edit/:id', 'MenuController.EditSave').validator('menu')
 
 
 }).middleware(['auth'])

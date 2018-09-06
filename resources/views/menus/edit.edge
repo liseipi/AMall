@@ -4,7 +4,7 @@
 <div class="ui container">
   <div class="main">
     <h3 class="ui dividing header">增加菜单</h3>
-    <form class="ui form" action="/menu/add" method="post">
+    <form class="ui form" action="/menu/edit/{{menuInfo.ni_id}}" method="post">
       {{ csrfField() }}
 
       @!component('components.form.select', {
@@ -19,6 +19,7 @@
           name: '根级菜单'
         },
         disabled: false,
+        defaultOption: menuInfo.parent_id,
         level: true,
         getErrorFor,
         hasErrorFor,
@@ -29,6 +30,7 @@
         label: '菜单名称',
         name: 'menu_name',
         type: 'text',
+        value: menuInfo.menu_name,
         placeholder: '填写菜单名称',
         getErrorFor,
         hasErrorFor,
@@ -39,6 +41,7 @@
         label: '控制器名称',
         name: 'controller',
         type: 'text',
+        value: menuInfo.controller,
         placeholder: '填写控制器名称',
         getErrorFor,
         hasErrorFor,
@@ -62,7 +65,7 @@
         ],
         value_field: 'value',
         name_field: 'option',
-        defaultOption: 0,
+        defaultOption: menuInfo.run_status,
         getErrorFor,
         hasErrorFor,
         old
@@ -73,7 +76,7 @@
         name: 'menu_sort',
         type: 'number',
         placeholder: '填写排序',
-        value: 100,
+        value: menuInfo.menu_sort,
         getErrorFor,
         hasErrorFor,
         old

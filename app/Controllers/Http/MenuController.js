@@ -1,7 +1,11 @@
 'use strict'
 
 const Menu = use('App/Models/Menu')
-const {treeSoleSort} = use('App/Helpers/Handle')
+const {filterFieldData, treeSoleSort} = use('App/Helpers/Handle')
+
+const MenuTable = 'ni_menus'
+
+const {alertStatus} = use('App/Helpers/SessionStatus')
 
 class MenuController {
 
@@ -15,7 +19,48 @@ class MenuController {
   }
 
   async Add({view}) {
-    return view.render('menus.add')
+
+    const menusData = await Menu.query().setVisible(['ni_id', 'menu_name', 'parent_id']).fetch()
+
+    const formatData = await treeSoleSort(menusData.toJSON())
+
+    return view.render('menus.add', {menusData: formatData})
+  }
+
+  async AddSave({request, response, session}) {
+    const saveData = await filterFieldData(MenuTable, request.post())
+
+    try {
+      await Menu.create(saveData)
+      alertStatus({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/menu/list'})
+    } catch (error) {
+      alertStatus({session, response, title: 'Error', type: 'error', message: '创建失败!', responseURL: 'back'})
+    }
+  }
+
+  async Edit({view, params: {id}}) {
+
+    const menusData = await Menu.query().setVisible(['ni_id', 'menu_name', 'parent_id']).fetch()
+
+    const formatData = await treeSoleSort(menusData.toJSON())
+
+    const menuInfo = await Menu.findOrFail(id)
+
+    return view.render('menus.edit', {menusData: formatData, menuInfo: menuInfo.toJSON()})
+  }
+
+  async EditSave({request, session, response, params: {id}}) {
+    const saveData = await filterFieldData(MenuTable, request.post())
+
+    try {
+      let menuInfo = await Menu.findOrFail(id)
+      menuInfo.merge(saveData)
+      await menuInfo.save()
+      alertStatus({session, response, title: 'OK', type: 'success', message: '修改成功!', responseURL: '/menu/list'})
+    } catch (error) {
+      console.log(error)
+      alertStatus({session, response, title: 'Error', type: 'error', message: `修改失败! Error: ${error}`, responseURL: 'back'})
+    }
   }
 
 }

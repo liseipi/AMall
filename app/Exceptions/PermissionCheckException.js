@@ -10,6 +10,7 @@ class PermissionCheckException extends LogicalException {
   async handle (error, { session, response }) {
     session.flash({
       notification: {
+        title: 'Error',
         type: 'error',
         message: '权限出错！'
       }

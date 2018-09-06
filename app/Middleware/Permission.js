@@ -6,7 +6,13 @@ class Permission {
   async handle({request, response, auth}, next) {
 
     if (auth.user) {
-      let permission = await auth.user.can(request.url())
+
+      let acturl = request.url()
+      let urlArr = acturl.split('/')
+      if(urlArr.length-1>=3){
+        acturl = '/'+urlArr[1]+'/'+urlArr[2]
+      }
+      let permission = await auth.user.can(acturl)
       if (!permission) {
         throw new PermissionCheckException('权限出错', 403)
       }
