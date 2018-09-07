@@ -36,6 +36,7 @@ Route.group(() => {
     Route.post('/menu/add', 'MenuController.AddSave').validator('menu')
     Route.get('/menu/edit/:id', 'MenuController.Edit')
     Route.post('/menu/edit/:id', 'MenuController.EditSave').validator('menu')
+    Route.get('/menu/destroy/:id', 'MenuController.Destroy')
 
 
 }).middleware(['auth'])

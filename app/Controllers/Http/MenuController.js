@@ -58,8 +58,17 @@ class MenuController {
       await menuInfo.save()
       alertStatus({session, response, title: 'OK', type: 'success', message: '修改成功!', responseURL: '/menu/list'})
     } catch (error) {
-      console.log(error)
       alertStatus({session, response, title: 'Error', type: 'error', message: `修改失败! Error: ${error}`, responseURL: 'back'})
+    }
+  }
+
+  async Destroy({request, session, response, params: {id}}){
+    try {
+      const menu = await Menu.findOrFail(id)
+      menu.delete()
+      alertStatus({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/menu/list'})
+    } catch (error) {
+      alertStatus({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 

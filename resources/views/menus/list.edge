@@ -24,7 +24,7 @@
         <th width="15%">{{menu.runStatus==0?'前台显示':'后台处理'}}</th>
         <th>
           <a href="/menu/edit/{{menu.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
-          <a href="/menu/destroy/{{menu.ni_id}}" class="ui mini red button" onclick="if(!confirm('确定删除吗?')){return false;}"> <i class="trash alternate icon"></i> 删除</a>
+          <a href="/menu/destroy/{{menu.ni_id}}?_csrf={{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
         </th>
       </tr>
       </thead>
@@ -37,7 +37,7 @@
         <td width="15%">{{menu.runStatus==0?'前台显示':'后台处理'}}</td>
         <td>
           <a href="/menu/edit/{{menu.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
-          <a href="/menu/destroy/{{menu.ni_id}}" class="ui mini red button" onclick="if(!confirm('确定删除吗?')){return false;}"> <i class="trash alternate icon"></i> 删除</a>
+          <a href="/menu/destroy/{{menu.ni_id}}?_csrf={{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
         </td>
       </tr>
       </tbody>
