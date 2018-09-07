@@ -39,7 +39,7 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
 
   $(function () {
     $('.destroyConfirm').on('click', function () {
-      var delStart = false;
+      var _this = $(this);
       swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -47,13 +47,10 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
         buttons: true,
         dangerMode: true,
       })
-        .then((willDelete) => {
-          if (willDelete) {
-            swal("Poof! Your imaginary file has been deleted!", {
-              icon: "success",
-            });
-          } else {
-            swal("Your imaginary file is safe!");
+        .then(function (willDelete) {
+          if(willDelete){
+            var url = _this.attr('href');
+            window.location = url;
           }
         });
       return false;

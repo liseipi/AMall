@@ -13,6 +13,7 @@ class AuthController {
             if (userInfo.is_active != 1) {
                 session.flash({
                     notification: {
+                        title: 'Error',
                         type: 'warning',
                         message: '登录失败，邮箱地址未认证！'
                     }
@@ -23,6 +24,7 @@ class AuthController {
             if (userInfo.user_status != 0) {
                 session.flash({
                     notification: {
+                        title: 'Error',
                         type: 'warning',
                         message: '登录失败，用户账号已暂停！'
                     }
@@ -46,6 +48,7 @@ class AuthController {
         } catch (error) {
             session.flash({
                 notification: {
+                    title: 'Error',
                     type: 'error',
                     message: '登录失败，用户名或密码错误！'
                 }
