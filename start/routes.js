@@ -38,6 +38,13 @@ Route.group(() => {
     Route.post('/menu/edit/:id', 'MenuController.EditSave').validator('menu')
     Route.get('/menu/destroy/:id', 'MenuController.Destroy')
 
+    //文章管理
+    //--栏目
+    Route.get('/article/category', 'ArticleCategoryController.List')
+
+    //管理员栏目
+    Route.get('/manager/role', 'RoleController.List')
+
 
 }).middleware(['auth'])
 

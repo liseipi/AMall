@@ -1,0 +1,31 @@
+@layout('layout')
+@section('content')
+
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">角色列表</h3>
+    <table class="ui three column celled table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>角色名称</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      @each(role in roleData)
+      <tr>
+        <td>{{role.ni_id}}</td>
+        <td>{{role.role_name}}</td>
+        <td>
+          <a href="/manager/roleEdit/{{role.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+          <a href="/manager/roleDestroy/{{role.ni_id}}?_csrf={{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+        </td>
+      </tr>
+      @endeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@endsection

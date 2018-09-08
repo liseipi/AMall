@@ -27,7 +27,7 @@ class User extends Model {
   roles() {
     return this
       .belongsToMany('App/Models/Role')
-      .pivotTable('ni_user_role')
+      .pivotTable('ni_admin_role')
   }
 
   static boot() {

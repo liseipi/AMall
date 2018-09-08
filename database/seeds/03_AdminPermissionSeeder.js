@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| AdminUserSeeder
+| 03_AdminPermissionSeeder
 |--------------------------------------------------------------------------
 |
 | Make use of the Factory instance to seed database with dummy data or
@@ -12,21 +12,14 @@
 
 const Factory = use('Factory')
 const User = use('App/Models/User')
-const Env = use('Env')
 
-class AdminUserSeeder {
-  async run() {
+class AdminPermissionSeeder {
+  async run () {
 
-    await User.create({
-      username: Env.get('ADMIN_USERNAME'),
-      email: Env.get('ADMIN_EMAIL'),
-      password: Env.get('ADMIN_PASSWORD'),
-      user_status: 0,
-      is_active: 1,
-      avatar: 'christian.jpg'
-    })
+    const user = await User.find(8985)
+    await user.menus().attach([450, 451, 452, 453, 454, 455, 456, 457, 458])
 
   }
 }
 
-module.exports = AdminUserSeeder
+module.exports = AdminPermissionSeeder

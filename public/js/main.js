@@ -38,6 +38,8 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
   observer.observe();
 
   $(function () {
+
+    //删除确认
     $('.destroyConfirm').on('click', function () {
       var _this = $(this);
       swal({
@@ -55,6 +57,12 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
         });
       return false;
     })
+
+    //checkbox
+    $('.ui.checkbox').checkbox();
+
+    //select
+    $('select.dropdown').dropdown();
   })
 
 
