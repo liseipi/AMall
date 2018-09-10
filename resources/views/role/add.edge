@@ -1,0 +1,67 @@
+@layout('layout')
+@section('content')
+
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">增加角色</h3>
+    <form class="ui form" action="/manager/roleAdd" method="post">
+      {{ csrfField() }}
+
+      @!component('components.form.input', {
+      label: '角色名称',
+      name: 'role_name',
+      placeholder: '填写角色名称',
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
+      @!component('components.form.textarea', {
+      label: '角色描述',
+      name: 'role_desc',
+      placeholder: '填写角色描述',
+      rows: 3,
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
+      <div class="field">
+        <label>选择权限</label>
+      </div>
+      <div class="ui divider"></div>
+      <table class="ui two column celled table">
+        @each(menu in menusData)
+        <tr class="selMenu">
+          <td class="two wide parentItem">
+            @!component('components.form.checkbox', {
+            className: 'inline',
+            name: 'role_auth[]',
+            type: 'checkbox',
+            items: [menu],
+            value_field: 'ni_id',
+            name_field: 'menu_name'
+            })
+          </td>
+          <td class="subItems">
+            @if(menu.children)
+            @!component('components.form.checkbox', {
+            name: 'role_auth[]',
+            type: 'checkbox',
+            items: menu.children,
+            value_field: 'ni_id',
+            name_field: 'menu_name'
+            })
+            @endif
+          </td>
+        </tr>
+        @endeach
+      </table>
+      <div class="field">{{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor('role_auth'), hasErrorFor('role_auth')) }}</div>
+      <div class="ui divider"></div>
+      <input type="submit" value="提交" class="ui big blue button">
+    </form>
+  </div>
+</div>
+{{ script('/js/app/role.js') }}
+@endsection

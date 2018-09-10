@@ -43,10 +43,10 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
     $('.destroyConfirm').on('click', function () {
       var _this = $(this);
       swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        title: "确认删除?",
+        text: "您确定需要删除当前项!",
         icon: "warning",
-        buttons: true,
+        buttons: ['取消', '删除'],
         dangerMode: true,
       })
         .then(function (willDelete) {

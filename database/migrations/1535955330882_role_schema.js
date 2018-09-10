@@ -7,6 +7,7 @@ class RoleSchema extends Schema {
     this.create('ni_roles', (table) => {
       table.increments('ni_id')
       table.string('role_name').unique()
+      table.string('role_desc')
     })
   }
 

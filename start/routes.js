@@ -44,6 +44,11 @@ Route.group(() => {
 
     //管理员栏目
     Route.get('/manager/role', 'RoleController.List')
+    Route.get('/manager/roleAdd', 'RoleController.Add')
+    Route.post('/manager/roleAdd', 'RoleController.AddSave').validator('role')
+    Route.get('/manager/roleEdit/:id', 'RoleController.Edit')
+    Route.post('/manager/roleEdit/:id', 'RoleController.EditSave').validator('role')
+    Route.get('/manager/roleDestroy/:id', 'RoleController.Destroy')
 
 
 }).middleware(['auth'])

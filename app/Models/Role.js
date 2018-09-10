@@ -4,7 +4,7 @@ const Model = use('Model')
 
 class Role extends Model {
 
-  //设置管理员表名
+  //设置表名
   static get table() {
     return 'ni_roles'
   }
@@ -12,6 +12,16 @@ class Role extends Model {
   //设置表主键为ni_id
   static get primaryKey() {
     return 'ni_id'
+  }
+
+  //取消创建时间字段
+  static get createdAtColumn () {
+    return null
+  }
+
+  //取消更新时间字段
+  static get updatedAtColumn () {
+    return null
   }
 
   menus() {

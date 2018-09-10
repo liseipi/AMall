@@ -10,7 +10,7 @@ class HandleClass {
   static async filterFieldData(tablename, data) {
     const tableField = await Database.table(tablename).columnInfo()
 
-    let fieldData = { ...tableField }
+    let fieldData = {...tableField}
     delete fieldData.ni_id
 
     let saveData = {}
@@ -25,14 +25,14 @@ class HandleClass {
 
   //返回无极树型结构多维数组
   static treeSort(data = [...data], pid = 0, level = 1) {
-    let result = [], temp, _this = this;
-    data.forEach((item, index) => {
+    let result = [], temp, _this = this
+    data.forEach((item) => {
       if (item.parent_id == pid) {
         item = Object.assign({}, item, {level_id: level})
-        result.push(item);
-        temp = _this.treeSort(data, item.ni_id, level + 1);
+        result.push(item)
+        temp = _this.treeSort(data, item.ni_id, level + 1)
         if (temp.length > 0) {
-          item.children = temp;
+          item.children = temp
         }
       }
     })
@@ -44,11 +44,12 @@ class HandleClass {
     let originData = [].concat(data)
 
     //originData.sort((a, b) => a.ni_id - b.ni_id)
-    underscore(originData, item => item.ni_id )
+    underscore(originData, item => item.ni_id)
 
     let result = []
+
     function sort_tree(Pid, level) {
-        originData.forEach((item, index) => {
+      originData.forEach((item, index) => {
         if (item.parent_id == Pid) {
           item = Object.assign({}, item, {level_id: level})
           result.push(item)
@@ -56,6 +57,7 @@ class HandleClass {
         }
       })
     }
+
     sort_tree(pid, level)
     return [...result]
   }
@@ -64,24 +66,24 @@ class HandleClass {
   static async findSubData(data = [...data], pid = 0, field = 'ni_id') {
     let result = []
     let formatData = await this.treeSoleSort([...data], pid)
-    formatData.forEach((item, index)=>{
+    formatData.forEach((item, index) => {
       result.push(item[field])
     })
     return [...result]
   }
 
   //单个图片上传处理
-  static async uploadPic(requestFile, picFile, {width=450, height=450, upSize=2}, path="uploads"){
+  static async uploadPic(requestFile, picFile, {width = 450, height = 450, upSize = 2}, path = "uploads") {
 
     const profilePic = requestFile.file(picFile, {
       types: ['image'],
-      size: upSize+'mb'
+      size: upSize + 'mb'
     })
 
-    if(profilePic){
-      if(profilePic && profilePic.clientName){
+    if (profilePic) {
+      if (profilePic && profilePic.clientName) {
         await profilePic.move(Helpers.appRoot(path), {
-          name: `${(new Date().getTime()).toString(32)+Math.random().toString(16).substr(2)}.${profilePic.clientName.replace(/^.+\./,'')}`
+          name: `${(new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)}.${profilePic.clientName.replace(/^.+\./, '')}`
         })
         if (!profilePic.moved()) {
           //session.flash({notification: '图片上传失败！Error:'+ profilePic.error().message})
@@ -99,29 +101,29 @@ class HandleClass {
   }
 
   //多个图片上传处理
-  static async uploadMultiplePic(requestFile, picFile, {width=450, height=450, upSize=2}, path="uploads"){
+  static async uploadMultiplePic(requestFile, picFile, {width = 450, height = 450, upSize = 2}, path = "uploads") {
 
     const profilePics = requestFile.file(picFile, {
       types: ['image'],
-      size: upSize+'mb'
+      size: upSize + 'mb'
     })
 
-    if(profilePics){
+    if (profilePics) {
       await profilePics.moveAll(Helpers.appRoot(path), (file) => {
         return {
-          name: `${(new Date().getTime()).toString(32)+Math.random().toString(16).substr(2)}.${file.clientName.replace(/^.+\./,'')}`
+          name: `${(new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)}.${file.clientName.replace(/^.+\./, '')}`
         }
       })
-      if(!profilePics.movedAll()){
-        profilePics._files.forEach(item=>{
-          if(item.status=='error') {
-            if(Drive.exists(item.tmpPath)){
+      if (!profilePics.movedAll()) {
+        profilePics._files.forEach(item => {
+          if (item.status == 'error') {
+            if (Drive.exists(item.tmpPath)) {
               Drive.delete(item.tmpPath)
             }
           }
         })
       }
-      let proData = profilePics._files.map(item=>{
+      let proData = profilePics._files.map(item => {
         return {fileName: item.fileName, status: item.status, error: item._error}
       })
       return proData

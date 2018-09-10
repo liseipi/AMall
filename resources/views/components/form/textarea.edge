@@ -4,24 +4,16 @@
     -className: '',
     -label: '',
     *name: '',
-    -type: 'text',
-    -placeholder: '',
     -value: '',
+    -rows: 0,
     *getErrorFor,
     *hasErrorFor,
     *old
 -------------------------
 --}}
 
-<div class="{{ className }} field">
-  @if(label)
-  <label for="{{ name }}">{{ label }}</label>
-  @endif
-  <input
-    name="{{ name }}"
-    id="{{ name }}"
-    type="{{ type || 'text' }}"
-    placeholder="{{ placeholder || label || '' }}"
-    value="{{ old(name, value) }}">
+<div class="{{className}} field">
+  <label>{{label}}</label>
+  <textarea name="{{name}}" placeholder="{{placeholder}}" {{ rows ? 'rows='+rows : '' }}>{{value}}</textarea>
   {{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor(name), hasErrorFor(name)) }}
 </div>
