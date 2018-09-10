@@ -43,12 +43,15 @@ Route.group(() => {
     Route.get('/article/category', 'ArticleCategoryController.List')
 
     //管理员栏目
+    //--角色
     Route.get('/manager/role', 'RoleController.List')
     Route.get('/manager/roleAdd', 'RoleController.Add')
     Route.post('/manager/roleAdd', 'RoleController.AddSave').validator('role')
     Route.get('/manager/roleEdit/:id', 'RoleController.Edit')
     Route.post('/manager/roleEdit/:id', 'RoleController.EditSave').validator('role')
     Route.get('/manager/roleDestroy/:id', 'RoleController.Destroy')
+    //--用户
+    Route.get('/manager/user', 'UserController.List')
 
 
 }).middleware(['auth'])
