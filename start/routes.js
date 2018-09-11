@@ -26,32 +26,37 @@ Route.get('/logout', 'AuthController.Logout')
 
 Route.group(() => {
 
-    Route.get('/', 'HomeController.Index')
+  Route.get('/', 'HomeController.Index')
 
-    Route.get('/dashboard', 'HomeController.Dashboard')
+  Route.get('/dashboard', 'HomeController.Dashboard')
 
-    //菜单管理
-    Route.get('/menu/list', 'MenuController.List')
-    Route.get('/menu/add', 'MenuController.Add')
-    Route.post('/menu/add', 'MenuController.AddSave').validator('menu')
-    Route.get('/menu/edit/:id', 'MenuController.Edit')
-    Route.post('/menu/edit/:id', 'MenuController.EditSave').validator('menu')
-    Route.get('/menu/destroy/:id', 'MenuController.Destroy')
+  //菜单管理
+  Route.get('/menu/list', 'MenuController.List')
+  Route.get('/menu/add', 'MenuController.Add')
+  Route.post('/menu/add', 'MenuController.AddSave').validator('menu')
+  Route.get('/menu/edit/:id', 'MenuController.Edit')
+  Route.post('/menu/edit/:id', 'MenuController.EditSave').validator('menu')
+  Route.get('/menu/destroy/:id', 'MenuController.Destroy')
 
-    //文章管理
-    //--栏目
-    Route.get('/article/category', 'ArticleCategoryController.List')
+  //文章管理
+  //--栏目
+  Route.get('/article/category', 'ArticleCategoryController.List')
 
-    //管理员栏目
-    //--角色
-    Route.get('/manager/role', 'RoleController.List')
-    Route.get('/manager/roleAdd', 'RoleController.Add')
-    Route.post('/manager/roleAdd', 'RoleController.AddSave').validator('role')
-    Route.get('/manager/roleEdit/:id', 'RoleController.Edit')
-    Route.post('/manager/roleEdit/:id', 'RoleController.EditSave').validator('role')
-    Route.get('/manager/roleDestroy/:id', 'RoleController.Destroy')
-    //--用户
-    Route.get('/manager/user', 'UserController.List')
+  //管理员栏目
+  //--角色
+  Route.get('/manager/role', 'RoleController.List')
+  Route.get('/manager/roleAdd', 'RoleController.Add')
+  Route.post('/manager/roleAdd', 'RoleController.AddSave').validator('role')
+  Route.get('/manager/roleEdit/:id', 'RoleController.Edit')
+  Route.post('/manager/roleEdit/:id', 'RoleController.EditSave').validator('role')
+  Route.get('/manager/roleDestroy/:id', 'RoleController.Destroy')
+  //--用户
+  Route.get('/manager/user', 'UserController.List')
+  Route.get('/manager/userAdd', 'UserController.Add')
+  Route.post('/manager/userAdd', 'UserController.AddSave').validator('user')
+  Route.get('/manager/userEdit/:id', 'UserController.Edit')
+  Route.post('/manager/userEdit/:id', 'UserController.EditSave').validator('userEdit')
+  Route.get('/manager/userDestroy/:id', 'UserController.Destroy')
 
 
 }).middleware(['auth'])

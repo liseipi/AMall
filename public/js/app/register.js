@@ -2,7 +2,8 @@ require(['main'], function () {
   require(['semantic'], function () {
     $('.ui.ev_dropdown').dropdown();
 
-    $('form').form({
+    if(page=='add'){
+      $('form').form({
       on: 'blur',
       fields: {
         username: {
@@ -52,5 +53,35 @@ require(['main'], function () {
         $('#sendForm').addClass('loading');
       }
     });
+    }
+    $("#user_role").change(function () {
+      var roleOption = $(this).val();
+      $(".selMenu input[type='checkbox']").prop("checked", false).prop("disabled", false);
+      if(roleOption>0){
+        for(var r in roles){
+          if(roles[r].ni_id==roleOption){
+            //console.log(roles[r].menus)
+            //$(".selMenu input[type='checkbox']").prop("disabled", false);
+            for(var m in roles[r].menus){
+              //console.log(roles[r].menus[m].ni_id)
+              if($(".selMenu input[value="+ roles[r].menus[m].ni_id +"]")){
+                $(".selMenu input[value="+ roles[r].menus[m].ni_id +"]").prop("checked", true).prop("disabled", true);
+              }
+            }
+          }
+        }
+      }
+    })
+
+    //编辑时 默认点击
+    $('#user_role').trigger("change");
+    if(menus.length>0){
+      $(".selMenu input[type='checkbox']").each(function (i) {
+        if(menus.indexOf(parseInt($(this).val()))>=0){
+          $(this).prop("checked", true)
+        }
+      })
+    }
+
   });
 });

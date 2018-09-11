@@ -12,7 +12,7 @@ class UserSchema extends Schema {
       table.string('avatar').comment('头像')
       table.string('mobile').comment('手机')
       table.dateTime('birthday').comment('生日')
-      table.boolean('user_role').defaultTo(0).comment('管理员角色(无角色:0)')
+      // table.boolean('user_role').defaultTo(0).comment('管理员角色(无角色:0)')
       table.boolean('user_sex').defaultTo(0).comment('性别(男:0,女:1)')
       table.boolean('user_status').defaultTo(1).comment('用户状态(开启:0,关闭:1)')
       table.integer('login_count').defaultTo(0).comment('登录次数')

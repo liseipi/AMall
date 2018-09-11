@@ -1,0 +1,219 @@
+@layout('layout')
+@section('content')
+
+<style>
+  .ui.ev_dropdown > .text > .image, .ui.dropdown > .text > img, .ui.dropdown .menu > .item > .image, .ui.dropdown .menu > .item > img {
+    width: 6rem;
+    max-height: 6rem;
+    height: 6rem;
+  }
+  .ui.search.selection.ev_dropdown>input.search{
+    height: 6rem;
+  }
+</style>
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">创建管理员</h3>
+    <div class="ui equal width grid">
+      <div class="column">
+        <div class="panel">
+          <div class="panel-alone-content">
+            <form class="ui form" id="sendForm" method="post" action="/manager/userAdd">
+              {{ csrfField() }}
+              <div class="fields three">
+                <div class="field"></div>
+                <div class="field">
+                  <label>选择头像</label>
+                  <div class="ui search dropdown selection text ev_dropdown">
+                    <input type="hidden" name="avatar" value="elliot.jpg">
+                    <input class="search" autocomplete="off" tabindex="0">
+                    <div class="text"><img class="ui avatar image" src="/images/avatar/elliot.jpg"></div>
+                    <div class="menu transition hidden" tabindex="-1">
+                      <div class="item active selected" data-value="elliot.jpg"><img class="ui avatar image" src="/images/avatar/elliot.jpg"></div>
+                      <div class="item" data-value="daniel.jpg"><img class="ui avatar image" src="/images/avatar/daniel.jpg"></div>
+                      <div class="item" data-value="elyse.png"><img class="ui avatar image" src="/images/avatar/elyse.png"></div>
+                      <div class="item" data-value="helen.jpg"><img class="ui avatar image" src="/images/avatar/helen.jpg"></div>
+                      <div class="item" data-value="jenny.jpg"><img class="ui avatar image" src="/images/avatar/jenny.jpg"></div>
+                      <div class="item" data-value="kristy.png"><img class="ui avatar image" src="/images/avatar/kristy.png"></div>
+                      <div class="item" data-value="lena.png"><img class="ui avatar image" src="/images/avatar/lena.png"></div>
+                      <div class="item" data-value="lindsay.png"><img class="ui avatar image" src="/images/avatar/lindsay.png"></div>
+                      <div class="item" data-value="mark.png"><img class="ui avatar image" src="/images/avatar/mark.png"></div>
+                      <div class="item" data-value="matt.jpg"><img class="ui avatar image" src="/images/avatar/matt.jpg"></div>
+                      <div class="item" data-value="matthew.png"><img class="ui avatar image" src="/images/avatar/matthew.png"></div>
+                      <div class="item" data-value="molly.png"><img class="ui avatar image" src="/images/avatar/molly.png"></div>
+                      <div class="item" data-value="rachel.png"><img class="ui avatar image" src="/images/avatar/rachel.png"></div>
+                      <div class="item" data-value="stevie.jpg"><img class="ui avatar image" src="/images/avatar/stevie.jpg"></div>
+                      <div class="item" data-value="tom.jpg"><img class="ui avatar image" src="/images/avatar/tom.jpg"></div>
+                      <div class="item" data-value="veronika.jpg"><img class="ui avatar image" src="/images/avatar/veronika.jpg"></div>
+                      <div class="item" data-value="christian.jpg"><img class="ui avatar image" src="/images/avatar/christian.jpg"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field"></div>
+              </div>
+              <div class="ui divider"></div>
+              <div class="two fields">
+                @!component('components.form.input', {
+                  className: 'required',
+                  label: '用户名',
+                  name: 'username',
+                  type: 'text',
+                  placeholder: '用户名最小6位',
+                  getErrorFor,
+                  hasErrorFor,
+                  old
+                })
+                @!component('components.form.input', {
+                  className: 'required',
+                  label: '邮箱',
+                  name: 'email',
+                  type: 'email',
+                  placeholder: '正常使用的邮箱',
+                  getErrorFor,
+                  hasErrorFor,
+                  old
+                })
+              </div>
+              <div class="two fields">
+                @!component('components.form.input', {
+                  className: 'required',
+                  label: '密码',
+                  name: 'password',
+                  type: 'password',
+                  placeholder: '密码最小8位',
+                  getErrorFor,
+                  hasErrorFor,
+                  old
+                })
+                @!component('components.form.input', {
+                  className: 'required',
+                  label: '重复密码',
+                  name: 'repassword',
+                  type: 'password',
+                  placeholder: '密码最小8位',
+                  getErrorFor,
+                  hasErrorFor,
+                  old
+                })
+              </div>
+              @!component('components.form.input', {
+                label: '手机',
+                name: 'mobile',
+                type: 'text',
+                placeholder: '手机号码',
+                getErrorFor,
+                hasErrorFor,
+                old
+              })
+              <div class="two fields">
+                @!component('components.form.select', {
+                  label: '允许登录状态',
+                  name: 'user_status',
+                  items: [
+                    {
+                      value: 0,
+                      name: '开启登录'
+                    },
+                    {
+                      value: 1,
+                      name: '关闭登录'
+                    }
+                  ],
+                  value_field: 'value',
+                  name_field: 'name',
+                  disabled: false,
+                  defaultOption: 0,
+                  disabledOption: 'A',
+                  getErrorFor,
+                  hasErrorFor,
+                  old
+                })
+                @!component('components.form.select', {
+                  label: '性别',
+                  name: 'user_sex',
+                  items: [
+                    {
+                      value: 0,
+                      name: '帅哥'
+                    },
+                    {
+                    value: 1,
+                    name: '美女'
+                    }
+                  ],
+                  value_field: 'value',
+                  name_field: 'name',
+                  disabled: false,
+                  defaultOption: 0,
+                  disabledOption: 'A',
+                  getErrorFor,
+                  hasErrorFor,
+                  old
+                })
+              </div>
+              @!component('components.form.select', {
+                selectClassName: 'selectRole',
+                label: '角色',
+                name: 'user_role',
+                items: roles,
+                value_field: 'ni_id',
+                name_field: 'role_name',
+                defaultFirst: {
+                  value: 0,
+                  name: '空角色'
+                },
+                disabled: false,
+                defaultOption: 0,
+                disabledOption: 'A',
+                getErrorFor,
+                hasErrorFor,
+                old
+              })
+
+              <h4>分配权限</h4>
+              <table class="ui two column celled table">
+                @each(menu in menusData)
+                <tr class="selMenu">
+                  <td class="two wide parentItem">
+                    @!component('components.form.checkbox', {
+                    className: 'inline',
+                    name: 'menu_id[]',
+                    type: 'checkbox',
+                    items: [menu],
+                    value_field: 'ni_id',
+                    name_field: 'menu_name'
+                    })
+                  </td>
+                  <td class="subItems">
+                    @if(menu.children)
+                    @!component('components.form.checkbox', {
+                    name: 'menu_id[]',
+                    type: 'checkbox',
+                    items: menu.children,
+                    value_field: 'ni_id',
+                    name_field: 'menu_name'
+                    })
+                    @endif
+                  </td>
+                </tr>
+                @endeach
+              </table>
+              <div class="ui divider"></div>
+              <div class="ui error message"></div>
+              <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ script('/js/app/role.js') }}
+<script>
+  var page = 'add';
+  var roles = {{{toJSON(roles)}}};
+  var menus = [];
+</script>
+{{ script('/js/app/register.js') }}
+@endsection
