@@ -3,6 +3,7 @@
 const User = use('App/Models/User')
 const Role = use('App/Models/Role')
 const Menu = use('App/Models/Menu')
+const Hash = use('Hash')
 
 const lodash = use('lodash')
 const Handle = use('App/Helpers/Handle')
@@ -78,8 +79,31 @@ class UserController {
     return view.render('user.edit', { roles: roles.toJSON(), menusData: formatData, userInfo: userInfo.toJSON(), userMenu })
   }
 
-  async EditSave({ request }){
-    console.log(request.all())
+  async EditSave({ request, response, session, params:{id} }){
+    const saveData = await Handle.filterFieldData(userTable, request.post())
+    const { menu_id } = request.only(['menu_id'])
+    const { user_role } = request.only(['user_role'])
+
+    try {
+      const user = await User.findOrFail(id)
+      if(saveData.password){
+        const password = await Hash.make(saveData.password)
+        saveData.password = password
+      }else{
+        delete saveData.password
+      }
+      user.merge(saveData)
+      await user.save()
+
+      await user.menus().sync(menu_id)
+      if(user_role>0){
+        await user.roles().sync(user_role)
+      }
+
+      alertStatus({session, response, title: 'OK', type: 'success', message: '编辑成功!', responseURL: '/manager/user'})
+    } catch (error) {
+      alertStatus({session, response, title: 'Error', type: 'error', message: '编辑失败!', responseURL: 'back'})
+    }
   }
 
 }

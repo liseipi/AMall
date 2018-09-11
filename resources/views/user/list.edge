@@ -9,6 +9,7 @@
       <tr>
         <th>#</th>
         <th>管理员</th>
+        <th>邮箱</th>
         <th>角色</th>
         <th>操作</th>
       </tr>
@@ -18,10 +19,15 @@
       <tr>
         <td>{{user.ni_id}}</td>
         <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
         <td>
+          @if(user.roles.length>0)
           @each(roleLabel in user.roles)
           <div class="ui red horizontal label">{{roleLabel.role_name}}</div>
           @endeach
+          @else
+          <div class="ui horizontal label">无角色</div>
+          @endif
         </td>
         <td>
           <a href="/manager/userEdit/{{user.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
