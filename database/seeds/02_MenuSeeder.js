@@ -53,8 +53,8 @@ class MenuSeeder {
       {ni_id:363,menu_name:"保存购物车",parent_id:350,controller:"/member/cartSave",run_status:1,menu_sort:101},
 
       {ni_id:450,menu_name:"权限管理",parent_id:0,controller:"/manager",run_status:0,menu_sort:100},
-      {ni_id:451,menu_name:"角色列表",parent_id:450,controller:"/manager/role",run_status:0,menu_sort:100},
-      {ni_id:452,menu_name:"增加角色",parent_id:450,controller:"/manager/roleAdd",run_status:0,menu_sort:100},
+      {ni_id:451,menu_name:"增加角色",parent_id:450,controller:"/manager/roleAdd",run_status:0,menu_sort:100},
+      {ni_id:452,menu_name:"角色列表",parent_id:450,controller:"/manager/role",run_status:0,menu_sort:100},
       {ni_id:453,menu_name:"编辑角色",parent_id:450,controller:"/manager/roleEdit",run_status:1,menu_sort:100},
       {ni_id:454,menu_name:"删除角色",parent_id:450,controller:"/manager/roleDestroy",run_status:1,menu_sort:100},
       {ni_id:455,menu_name:"增加管理员",parent_id:450,controller:"/manager/userAdd",run_status:0,menu_sort:100},

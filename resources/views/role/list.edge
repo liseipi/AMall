@@ -19,7 +19,7 @@
         <td>{{role.role_name}}</td>
         <td>
           <a href="/manager/roleEdit/{{role.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
-          <a href="/manager/roleDestroy/{{role.ni_id}}?_csrf={{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+          <a href="/manager/roleDestroy/{{role.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
         </td>
       </tr>
       @endeach

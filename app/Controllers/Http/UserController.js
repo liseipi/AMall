@@ -106,6 +106,20 @@ class UserController {
     }
   }
 
+  async Destroy({ response, session, params:{id} }){
+
+    try {
+      const user = await User.findOrFail(id)
+      await user.menus().detach()
+      await user.roles().detach()
+      await user.delete()
+
+      alertStatus({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/manager/user'})
+    } catch (error) {
+      alertStatus({session, response, title: 'Error', type: 'error', message: '删除失败!', responseURL: 'back'})
+    }
+  }
+
 }
 
 module.exports = UserController

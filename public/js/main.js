@@ -51,8 +51,13 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
       })
         .then(function (willDelete) {
           if(willDelete){
-            var url = _this.attr('href');
-            window.location = url;
+            var _url = _this.attr('href');
+            var _csrf = _this.data('csrf');
+
+            var formHtml = '<form id="deleteForm" action="'+ _url +'?_method=DELETE" method="post"><input type="hidden" name="_csrf" value="'+_csrf+'"></form>'
+            $('body').append(formHtml)
+            $('#deleteForm').submit().remove();
+
           }
         });
       return false;

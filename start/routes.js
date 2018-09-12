@@ -36,7 +36,7 @@ Route.group(() => {
   Route.post('/menu/add', 'MenuController.AddSave').validator('menu')
   Route.get('/menu/edit/:id', 'MenuController.Edit')
   Route.post('/menu/edit/:id', 'MenuController.EditSave').validator('menu')
-  Route.get('/menu/destroy/:id', 'MenuController.Destroy')
+  Route.delete('/menu/destroy/:id', 'MenuController.Destroy')
 
   //文章管理
   //--栏目
@@ -49,14 +49,14 @@ Route.group(() => {
   Route.post('/manager/roleAdd', 'RoleController.AddSave').validator('role')
   Route.get('/manager/roleEdit/:id', 'RoleController.Edit')
   Route.post('/manager/roleEdit/:id', 'RoleController.EditSave').validator('role')
-  Route.get('/manager/roleDestroy/:id', 'RoleController.Destroy')
+  Route.delete('/manager/roleDestroy/:id', 'RoleController.Destroy')
   //--用户
   Route.get('/manager/user', 'UserController.List')
   Route.get('/manager/userAdd', 'UserController.Add')
   Route.post('/manager/userAdd', 'UserController.AddSave').validator('user')
   Route.get('/manager/userEdit/:id', 'UserController.Edit')
   Route.post('/manager/userEdit/:id', 'UserController.EditSave').validator('userEdit')
-  Route.get('/manager/userDestroy/:id', 'UserController.Destroy')
+  Route.delete('/manager/userDestroy/:id', 'UserController.Destroy')
 
 
 }).middleware(['auth'])
