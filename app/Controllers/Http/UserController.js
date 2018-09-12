@@ -120,6 +120,11 @@ class UserController {
     }
   }
 
+  async Profile({ view, auth }){
+    const user = await auth.user
+    return view.render('user.profile', { user })
+  }
+
 }
 
 module.exports = UserController

@@ -61,6 +61,7 @@ class MenuSeeder {
       {ni_id:456,menu_name:"管理员列表",parent_id:450,controller:"/manager/user",run_status:0,menu_sort:100},
       {ni_id:457,menu_name:"编辑管理员",parent_id:450,controller:"/manager/userEdit",run_status:1,menu_sort:100},
       {ni_id:458,menu_name:"删除管理员",parent_id:450,controller:"/manager/userDestroy",run_status:1,menu_sort:100},
+      {ni_id:459,menu_name:"编辑个人信息",parent_id:450,controller:"/manager/profile",run_status:1,menu_sort:100},
 
       {ni_id:500,menu_name:"资源管理",parent_id:0,controller:"/file",run_status:1,menu_sort:100},
       {ni_id:501,menu_name:"上传资源",parent_id:500,controller:"/file/save",run_status:0,menu_sort:100},

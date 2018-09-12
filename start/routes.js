@@ -57,6 +57,9 @@ Route.group(() => {
   Route.get('/manager/userEdit/:id', 'UserController.Edit')
   Route.post('/manager/userEdit/:id', 'UserController.EditSave').validator('userEdit')
   Route.delete('/manager/userDestroy/:id', 'UserController.Destroy')
+  //编辑个人资料
+  Route.get('/manager/profile', 'UserController.Profile')
+  Route.post('/manager/profile', 'UserController.ProfileSave')
 
   //系统管理
   Route.get('/system/store', 'SystemController.Store')
