@@ -2,19 +2,24 @@
 参数：(*必填，-可选)
 -------------------------
   -className: 'inline',
+  -label: '',
   *name: '',
   *items: [],
   *value_field: 'value',
   *name_field: 'option',
-  -defaultOption: []
+  -defaultOption: [],
+  -disabledOption: []
 -------------------------
 --}}
 
 <div class="{{className}} fields" style="flex-wrap: wrap;">
+  @if(label)
+  <label>{{ label }}</label>
+  @endif
   @each(item in items)
   <div class="field">
-    <div class="ui checkbox">
-      <input type="checkbox" name="{{name}}" value="{{item[value_field]}}" {{ defaultOption.includes(item[value_field]) ?'checked':''}} class="hidden">
+    <div class="ui {{ disabledOption.includes(item[value_field]) ?'disabled':''}} checkbox">
+      <input type="checkbox" name="{{name}}" value="{{item[value_field]}}" {{ defaultOption.includes(item[value_field]) ?'checked':''}} {{ disabledOption.includes(item[value_field]) ?'disabled':''}} class="hidden">
       <label>{{item[name_field]}}</label>
     </div>
   </div>

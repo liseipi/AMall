@@ -8,6 +8,7 @@
       {{ csrfField() }}
 
       @!component('components.form.select', {
+        className: '',
         selectClassName: 'fluid',
         label: '分类菜单',
         name: 'parent_id',
@@ -26,6 +27,7 @@
       })
 
       @!component('components.form.input', {
+        className: '',
         label: '菜单名称',
         name: 'menu_name',
         type: 'text',
@@ -36,6 +38,7 @@
       })
 
       @!component('components.form.input', {
+        className: '',
         label: '控制器名称',
         name: 'controller',
         type: 'text',
@@ -47,7 +50,6 @@
 
       @!component('components.form.radio', {
         className: 'inline',
-        inlineStyle: true,
         label: '控制器运行状态',
         name: 'run_status',
         items: [
@@ -63,12 +65,14 @@
         value_field: 'value',
         name_field: 'option',
         defaultOption: 0,
+        disabledOption: [],
         getErrorFor,
         hasErrorFor,
         old
       })
 
       @!component('components.form.input', {
+        className: '',
         label: '排序',
         name: 'menu_sort',
         type: 'number',

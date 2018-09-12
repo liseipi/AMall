@@ -2,25 +2,24 @@
   参数：(*必填，-可选)
 -------------------------
     -className: 'inline',
-    -inlineStyle: true,
-    *label: '',
+    -label: '',
     *name: 'run_status',
     *items: [],
     *value_field: 'value',
     *name_field: 'option',
     -defaultOption: 0,
-    *getErrorFor,
-    *hasErrorFor,
-    *old
+    -disabledOption: []
 -------------------------
 --}}
 
-<div class="{{className}} fields" style="{{inlineStyle?'flex-wrap: wrap;':''}}">
-  <label style="{{inlineStyle?'flex-basis: 100%;margin: 0 0 .28571429em 0;':''}}">{{label}}</label>
+<div class="{{className}} fields" style="flex-wrap: wrap;">
+  @if(label)
+  <label for="{{name}}">{{ label }}</label>
+  @endif
   @each(item in items)
   <div class="field">
-    <div class="ui radio checkbox">
-      <input type="radio" name="{{name}}" {{ defaultOption==item[value_field] ? 'checked' : '' }} value="{{item[value_field]}}" class="hidden">
+    <div class="ui {{ disabledOption.includes(item[value_field]) ?'disabled':''}} radio checkbox">
+      <input type="radio" name="{{name}}" value="{{item[value_field]}}" {{ defaultOption==item[value_field]?'checked':'' }} {{ disabledOption.includes(item[value_field]) ?'disabled':''}} class="hidden">
       <label>{{item[name_field]}}</label>
     </div>
   </div>
