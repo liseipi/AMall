@@ -6,6 +6,7 @@ const Menu = use('App/Models/Menu')
 const Hash = use('Hash')
 
 const lodash = use('lodash')
+const moment = use('moment')
 const Handle = use('App/Helpers/Handle')
 const {alertStatus} = use('App/Helpers/SessionStatus')
 
@@ -122,7 +123,30 @@ class UserController {
 
   async Profile({ view, auth }){
     const user = await auth.user
+    if(user.birthday && user.birthday!=''){
+      user.birthday = moment(user.birthday).format('YYYY-MM-DD')
+    }
     return view.render('user.profile', { user })
+  }
+
+  async ProfileSave({session, response, request, auth }){
+    const body = request.except(['username', 'email'])
+    const saveData = await Handle.filterFieldData(userTable, body)
+    if(saveData.birthday && saveData.birthday!=''){
+      saveData.birthday = moment(saveData.birthday).format('YYYY-MM-DD HH:mm:ss')
+    }else{
+      delete saveData.birthday
+    }
+
+    try {
+      const user = await auth.user
+      user.merge(saveData)
+      await user.save()
+
+      alertStatus({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
+    } catch (error) {
+      alertStatus({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})
+    }
   }
 
 }

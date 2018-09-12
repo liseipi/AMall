@@ -6,7 +6,7 @@ class userEdit {
     return {
       'username': 'required_if:username|min:6|max:32|unique:ni_admin_user|not_in:root,admin,super',
       'email': 'required_if:email|email|unique:ni_admin_user',
-      'password': 'required_if:password|min:8|max:64',
+      'password': 'required_if:password|min:8|max:32',
       'repassword': 'required_if:password|same:password'
     }
   }

@@ -12,7 +12,8 @@ require.config({
 
     'pace': 'libs/pace/pace.min',
     'swiper': 'libs/swiper/swiper.min',
-    'swal': 'libs/swal/sweetalert.min'
+    'swal': 'libs/swal/sweetalert.min',
+    'laydate': 'libs/laydate/laydate'
   },
   shim: {
     semantic: {
@@ -23,6 +24,9 @@ require.config({
     },
     swiper: {
       deps: ['css!libs/swiper/swiper.min.css', 'jquery']
+    },
+    laydate: {
+      deps: ['css!libs/laydate/theme/default/laydate.css']
     }
   }
 });

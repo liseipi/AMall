@@ -18,34 +18,34 @@
       <div class="column">
         <div class="panel">
           <div class="panel-alone-content">
-            <form class="ui form" id="sendForm" method="post" action="/manager/userAdd">
+            <form class="ui form" id="sendForm" method="post" action="/manager/profile">
               {{ csrfField() }}
               <div class="fields three">
                 <div class="field"></div>
                 <div class="field">
                   <label>选择头像</label>
                   <div class="ui search dropdown selection text ev_dropdown">
-                    <input type="hidden" name="avatar" value="elliot.jpg">
+                    <input type="hidden" name="avatar" value="{{user.avatar}}">
                     <input class="search" autocomplete="off" tabindex="0">
-                    <div class="text"><img class="ui avatar image" src="/images/avatar/elliot.jpg"></div>
+                    <div class="text"><img class="ui avatar image" src="/images/avatar/{{user.avatar}}"></div>
                     <div class="menu transition hidden" tabindex="-1">
-                      <div class="item active selected" data-value="elliot.jpg"><img class="ui avatar image" src="/images/avatar/elliot.jpg"></div>
-                      <div class="item" data-value="daniel.jpg"><img class="ui avatar image" src="/images/avatar/daniel.jpg"></div>
-                      <div class="item" data-value="elyse.png"><img class="ui avatar image" src="/images/avatar/elyse.png"></div>
-                      <div class="item" data-value="helen.jpg"><img class="ui avatar image" src="/images/avatar/helen.jpg"></div>
-                      <div class="item" data-value="jenny.jpg"><img class="ui avatar image" src="/images/avatar/jenny.jpg"></div>
-                      <div class="item" data-value="kristy.png"><img class="ui avatar image" src="/images/avatar/kristy.png"></div>
-                      <div class="item" data-value="lena.png"><img class="ui avatar image" src="/images/avatar/lena.png"></div>
-                      <div class="item" data-value="lindsay.png"><img class="ui avatar image" src="/images/avatar/lindsay.png"></div>
-                      <div class="item" data-value="mark.png"><img class="ui avatar image" src="/images/avatar/mark.png"></div>
-                      <div class="item" data-value="matt.jpg"><img class="ui avatar image" src="/images/avatar/matt.jpg"></div>
-                      <div class="item" data-value="matthew.png"><img class="ui avatar image" src="/images/avatar/matthew.png"></div>
-                      <div class="item" data-value="molly.png"><img class="ui avatar image" src="/images/avatar/molly.png"></div>
-                      <div class="item" data-value="rachel.png"><img class="ui avatar image" src="/images/avatar/rachel.png"></div>
-                      <div class="item" data-value="stevie.jpg"><img class="ui avatar image" src="/images/avatar/stevie.jpg"></div>
-                      <div class="item" data-value="tom.jpg"><img class="ui avatar image" src="/images/avatar/tom.jpg"></div>
-                      <div class="item" data-value="veronika.jpg"><img class="ui avatar image" src="/images/avatar/veronika.jpg"></div>
-                      <div class="item" data-value="christian.jpg"><img class="ui avatar image" src="/images/avatar/christian.jpg"></div>
+                      <div class="item {{user.avatar=='elliot.jpg'?'active selected':''}}" data-value="elliot.jpg"><img class="ui avatar image" src="/images/avatar/elliot.jpg"></div>
+                      <div class="item {{user.avatar=='daniel.jpg'?'active selected':''}}" data-value="daniel.jpg"><img class="ui avatar image" src="/images/avatar/daniel.jpg"></div>
+                      <div class="item {{user.avatar=='elyse.png'?'active selected':''}}" data-value="elyse.png"><img class="ui avatar image" src="/images/avatar/elyse.png"></div>
+                      <div class="item {{user.avatar=='helen.jpg'?'active selected':''}}" data-value="helen.jpg"><img class="ui avatar image" src="/images/avatar/helen.jpg"></div>
+                      <div class="item {{user.avatar=='jenny.jpg'?'active selected':''}}" data-value="jenny.jpg"><img class="ui avatar image" src="/images/avatar/jenny.jpg"></div>
+                      <div class="item {{user.avatar=='kristy.png'?'active selected':''}}" data-value="kristy.png"><img class="ui avatar image" src="/images/avatar/kristy.png"></div>
+                      <div class="item {{user.avatar=='lena.png'?'active selected':''}}" data-value="lena.png"><img class="ui avatar image" src="/images/avatar/lena.png"></div>
+                      <div class="item {{user.avatar=='lindsay.png'?'active selected':''}}" data-value="lindsay.png"><img class="ui avatar image" src="/images/avatar/lindsay.png"></div>
+                      <div class="item {{user.avatar=='mark.png'?'active selected':''}}" data-value="mark.png"><img class="ui avatar image" src="/images/avatar/mark.png"></div>
+                      <div class="item {{user.avatar=='matt.jpg'?'active selected':''}}" data-value="matt.jpg"><img class="ui avatar image" src="/images/avatar/matt.jpg"></div>
+                      <div class="item {{user.avatar=='matthew.png'?'active selected':''}}" data-value="matthew.png"><img class="ui avatar image" src="/images/avatar/matthew.png"></div>
+                      <div class="item {{user.avatar=='molly.png'?'active selected':''}}" data-value="molly.png"><img class="ui avatar image" src="/images/avatar/molly.png"></div>
+                      <div class="item {{user.avatar=='rachel.png'?'active selected':''}}" data-value="rachel.png"><img class="ui avatar image" src="/images/avatar/rachel.png"></div>
+                      <div class="item {{user.avatar=='stevie.jpg'?'active selected':''}}" data-value="stevie.jpg"><img class="ui avatar image" src="/images/avatar/stevie.jpg"></div>
+                      <div class="item {{user.avatar=='tom.jpg'?'active selected':''}}" data-value="tom.jpg"><img class="ui avatar image" src="/images/avatar/tom.jpg"></div>
+                      <div class="item {{user.avatar=='veronika.jpg'?'active selected':''}}" data-value="veronika.jpg"><img class="ui avatar image" src="/images/avatar/veronika.jpg"></div>
+                      <div class="item {{user.avatar=='christian.jpg'?'active selected':''}}" data-value="christian.jpg"><img class="ui avatar image" src="/images/avatar/christian.jpg"></div>
                     </div>
                   </div>
                 </div>
@@ -76,10 +76,10 @@
                 })
               </div>
               @!component('components.form.input', {
-                label: '原密码',
-                name: 'password',
+                label: '原始密码',
+                name: 'oldpassword',
                 type: 'password',
-                placeholder: '密码最小8位',
+                placeholder: '输入当前登录的密码',
                 getErrorFor,
                 hasErrorFor,
                 old
@@ -89,29 +89,29 @@
                   label: '新密码',
                   name: 'password',
                   type: 'password',
-                  placeholder: '密码最小8位',
+                  placeholder: '输入新密码最小8位',
                   getErrorFor,
                   hasErrorFor,
                   old
                 })
                 @!component('components.form.input', {
-                  label: '重复新密码',
+                  label: '重复密码',
                   name: 'repassword',
                   type: 'password',
-                  placeholder: '密码最小8位',
+                  placeholder: '重复新密码',
                   getErrorFor,
                   hasErrorFor,
                   old
                 })
               </div>
               @!component('components.form.input', {
-              label: '手机',
-              name: 'mobile',
-              type: 'text',
-              placeholder: '手机号码',
-              getErrorFor,
-              hasErrorFor,
-              old
+                label: '手机',
+                name: 'mobile',
+                value: user.mobile,
+                placeholder: '手机号码',
+                getErrorFor,
+                hasErrorFor,
+                old
               })
               <div class="two fields">
                 @!component('components.form.select', {
@@ -130,8 +130,19 @@
                   value_field: 'value',
                   name_field: 'name',
                   disabled: false,
-                  defaultOption: 0,
+                  defaultOption: user.user_sex,
                   disabledOption: 'A',
+                  getErrorFor,
+                  hasErrorFor,
+                  old
+                })
+
+                @!component('components.form.input', {
+                  className: '',
+                  label: '生日',
+                  name: 'birthday',
+                  value: user.birthday,
+                  placeholder: '生日',
                   getErrorFor,
                   hasErrorFor,
                   old
@@ -150,9 +161,10 @@
 </div>
 
 <script>
-  var page = 'add';
+  var page = 'profile';
   var roles = {{{toJSON(roles)}}};
   var menus = [];
 </script>
 {{ script('/js/app/register.js') }}
+{{ script('/js/app/profile.js') }}
 @endsection
