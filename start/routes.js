@@ -58,6 +58,10 @@ Route.group(() => {
   Route.post('/manager/userEdit/:id', 'UserController.EditSave').validator('userEdit')
   Route.delete('/manager/userDestroy/:id', 'UserController.Destroy')
 
+  //系统管理
+  Route.get('/system/store', 'SystemController.Store')
+  Route.post('/system/store', 'SystemController.StoreSave').validator('store')
+
 
 }).middleware(['auth'])
 

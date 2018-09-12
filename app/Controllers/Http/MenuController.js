@@ -34,7 +34,7 @@ class MenuController {
       await Menu.create(saveData)
       alertStatus({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/menu/list'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: '创建失败!', responseURL: 'back'})
+      alertStatus({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 

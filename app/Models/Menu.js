@@ -4,7 +4,7 @@ const Model = use('Model')
 
 class Menu extends Model {
 
-  //设置管理员表名
+  //设置表名
   static get table() {
     return 'ni_menus'
   }

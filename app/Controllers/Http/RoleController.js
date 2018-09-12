@@ -34,7 +34,7 @@ class RoleController {
       await role.menus().attach(roles.role_auth)
       alertStatus({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/manager/role'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: '创建失败!', responseURL: 'back'})
+      alertStatus({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
     }
 
   }
@@ -66,7 +66,7 @@ class RoleController {
 
       alertStatus({session, response, title: 'OK', type: 'success', message: '编辑成功!', responseURL: '/manager/role'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: '编辑失败!', responseURL: 'back'})
+      alertStatus({session, response, title: 'Error', type: 'error', message: `编辑失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 
@@ -79,7 +79,7 @@ class RoleController {
 
       alertStatus({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/manager/role'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: '删除失败!', responseURL: 'back'})
+      alertStatus({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 

@@ -39,7 +39,7 @@ class UserController {
   async AddSave({ request, response, session }){
     const saveData = await Handle.filterFieldData(userTable, request.post())
     const { menu_id } = request.only(['menu_id'])
-    console.log(saveData)
+
     try {
       const user = await User.create(saveData)
 
@@ -53,7 +53,7 @@ class UserController {
       alertStatus({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/manager/user'})
     } catch (error) {
       console.log(error)
-      alertStatus({session, response, title: 'Error', type: 'error', message: '创建失败!', responseURL: 'back'})
+      alertStatus({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 
@@ -102,7 +102,7 @@ class UserController {
 
       alertStatus({session, response, title: 'OK', type: 'success', message: '编辑成功!', responseURL: '/manager/user'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: '编辑失败!', responseURL: 'back'})
+      alertStatus({session, response, title: 'Error', type: 'error', message: `编辑失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 
@@ -116,7 +116,7 @@ class UserController {
 
       alertStatus({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/manager/user'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: '删除失败!', responseURL: 'back'})
+      alertStatus({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 

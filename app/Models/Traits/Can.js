@@ -1,13 +1,7 @@
 'use strict'
 
 const {flatten, uniq} = use('lodash')
-
-const no_auth = [
-  '/',
-  '/dashboard',
-  '/logout',
-  '/login'
-]
+const Config = use('Config')
 
 class Can {
   register(Model, customOptions = {}) {
@@ -39,7 +33,7 @@ class Can {
     const _roleMenu = roles.toJSON().map(role => role.menus)
     const roleMenu = flatten(_roleMenu).map(menu => menu.controller)
 
-    return uniq([...userMenu, ...roleMenu, ...no_auth])
+    return uniq([...userMenu, ...roleMenu, ...Config.get('no_auth.no_menus')])
   }
 }
 

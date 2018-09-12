@@ -66,7 +66,7 @@ class MenuSeeder {
       {ni_id:501,menu_name:"上传资源",parent_id:500,controller:"/file/save",run_status:0,menu_sort:100},
 
       {ni_id:600,menu_name:"系统管理",parent_id:0,controller:"/system",run_status:0,menu_sort:100},
-      {ni_id:601,menu_name:"商店信息",parent_id:600,controller:"/system/shopInfo",run_status:0,menu_sort:100}
+      {ni_id:601,menu_name:"商店信息",parent_id:600,controller:"/system/store",run_status:0,menu_sort:100}
     ]
 
     await Menu.createMany(menus)

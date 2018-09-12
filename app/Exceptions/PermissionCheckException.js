@@ -7,7 +7,7 @@ class PermissionCheckException extends LogicalException {
    * Handle this exception by itself
    */
 
-  async handle (error, { session, response }) {
+  async handle (error, { session, response, request }) {
     session.flash({
       notification: {
         title: 'Error',
@@ -16,7 +16,8 @@ class PermissionCheckException extends LogicalException {
       }
     })
     await session.commit()
-    return response.redirect('back')
+    //return response.redirect('back')
+    return response.redirect('/dashboard')
   }
 }
 
