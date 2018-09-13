@@ -1,3 +1,5 @@
+'use strict'
+
 const Validator = use('Validator')
 const Hash = use('Hash')
 

@@ -3,7 +3,7 @@
 const Role = use('App/Models/Role')
 const Menu = use('App/Models/Menu')
 const Handle = use('App/Helpers/Handle')
-const { alertStatus } = use('App/Helpers/SessionStatus')
+const { alertPrompt } = use('App/Helpers/AlertPrompt')
 const lodash = use('lodash')
 
 class RoleController {
@@ -32,9 +32,9 @@ class RoleController {
     try {
       const role = await Role.create(saveData)
       await role.menus().attach(roles.role_auth)
-      alertStatus({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/manager/role'})
+      alertPrompt({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/manager/role'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
     }
 
   }
@@ -64,9 +64,9 @@ class RoleController {
 
       await role.menus().sync(role_auth)
 
-      alertStatus({session, response, title: 'OK', type: 'success', message: '编辑成功!', responseURL: '/manager/role'})
+      alertPrompt({session, response, title: 'OK', type: 'success', message: '编辑成功!', responseURL: '/manager/role'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: `编辑失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({session, response, title: 'Error', type: 'error', message: `编辑失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 
@@ -77,9 +77,9 @@ class RoleController {
       await role.menus().detach()
       await role.delete()
 
-      alertStatus({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/manager/role'})
+      alertPrompt({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/manager/role'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 

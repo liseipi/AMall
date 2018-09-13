@@ -5,7 +5,7 @@ const {filterFieldData, treeSoleSort} = use('App/Helpers/Handle')
 
 const MenuTable = 'ni_menus'
 
-const {alertStatus} = use('App/Helpers/SessionStatus')
+const {alertPrompt} = use('App/Helpers/AlertPrompt')
 
 class MenuController {
 
@@ -32,9 +32,9 @@ class MenuController {
 
     try {
       await Menu.create(saveData)
-      alertStatus({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/menu/list'})
+      alertPrompt({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/menu/list'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 
@@ -56,9 +56,9 @@ class MenuController {
       let menuInfo = await Menu.findOrFail(id)
       menuInfo.merge(saveData)
       await menuInfo.save()
-      alertStatus({session, response, title: 'OK', type: 'success', message: '修改成功!', responseURL: '/menu/list'})
+      alertPrompt({session, response, title: 'OK', type: 'success', message: '修改成功!', responseURL: '/menu/list'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: `修改失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({session, response, title: 'Error', type: 'error', message: `修改失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 
@@ -66,9 +66,9 @@ class MenuController {
     try {
       const menu = await Menu.findOrFail(id)
       menu.delete()
-      alertStatus({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/menu/list'})
+      alertPrompt({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/menu/list'})
     } catch (error) {
-      alertStatus({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
     }
   }
 

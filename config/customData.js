@@ -4,9 +4,10 @@ const Env = use('Env')
 
 module.exports = {
 
-  no_menus: [
+  noAuthMenus: [
     '/',
     '/dashboard',
+    '/manager/profile',
     '/logout',
     '/login'
   ]

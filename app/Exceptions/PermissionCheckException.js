@@ -7,7 +7,7 @@ class PermissionCheckException extends LogicalException {
    * Handle this exception by itself
    */
 
-  async handle (error, { session, response, request }) {
+  async handle (error, { session, response }) {
     session.flash({
       notification: {
         title: 'Error',
