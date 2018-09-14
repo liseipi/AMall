@@ -10,6 +10,11 @@
   .ui.search.selection.ev_dropdown>input.search{
     height: 6rem;
   }
+  .file{
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    background: white;
+  }
 </style>
 <div class="ui container">
   <div class="main">
@@ -21,15 +26,17 @@
           <td class="two wide">Logo</td>
           <td>
             @!component('components.form.input', {
-            name: 'store_logo',
-            type: 'file',
-            placeholder: 'Logo',
-            getErrorFor,
-            hasErrorFor,
-            old
+              className: 'file',
+              name: 'store_logo',
+              type: 'file',
+              placeholder: 'Logo',
+              getErrorFor,
+              hasErrorFor,
+              old
             })
           </td>
         </tr>
+
         <tr>
           <td class="two wide">网站名称</td>
           <td>

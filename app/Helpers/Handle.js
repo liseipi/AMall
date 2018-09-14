@@ -73,31 +73,41 @@ class HandleClass {
   }
 
   //单个图片上传处理
-  static async uploadPic(requestFile, picFile, {width = 450, height = 450, upSize = 2}, path = "uploads") {
+  static async uploadPic(request, field, config = {size: 2, picName: '', path: 'uploads'}) {
 
-    const profilePic = requestFile.file(picFile, {
+    const { size, picName, path } = config
+
+    const profilePic = request.file(field, {
       types: ['image'],
-      size: upSize + 'mb'
+      size: `${size}mb`
     })
 
-    if (profilePic) {
-      if (profilePic && profilePic.clientName) {
-        await profilePic.move(Helpers.appRoot(path), {
-          name: `${(new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)}.${profilePic.clientName.replace(/^.+\./, '')}`
-        })
-        if (!profilePic.moved()) {
-          //session.flash({notification: '图片上传失败！Error:'+ profilePic.error().message})
-          return {fileName: '', status: 'error', error: profilePic.error()}
-        }
+    const PicName = picName || (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
+    await profilePic.move(Helpers.appRoot(path), {
+      name: `${PicName}.${profilePic.subtype}`
+    })
 
-        //let picPath = Helpers.appRoot('uploads/'+profilePic.fileName)
-        //const transformer = sharp(picPath).rotate().resize(200, 200)
+    //console.log(profilePic)
 
-        return {fileName: profilePic.fileName, status: 'moved', error: {}}
+    if(!profilePic.moved()){
+      return {
+        clientName: profilePic.clientName,
+        fieldName: profilePic.fieldName,
+        subtype: profilePic.subtype,
+        status: profilePic.status,
+        error: profilePic.error()
       }
     }
 
-    return
+    return {
+      clientName: profilePic.clientName,
+      fieldName: profilePic.fieldName,
+      fileName: profilePic.fileName,
+      subtype: profilePic.subtype,
+      status: profilePic.status,
+      error: profilePic.error()
+    }
+
   }
 
   //多个图片上传处理

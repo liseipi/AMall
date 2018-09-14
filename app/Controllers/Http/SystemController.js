@@ -15,24 +15,35 @@ class SystemController {
   }
 
   async StoreSave({request, session, response}) {
+
     const saveData = await Handle.filterFieldData(storeTable, request.post())
+
+    const logoPic = await Handle.uploadPic(request, 'store_logo', {size: 2, picName: 'Logo'})
+
+    if (logoPic.status == 'moved') {
+      saveData.store_logo = logoPic.fileName
+    }
+
+    if (logoPic.status == 'error') {
+      return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${logoPic.error.message}`, responseURL: 'back'})
+    }
 
     const store = await Store.first()
 
     if (store) {
       try {
         store.merge(saveData)
-        await store.save()
+        return await store.save()
         alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
       } catch (error) {
-        alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})
+        return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})
       }
     } else {
       try {
         await Store.create(saveData)
-        alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
+        return alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
       } catch (error) {
-        alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})
+        return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})
       }
     }
 
