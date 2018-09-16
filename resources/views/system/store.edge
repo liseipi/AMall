@@ -10,114 +10,94 @@
   .ui.search.selection.ev_dropdown>input.search{
     height: 6rem;
   }
-  .file{
-    border: 2px dashed #0087F7;
-    border-radius: 5px;
-    background: white;
-  }
+  /*.file{*/
+    /*border: 2px dashed #0087F7;*/
+    /*border-radius: 5px;*/
+    /*background: white;*/
+  /*}*/
 </style>
 <div class="ui container">
   <div class="main">
     <h3 class="ui dividing header">网站信息</h3>
     <form action="/system/store" method="post" enctype="multipart/form-data" class="ui form">
       {{ csrfField() }}
-      <table class="ui two column celled table">
-        <tr>
-          <td class="two wide">Logo</td>
-          <td>
-            @!component('components.form.input', {
-              className: 'file',
-              name: 'store_logo',
-              type: 'file',
-              placeholder: 'Logo',
-              getErrorFor,
-              hasErrorFor,
-              old
-            })
-          </td>
-        </tr>
 
-        <tr>
-          <td class="two wide">网站名称</td>
-          <td>
-            @!component('components.form.input', {
-              name: 'store_name',
-              value: store.store_name,
-              placeholder: '网站名称',
-              getErrorFor,
-              hasErrorFor,
-              old
-            })
-          </td>
-        </tr>
-        <tr>
-          <td class="two wide">网站Title标题</td>
-          <td>
-            @!component('components.form.input', {
-              name: 'store_title',
-              value: store.store_title,
-              placeholder: '填写网站的Title信息',
-              getErrorFor,
-              hasErrorFor,
-              old
-            })
-          </td>
-        </tr>
-        <tr>
-          <td class="two wide">网站关键词</td>
-          <td>
-            @!component('components.form.textarea', {
-              name: 'store_keyword',
-              value: store.store_keyword,
-              placeholder: '网站推广关键词',
-              rows:3,
-              getErrorFor,
-              hasErrorFor,
-              old
-            })
-          </td>
-        </tr>
-        <tr>
-          <td class="two wide">网站描述</td>
-          <td>
-            @!component('components.form.textarea', {
-              name: 'store_description',
-              value: store.store_description,
-              placeholder: '网站描述',
-              rows:5,
-              getErrorFor,
-              hasErrorFor,
-              old
-            })
-          </td>
-        </tr>
-        <tr>
-          <td class="two wide">网站电话</td>
-          <td>
-            @!component('components.form.input', {
-              name: 'store_tel',
-              value: store.store_tel,
-              placeholder: '填写网站电话',
-              getErrorFor,
-              hasErrorFor,
-              old
-            })
-          </td>
-        </tr>
-        <tr>
-          <td class="two wide">ICP证书/ICP备案证书号</td>
-          <td>
-            @!component('components.form.input', {
-              name: 'store_icp',
-              value: store.store_icp,
-              placeholder: 'ICP证书/ICP备案证书号',
-              getErrorFor,
-              hasErrorFor,
-              old
-            })
-          </td>
-        </tr>
-      </table>
+      @if(store.store_logo)
+      <img src="" alt="">
+      @endif
+      @!component('components.form.input', {
+        className: 'file',
+        label: 'Logo图片',
+        name: 'store_logo',
+        type: 'file',
+        placeholder: 'Logo',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        name: 'store_name',
+        label: '网站名称',
+        value: store.store_name,
+        placeholder: '网站名称',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        name: 'store_title',
+        label: '网站Title',
+        value: store.store_title,
+        placeholder: '填写网站的Title信息',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.textarea', {
+        name: 'store_keyword',
+        label: '关键字',
+        value: store.store_keyword,
+        placeholder: '网站推广关键词',
+        rows:3,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.textarea', {
+        name: 'store_description',
+        label: '网站描述',
+        value: store.store_description,
+        placeholder: '网站描述',
+        rows:5,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        name: 'store_tel',
+        label: '网站电话',
+        value: store.store_tel,
+        placeholder: '填写网站电话',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        name: 'store_icp',
+        label: 'ICP证书/ICP备案证书号',
+        value: store.store_icp,
+        placeholder: 'ICP证书/ICP备案证书号',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
       <div class="ui divider"></div>
       <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>
     </form>

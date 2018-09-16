@@ -73,40 +73,41 @@ class HandleClass {
   }
 
   //单个图片上传处理
-  static async uploadPic(request, field, config = {size: 2, picName: '', path: 'uploads'}) {
+  static async uploadPic(request, field, config={}, path = '/uploads') {
 
-    const { size, picName, path } = config
+    const { size, width, height } = {
+      size: config.size || 2,
+      width: config.width || 200,
+      height: config.height || 200
+    }
+    //console.log(size, width, height)
 
     const profilePic = request.file(field, {
       types: ['image'],
       size: `${size}mb`
     })
 
-    const PicName = picName || (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
+    const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
     await profilePic.move(Helpers.appRoot(path), {
       name: `${PicName}.${profilePic.subtype}`
     })
 
-    //console.log(profilePic)
+    //console.log(profilePic.toJSON())
 
-    if(!profilePic.moved()){
-      return {
-        clientName: profilePic.clientName,
-        fieldName: profilePic.fieldName,
-        subtype: profilePic.subtype,
-        status: profilePic.status,
-        error: profilePic.error()
-      }
-    }
-
-    return {
+    const profileInfo = {
       clientName: profilePic.clientName,
       fieldName: profilePic.fieldName,
-      fileName: profilePic.fileName,
       subtype: profilePic.subtype,
       status: profilePic.status,
       error: profilePic.error()
     }
+
+    if (!profilePic.moved()) {
+      return profileInfo
+    }
+
+    profileInfo.fileName = profilePic.fileName
+    return profileInfo
 
   }
 

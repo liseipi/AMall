@@ -7,6 +7,8 @@ hooks.after.providersBooted(() => {
   const Exception = use('Exception')
   const View = use('View')
   const Env = use('Env')
+  //const Drive = use('Drive')
+  const Helpers = use('Helpers')
   
   //认证用户登录状态
   Exception.handle('InvalidSessionException', (error, {response}) => {
@@ -22,6 +24,8 @@ hooks.after.providersBooted(() => {
     }
     return path ? `${APP_URL}${path}` : APP_URL
   })
+
+
 
 
 })

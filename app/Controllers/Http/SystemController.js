@@ -7,6 +7,8 @@ const {alertPrompt} = use('App/Helpers/AlertPrompt')
 
 const storeTable = 'ni_store'
 
+const Test = use('App/Helpers/Test')
+
 class SystemController {
 
   async Store({view}) {
@@ -18,13 +20,13 @@ class SystemController {
 
     const saveData = await Handle.filterFieldData(storeTable, request.post())
 
-    const logoPic = await Handle.uploadPic(request, 'store_logo', {size: 2, picName: 'Logo'})
+    const logoPic = await Handle.uploadPic(request, 'store_logo', {size: 5})
 
     if (logoPic.status == 'moved') {
       saveData.store_logo = logoPic.fileName
     }
 
-    if (logoPic.status == 'error') {
+    if (logoPic.status == 'error' && logoPic.clientName!='') {
       return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${logoPic.error.message}`, responseURL: 'back'})
     }
 
@@ -33,9 +35,11 @@ class SystemController {
     if (store) {
       try {
         store.merge(saveData)
-        return await store.save()
-        alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
+        await store.save()
+        throw Test.invoke('aaaaaa', 200)
+        return //alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
       } catch (error) {
+        console.log(234)
         return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})
       }
     } else {
