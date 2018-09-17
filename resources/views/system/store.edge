@@ -23,7 +23,9 @@
       {{ csrfField() }}
 
       @if(store.store_logo)
-      <img src="" alt="">
+      <img class="ui centered small image" src="/assets/images/{{store.store_logo}}" alt="">
+      @else
+      <img class="ui centered small image" src="/images/image.png" alt="">
       @endif
       @!component('components.form.input', {
         className: 'file',

@@ -4,10 +4,7 @@ const Store = use('App/Models/Store')
 const Handle = use('App/Helpers/Handle')
 
 const {alertPrompt} = use('App/Helpers/AlertPrompt')
-
 const storeTable = 'ni_store'
-
-const Test = use('App/Helpers/Test')
 
 class SystemController {
 
@@ -36,10 +33,8 @@ class SystemController {
       try {
         store.merge(saveData)
         await store.save()
-        throw Test.invoke('aaaaaa', 200)
-        return //alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
+        return alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
       } catch (error) {
-        console.log(234)
         return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})
       }
     } else {

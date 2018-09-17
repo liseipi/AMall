@@ -9,7 +9,8 @@ module.exports = {
     '/dashboard',
     '/manager/profile',
     '/logout',
-    '/login'
+    '/login',
+    '/assets/images'
   ]
 
 }

@@ -12,6 +12,7 @@ class Permission {
       if(urlArr.length-1>=3){
         acturl = '/'+urlArr[1]+'/'+urlArr[2]
       }
+
       let permission = await auth.user.can(acturl)
       if (!permission) {
         throw new PermissionCheckException('权限出错', 403)

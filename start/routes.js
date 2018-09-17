@@ -30,6 +30,9 @@ Route.group(() => {
 
   Route.get('/dashboard', 'HomeController.Dashboard')
 
+  //File
+  Route.get('/assets/images/(.*/?)', 'FileController.Images')
+
   //菜单管理
   Route.get('/menu/list', 'MenuController.List')
   Route.get('/menu/add', 'MenuController.Add')
@@ -40,7 +43,7 @@ Route.group(() => {
 
   //文章管理
   //--栏目
-  Route.get('/article/category', 'ArticleCategoryController.List')
+  Route.get('/Article/category', 'Article/CategoryController.List')
 
   //管理员栏目
   //--角色

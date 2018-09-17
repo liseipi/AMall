@@ -1,0 +1,57 @@
+@layout('layout')
+@section('content')
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">文章分类列表</h3>
+    <table class="ui five column celled table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>分类名称</th>
+        <th>Url路由地址</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      @each(menu in categoryItem)
+      <tr>
+        <td colspan="5" class="sub-table">
+          <table class="ui table">
+            @if(menu.level_id==1)
+            <thead class="parent">
+            <tr>
+              <th>&nbsp;&nbsp;<span class="fa fa-list-alt"></span></th>
+              <th>{{menu.column_name}}</th>
+              <th>{{menu.controller}}</th>
+              <th>{{menu.runStatus==0?'前台显示':'后台处理'}}</th>
+              <th>
+                <a href="/article/categoryEdit/{{menu.ni_id}}" class="fa fa-edit btn btn-lg btn-info"> 编辑</a>
+                <a href="/article/categoryDestroy/{{menu.ni_id}}" class="fa fa-trash btn btn-lg btn-danger" onclick="if(!confirm('确定删除吗?')){return false;}"> 删除</a>
+              </th>
+            </tr>
+            </thead>
+            @else
+            <tbody>
+            <tr>
+              <td>{{{'&nbsp;&nbsp;'.repeat(menu.level_id)}}}&brvbar;&ndash;</td>
+              <td>{{menu.column_name}}</td>
+              <td>{{menu.controller}}</td>
+              <td>{{menu.runStatus==0?'前台显示':'后台处理'}}</td>
+              <td>
+                <a href="/manager/userEdit/{{cate.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+                <a href="/manager/userDestroy/{{cate.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+              </td>
+            </tr>
+            </tbody>
+            @endif
+          </table>
+        </td>
+      </tr>
+      @endeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@endsection

@@ -32,8 +32,8 @@ class Can {
     const roles = await this.roles().with('menus').fetch()
     const _roleMenu = roles.toJSON().map(role => role.menus)
     const roleMenu = flatten(_roleMenu).map(menu => menu.controller)
-
-    return uniq([...userMenu, ...roleMenu, ...Config.get('customData.noAuthMenus')])
+    const roleItem = uniq([...userMenu, ...roleMenu, ...Config.get('customData.noAuthMenus')])
+    return roleItem
   }
 }
 
