@@ -14,20 +14,20 @@
       </tr>
       </thead>
       <tbody>
-      @each(menu in categoryItem)
       <tr>
         <td colspan="5" class="sub-table">
-          <table class="ui table">
+          <table class="ui five column celled table">
+            @each(menu in categoryItem)
             @if(menu.level_id==1)
             <thead class="parent">
             <tr>
-              <th>&nbsp;&nbsp;<span class="fa fa-list-alt"></span></th>
+              <th>~</th>
               <th>{{menu.column_name}}</th>
               <th>{{menu.controller}}</th>
-              <th>{{menu.runStatus==0?'前台显示':'后台处理'}}</th>
+              <th>{{menu.runStatus==0?'显示':'隐藏'}}</th>
               <th>
-                <a href="/article/categoryEdit/{{menu.ni_id}}" class="fa fa-edit btn btn-lg btn-info"> 编辑</a>
-                <a href="/article/categoryDestroy/{{menu.ni_id}}" class="fa fa-trash btn btn-lg btn-danger" onclick="if(!confirm('确定删除吗?')){return false;}"> 删除</a>
+                <a href="/article/categoryEdit/{{menu.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+                <a href="/article/categoryDestroy/{{menu.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
               </th>
             </tr>
             </thead>
@@ -37,7 +37,7 @@
               <td>{{{'&nbsp;&nbsp;'.repeat(menu.level_id)}}}&brvbar;&ndash;</td>
               <td>{{menu.column_name}}</td>
               <td>{{menu.controller}}</td>
-              <td>{{menu.runStatus==0?'前台显示':'后台处理'}}</td>
+              <td>{{menu.runStatus==0?'显示':'隐藏'}}</td>
               <td>
                 <a href="/manager/userEdit/{{cate.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
                 <a href="/manager/userDestroy/{{cate.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
@@ -45,10 +45,10 @@
             </tr>
             </tbody>
             @endif
+            @endeach
           </table>
         </td>
       </tr>
-      @endeach
       </tbody>
     </table>
   </div>
