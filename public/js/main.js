@@ -9,6 +9,7 @@ require.config({
     'vue': 'libs/vue.min',
     'semantic': 'semantic/semantic.min',
     'ScrollReveal': 'libs/scrollreveal.min',
+    'ckeditor': 'libs/ckeditor/ckeditor',
 
     'pace': 'libs/pace/pace.min',
     'swiper': 'libs/swiper/swiper.min',

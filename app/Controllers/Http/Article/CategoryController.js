@@ -16,6 +16,8 @@ class CategoryController {
 
   async Add({view}) {
     const categoryItem = await ArticleCategory.query().fetch()
+    const formatData = await Handle.treeSoleSort(categoryItem.toJSON())
+
     const maxSort = await ArticleCategory
       .query()
       .select('column_sort')
@@ -24,7 +26,6 @@ class CategoryController {
       })
       .first()
 
-    const formatData = await Handle.treeSoleSort(categoryItem.toJSON())
     return view.render('article.category_add', {
       categoryData: formatData,
       maxSort: maxSort ? maxSort.toJSON() : {column_sort: 100}

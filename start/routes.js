@@ -56,6 +56,9 @@ Route.group(() => {
   Route.get('/article/labelEdit/:id', 'Article/LabelController.Edit')
   Route.post('/article/labelEdit/:id', 'Article/LabelController.EditSave').validator('article_label')
   Route.delete('/article/labelDestroy/:id', 'Article/LabelController.Destroy')
+  //--文章
+  Route.get('/article/list', 'Article/StoreController.List')
+  Route.get('/article/add', 'Article/StoreController.Add')
 
   //管理员栏目
   //--角色

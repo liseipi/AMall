@@ -1,0 +1,156 @@
+@layout('layout')
+@section('content')
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">增加文章内容</h3>
+    <form class="ui form" action="/article/add" method="post">
+      {{ csrfField() }}
+
+      @!component('components.form.select', {
+        className: '',
+        selectClassName: 'fluid',
+        label: '选择文章栏目',
+        name: 'category_id',
+        items: categoryItem,
+        value_field: 'ni_id',
+        name_field: 'column_name',
+        disabled: false,
+        level: true,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        className: '',
+        label: '文章标题',
+        name: 'article_title',
+        type: 'text',
+        placeholder: '填写文章标题',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        className: '',
+        label: '副标题',
+        name: 'article_vice_title',
+        type: 'text',
+        placeholder: '填写文章副标题',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.textarea', {
+        label: '文章关键词 (，分割)',
+        name: 'keywords',
+        placeholder: '填写文章关键词',
+        rows: 2,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.radio', {
+        className: 'inline',
+        label: '文章状态',
+        name: 'status',
+        items: [
+          {
+            value: 0,
+            option: '显示'
+          },
+          {
+            value: 1,
+            option: '下线'
+          }
+        ],
+        value_field: 'value',
+        name_field: 'option',
+        defaultOption: 0,
+        disabledOption: [],
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        className: '',
+        label: '排序',
+        name: 'sort',
+        value: 100,
+        placeholder: '排序',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.radio', {
+        className: 'inline',
+        label: '文章类型',
+        name: 'article_type',
+        items: [
+          {
+            value: 0,
+            option: '最新'
+          },
+          {
+            value: 1,
+            option: '推荐'
+          },
+          {
+          value: 2,
+          option: '最热'
+          }
+        ],
+        value_field: 'value',
+        name_field: 'option',
+        defaultOption: 0,
+        disabledOption: [],
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      <div class="ui divider"></div>
+      @!component('components.form.input', {
+        className: '',
+        label: '文章图片',
+        name: 'sort',
+        type: 'file',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+      <div class="ui divider"></div>
+
+      @!component('components.form.textarea', {
+        label: '文章摘要',
+        name: 'summary_content',
+        placeholder: '填写文章摘要',
+        rows: 5,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.textarea', {
+        label: '文章内容',
+        name: 'content',
+        placeholder: '填写文章内容',
+        rows: 10,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      <div class="ui divider"></div>
+      <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>
+
+    </form>
+  </div>
+</div>
+{{ script('js/app/article') }}
+@endsection
