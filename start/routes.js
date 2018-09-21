@@ -44,6 +44,11 @@ Route.group(() => {
   //文章管理
   //--栏目
   Route.get('/Article/category', 'Article/CategoryController.List')
+  Route.get('/Article/categoryAdd', 'Article/CategoryController.Add')
+  Route.post('/Article/categoryAdd', 'Article/CategoryController.AddSave').validator('article_category')
+  Route.get('/Article/categoryEdit/:id', 'Article/CategoryController.Edit')
+  Route.post('/Article/categoryEdit/:id', 'Article/CategoryController.EditSave').validator('article_category')
+  Route.delete('/Article/categoryDestroy/:id', 'Article/CategoryController.Destroy')
 
   //管理员栏目
   //--角色

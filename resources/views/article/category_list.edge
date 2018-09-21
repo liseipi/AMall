@@ -3,7 +3,7 @@
 <div class="ui container">
   <div class="main">
     <h3 class="ui dividing header">文章分类列表</h3>
-    <table class="ui five column celled table">
+    <table class="ui five column celled red table">
       <thead>
       <tr>
         <th>#</th>
@@ -13,43 +13,37 @@
         <th>操作</th>
       </tr>
       </thead>
+      @each(cate in categoryItem)
+      @if(cate.level_id==1)
+      <thead class="parent">
+      <tr>
+        <th><i class="list alternate outline icon"></i></th>
+        <th>{{cate.column_name}}</th>
+        <th>{{cate.controller}}</th>
+        <th>{{cate.column_status==0?'显示':'隐藏'}}</th>
+        <th>
+          <a href="/article/categoryEdit/{{cate.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+          <a href="/article/categoryDestroy/{{cate.ni_id}}" data-csrf="{{csrfToken}}"
+             class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+        </th>
+      </tr>
+      </thead>
+      @else
       <tbody>
       <tr>
-        <td colspan="5" class="sub-table">
-          <table class="ui five column celled table">
-            @each(menu in categoryItem)
-            @if(menu.level_id==1)
-            <thead class="parent">
-            <tr>
-              <th>~</th>
-              <th>{{menu.column_name}}</th>
-              <th>{{menu.controller}}</th>
-              <th>{{menu.runStatus==0?'显示':'隐藏'}}</th>
-              <th>
-                <a href="/article/categoryEdit/{{menu.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
-                <a href="/article/categoryDestroy/{{menu.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
-              </th>
-            </tr>
-            </thead>
-            @else
-            <tbody>
-            <tr>
-              <td>{{{'&nbsp;&nbsp;'.repeat(menu.level_id)}}}&brvbar;&ndash;</td>
-              <td>{{menu.column_name}}</td>
-              <td>{{menu.controller}}</td>
-              <td>{{menu.runStatus==0?'显示':'隐藏'}}</td>
-              <td>
-                <a href="/manager/userEdit/{{cate.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
-                <a href="/manager/userDestroy/{{cate.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
-              </td>
-            </tr>
-            </tbody>
-            @endif
-            @endeach
-          </table>
+        <td>{{{'&nbsp;&nbsp;'.repeat(cate.level_id)}}}&brvbar;&ndash;</td>
+        <td>{{cate.column_name}}</td>
+        <td>{{cate.controller}}</td>
+        <td>{{cate.column_status==0?'显示':'隐藏'}}</td>
+        <td>
+          <a href="/article/categoryEdit/{{cate.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+          <a href="/article/categoryDestroy/{{cate.ni_id}}" data-csrf="{{csrfToken}}"
+             class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
         </td>
       </tr>
       </tbody>
+      @endif
+      @endeach
     </table>
   </div>
 </div>

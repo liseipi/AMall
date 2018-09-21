@@ -1,0 +1,102 @@
+@layout('layout')
+@section('content')
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">增加文章分类栏目</h3>
+    <form class="ui form" action="/article/categoryAdd" method="post">
+      {{ csrfField() }}
+
+      @!component('components.form.select', {
+        className: '',
+        selectClassName: 'fluid',
+        label: '选择分类栏目',
+        name: 'parent_id',
+        items: categoryData,
+        value_field: 'ni_id',
+        name_field: 'column_name',
+        defaultFirst: {
+          value: 0,
+          name: '根级菜单'
+        },
+        disabled: false,
+        level: true,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        className: '',
+        label: '栏目名称',
+        name: 'column_name',
+        type: 'text',
+        placeholder: '填写栏目名称',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        className: '',
+        label: 'Url路由地址',
+        name: 'controller',
+        type: 'text',
+        placeholder: '填写Url路由地址',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.radio', {
+        className: 'inline',
+        label: '栏目显示状态',
+        name: 'column_status',
+        items: [
+          {
+            value: 0,
+            option: '显示'
+          },
+          {
+            value: 1,
+            option: '隐藏'
+          }
+        ],
+        value_field: 'value',
+        name_field: 'option',
+        defaultOption: 0,
+        disabledOption: [],
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.input', {
+        className: '',
+        label: '排序',
+        name: 'column_sort',
+        value: maxSort.column_sort + 1,
+        type: 'text',
+        placeholder: '排序',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.textarea', {
+        label: '栏目描述',
+        name: 'column_desc',
+        placeholder: '填写描述',
+        rows: 3,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      <div class="ui divider"></div>
+      <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>
+
+    </form>
+  </div>
+</div>
+
+@endsection

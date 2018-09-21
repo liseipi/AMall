@@ -11,7 +11,7 @@ class ArticleCagegorySchema extends Schema {
       table.string('controller').comment('路由名称')
       table.text('column_desc').comment('描述')
       table.integer('column_sort').comment('排序')
-      table.boolean('column_status').comment('状态')
+      table.boolean('column_status').defaultTo(0).comment('状态: (0=显示), (1=隐藏)')
       table.integer('column_type').comment('类型')
       table.timestamps()
     })

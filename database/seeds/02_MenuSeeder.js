@@ -34,6 +34,10 @@ class MenuSeeder {
       {ni_id:206,menu_name:"栏目列表",parent_id:200,controller:"/Article/category",run_status:0,menu_sort:100},
       {ni_id:207,menu_name:"编辑栏目",parent_id:200,controller:"/Article/categoryEdit",run_status:1,menu_sort:100},
       {ni_id:208,menu_name:"删除栏目",parent_id:200,controller:"/Article/categoryDestroy",run_status:1,menu_sort:100},
+      {ni_id:209,menu_name:"增加标签",parent_id:200,controller:"/Article/labelAdd",run_status:0,menu_sort:100},
+      {ni_id:210,menu_name:"标签列表",parent_id:200,controller:"/Article/label",run_status:0,menu_sort:100},
+      {ni_id:211,menu_name:"编辑标签",parent_id:200,controller:"/Article/labelEdit",run_status:1,menu_sort:100},
+      {ni_id:212,menu_name:"删除标签",parent_id:200,controller:"/Article/labelDestroy",run_status:1,menu_sort:100},
 
 
 

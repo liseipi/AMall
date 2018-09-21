@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| ArticleCategorySeeder
+| 04_ArticleCategorySeeder
 |--------------------------------------------------------------------------
 |
 | Make use of the Factory instance to seed database with dummy data or
@@ -13,7 +13,7 @@
 const Factory = use('Factory')
 const ArticleCategory = use('App/Models/Article/Category')
 
-class ArticleCategorySeeder {
+class 04 {
   async run () {
 
     const category = [
