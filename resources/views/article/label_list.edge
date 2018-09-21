@@ -1,0 +1,31 @@
+@layout('layout')
+@section('content')
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">标签列表</h3>
+    <table class="ui five column celled red table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>标签名称</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      @each(label in labelItem)
+      <tr>
+        <td>{{label.ni_id}}</td>
+        <td>{{label.label_name}}</td>
+        <td>
+          <a href="/article/labelEdit/{{label.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+          <a href="/article/labelDestroy/{{label.ni_id}}" data-csrf="{{csrfToken}}"
+             class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+        </td>
+      </tr>
+      @endeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@endsection

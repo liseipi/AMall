@@ -57,12 +57,11 @@ class CategoryController {
   }
 
   async Edit({view, params: {id}}) {
-    const categoryItem = await ArticleCategory.query().fetch()
-
     const categoryInfo = await ArticleCategory.findOrFail(id)
-    console.log(categoryInfo.toJSON())
 
+    const categoryItem = await ArticleCategory.query().fetch()
     const formatData = await Handle.treeSoleSort(categoryItem.toJSON())
+
     return view.render('article.category_edit', {
       categoryData: formatData,
       categoryInfo: categoryInfo.toJSON()

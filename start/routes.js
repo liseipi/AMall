@@ -43,12 +43,19 @@ Route.group(() => {
 
   //文章管理
   //--栏目
-  Route.get('/Article/category', 'Article/CategoryController.List')
-  Route.get('/Article/categoryAdd', 'Article/CategoryController.Add')
-  Route.post('/Article/categoryAdd', 'Article/CategoryController.AddSave').validator('article_category')
-  Route.get('/Article/categoryEdit/:id', 'Article/CategoryController.Edit')
-  Route.post('/Article/categoryEdit/:id', 'Article/CategoryController.EditSave').validator('article_category')
-  Route.delete('/Article/categoryDestroy/:id', 'Article/CategoryController.Destroy')
+  Route.get('/article/category', 'Article/CategoryController.List')
+  Route.get('/article/categoryAdd', 'Article/CategoryController.Add')
+  Route.post('/article/categoryAdd', 'Article/CategoryController.AddSave').validator('article_category')
+  Route.get('/article/categoryEdit/:id', 'Article/CategoryController.Edit')
+  Route.post('/article/categoryEdit/:id', 'Article/CategoryController.EditSave').validator('article_category')
+  Route.delete('/article/categoryDestroy/:id', 'Article/CategoryController.Destroy')
+  //--标签
+  Route.get('/article/label', 'Article/LabelController.List')
+  Route.get('/article/labelAdd', 'Article/LabelController.Add')
+  Route.post('/article/labelAdd', 'Article/LabelController.AddSave').validator('article_label')
+  Route.get('/article/labelEdit/:id', 'Article/LabelController.Edit')
+  Route.post('/article/labelEdit/:id', 'Article/LabelController.EditSave').validator('article_label')
+  Route.delete('/article/labelDestroy/:id', 'Article/LabelController.Destroy')
 
   //管理员栏目
   //--角色

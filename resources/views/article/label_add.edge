@@ -1,0 +1,37 @@
+@layout('layout')
+@section('content')
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">增加文章标签</h3>
+    <form class="ui form" action="/article/labelAdd" method="post">
+      {{ csrfField() }}
+
+      @!component('components.form.input', {
+        className: '',
+        label: '标签名称',
+        name: 'label_name',
+        type: 'text',
+        placeholder: '填写标签名称',
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.textarea', {
+        label: '标签描述',
+        name: 'label_desc',
+        placeholder: '填写标签描述',
+        rows: 3,
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      <div class="ui divider"></div>
+      <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>
+
+    </form>
+  </div>
+</div>
+
+@endsection
