@@ -59,6 +59,7 @@ Route.group(() => {
   //--文章
   Route.get('/article/list', 'Article/StoreController.List')
   Route.get('/article/add', 'Article/StoreController.Add')
+  Route.post('/article/add', 'Article/StoreController.AddSave')
 
   //管理员栏目
   //--角色

@@ -4,7 +4,7 @@ const ArticleCategory = use('App/Models/Article/Category')
 const Handle = use('App/Helpers/Handle')
 const {alertPrompt} = use('App/Helpers/AlertPrompt')
 
-const categoryTabel = 'ni_article_categories'
+const categoryTabel = 'ni_article_category'
 
 class CategoryController {
 

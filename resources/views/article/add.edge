@@ -114,6 +114,48 @@
         old
       })
 
+      @!component('components.form.radio', {
+        className: 'inline',
+        label: '文章来源',
+        name: 'source',
+        items: [
+          {
+            value: 0,
+            option: '站内原创'
+          },
+          {
+            value: 1,
+            option: '互联网采集'
+          }
+        ],
+        value_field: 'value',
+        name_field: 'option',
+        defaultOption: 0,
+        disabledOption: [],
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.radio', {
+        className: 'inline',
+        label: '文章作者',
+        name: 'author',
+        items: [
+          {
+            value: 0,
+            option: '系统'
+          }
+        ],
+        value_field: 'value',
+        name_field: 'option',
+        defaultOption: 0,
+        disabledOption: [],
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
       <div class="ui divider"></div>
       @!component('components.form.input', {
         className: '',

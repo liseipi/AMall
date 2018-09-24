@@ -2,11 +2,11 @@
 
 const Model = use('Model')
 
-class Category extends Model {
+class Store extends Model {
 
   //设置表名
   static get table() {
-    return 'ni_article_category'
+    return 'ni_article'
   }
 
   //设置表主键为ni_id
@@ -16,4 +16,4 @@ class Category extends Model {
 
 }
 
-module.exports = Category
+module.exports = Store

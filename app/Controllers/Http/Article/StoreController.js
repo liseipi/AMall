@@ -20,6 +20,10 @@ class StoreController {
     return view.render('article.add', {categoryItem: formatData, LabelItem: LabelItem.toJSON()})
   }
 
+  async AddSave({request}) {
+    console.log(request.all())
+  }
+
 }
 
 module.exports = StoreController
