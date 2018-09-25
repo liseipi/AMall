@@ -9,8 +9,8 @@
       <tr>
         <th class="one wide">#</th>
         <th class="five wide">标题</th>
-        <th>分类</th>
-        <th>信息</th>
+        <th class="two wide">分类</th>
+        <th class="four wide">信息</th>
         <th>排列</th>
         <th>操作</th>
       </tr>
@@ -38,8 +38,11 @@
           无
           @endeach
         </td>
-        <td>
-          {{item.category.column_name}}
+        <td class="two wide">
+          <i class="arrow alternate circle up outline icon"></i>
+          <i class="arrow circle up icon"></i>
+          <i class="arrow circle down icon"></i>
+          <i class="arrow alternate circle down outline icon"></i>
         </td>
         <td>
           <a href="/manager/userEdit/{{user.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
