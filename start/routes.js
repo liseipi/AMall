@@ -57,9 +57,9 @@ Route.group(() => {
   Route.post('/article/labelEdit/:id', 'Article/LabelController.EditSave').validator('article_label')
   Route.delete('/article/labelDestroy/:id', 'Article/LabelController.Destroy')
   //--文章
-  Route.get('/article/list', 'Article/StoreController.List')
-  Route.get('/article/add', 'Article/StoreController.Add')
-  Route.post('/article/add', 'Article/StoreController.AddSave')
+  Route.get('/article/list', 'Article/ArticleController.List')
+  Route.get('/article/add', 'Article/ArticleController.Add')
+  Route.post('/article/add', 'Article/ArticleController.AddSave').validator('article')
 
   //管理员栏目
   //--角色

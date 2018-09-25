@@ -73,26 +73,33 @@ class HandleClass {
   }
 
   //单个图片上传处理
-  static async uploadPic(request, field, config={}, path = '/uploads') {
+  static async uploadPic(request, field, config = {}, path = '/uploads') {
 
-    const { size, width, height } = {
+    const {size, width, height} = {
       size: config.size || 2,
       width: config.width || 200,
       height: config.height || 200
     }
-    //console.log(size, width, height)
 
     const profilePic = request.file(field, {
       types: ['image'],
       size: `${size}mb`
     })
 
-    const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
-    await profilePic.move(Helpers.appRoot(path), {
-      name: `${PicName}.${profilePic.subtype}`
-    })
-
-    //console.log(profilePic.toJSON())
+    if (profilePic) {
+      const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
+      await profilePic.move(Helpers.appRoot(path), {
+        name: `${PicName}.${profilePic.subtype}`
+      })
+    } else {
+      return {
+        clientName: '',
+        fieldName: '',
+        subtype: '',
+        status: 'error',
+        error: 'ERROR: NULL, 请检查FORM中ENCTYPER的值。'
+      }
+    }
 
     const profileInfo = {
       clientName: profilePic.clientName,

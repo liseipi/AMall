@@ -1,0 +1,55 @@
+@layout('layout')
+@section('content')
+
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">文章列表</h3>
+    <table class="ui celled table">
+      <thead>
+      <tr>
+        <th class="one wide">#</th>
+        <th class="five wide">标题</th>
+        <th>分类</th>
+        <th>信息</th>
+        <th>排列</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      @each(item in articleItem.data)
+      <tr>
+        <td>{{item.ni_id}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.category.column_name}}</td>
+        <td>
+          状态：<span class="ui black circular label">{{item.status==1?'显示':'下线'}}</span>
+          <div class="ui divider"></div>
+          类型：
+          @each(type in item.types)
+          <span class="ui red horizontal label">{{type.type_name}}</span>
+          @elseeach
+          无
+          @endeach
+          <div class="ui divider"></div>
+          标签：
+          @each(label in item.labels)
+          <span class="ui blue horizontal label">{{label.label_name}}</span>
+          @elseeach
+          无
+          @endeach
+        </td>
+        <td>
+          {{item.category.column_name}}
+        </td>
+        <td>
+          <a href="/manager/userEdit/{{user.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+          <a href="/manager/userDestroy/{{user.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+        </td>
+      </tr>
+      @endeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@endsection

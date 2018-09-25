@@ -23,16 +23,17 @@ class SystemController {
       saveData.store_logo = logoPic.fileName
     }
 
-    if (logoPic.status == 'error' && logoPic.clientName!='') {
-      return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${logoPic.error.message}`, responseURL: 'back'})
-    }
-
     const store = await Store.first()
 
     if (store) {
       try {
         store.merge(saveData)
         await store.save()
+
+        if (logoPic.status == 'error' && logoPic.clientName!='') {
+          return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${logoPic.error.message}`, responseURL: 'back'})
+        }
+
         return alertPrompt({session, response, title: 'OK', type: 'success', message: '保存成功!', responseURL: 'back'})
       } catch (error) {
         return alertPrompt({session, response, title: 'Error', type: 'error', message: `保存失败! Error: ${error}`, responseURL: 'back'})

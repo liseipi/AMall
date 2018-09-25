@@ -3,7 +3,7 @@
 <div class="ui container">
   <div class="main">
     <h3 class="ui dividing header">增加文章内容</h3>
-    <form class="ui form" action="/article/add" method="post">
+    <form class="ui form" action="/article/add" method="post" enctype="multipart/form-data">
       {{ csrfField() }}
 
       @!component('components.form.select', {
@@ -24,8 +24,7 @@
       @!component('components.form.input', {
         className: '',
         label: '文章标题',
-        name: 'article_title',
-        type: 'text',
+        name: 'title',
         placeholder: '填写文章标题',
         getErrorFor,
         hasErrorFor,
@@ -35,8 +34,7 @@
       @!component('components.form.input', {
         className: '',
         label: '副标题',
-        name: 'article_vice_title',
-        type: 'text',
+        name: 'vice_title',
         placeholder: '填写文章副标题',
         getErrorFor,
         hasErrorFor,
@@ -80,34 +78,23 @@
         className: '',
         label: '排序',
         name: 'sort',
-        value: 100,
+        value: maxSort.sort+1,
         placeholder: '排序',
         getErrorFor,
         hasErrorFor,
         old
       })
 
-      @!component('components.form.radio', {
+      <div class="ui divider"></div>
+
+      @!component('components.form.checkbox', {
         className: 'inline',
         label: '文章类型',
-        name: 'article_type',
-        items: [
-          {
-            value: 0,
-            option: '最新'
-          },
-          {
-            value: 1,
-            option: '推荐'
-          },
-          {
-          value: 2,
-          option: '最热'
-          }
-        ],
-        value_field: 'value',
-        name_field: 'option',
-        defaultOption: 0,
+        name: 'type_id[]',
+        items: TypeItem,
+        value_field: 'ni_id',
+        name_field: 'type_name',
+        defaultOption: [1],
         disabledOption: [],
         getErrorFor,
         hasErrorFor,
@@ -118,19 +105,10 @@
         className: 'inline',
         label: '文章来源',
         name: 'source',
-        items: [
-          {
-            value: 0,
-            option: '站内原创'
-          },
-          {
-            value: 1,
-            option: '互联网采集'
-          }
-        ],
-        value_field: 'value',
-        name_field: 'option',
-        defaultOption: 0,
+        items: SourceItem,
+        value_field: 'ni_id',
+        name_field: 'source_name',
+        defaultOption: 1,
         disabledOption: [],
         getErrorFor,
         hasErrorFor,
@@ -141,14 +119,23 @@
         className: 'inline',
         label: '文章作者',
         name: 'author',
-        items: [
-          {
-            value: 0,
-            option: '系统'
-          }
-        ],
-        value_field: 'value',
-        name_field: 'option',
+        items: UserItem,
+        value_field: 'ni_id',
+        name_field: 'username',
+        defaultOption: user_id,
+        disabledOption: [],
+        getErrorFor,
+        hasErrorFor,
+        old
+      })
+
+      @!component('components.form.checkbox', {
+        className: 'inline',
+        label: '文章标签',
+        name: 'label_id[]',
+        items: LabelItem,
+        value_field: 'ni_id',
+        name_field: 'label_name',
         defaultOption: 0,
         disabledOption: [],
         getErrorFor,
@@ -160,7 +147,7 @@
       @!component('components.form.input', {
         className: '',
         label: '文章图片',
-        name: 'sort',
+        name: 'thumb_img',
         type: 'file',
         getErrorFor,
         hasErrorFor,
