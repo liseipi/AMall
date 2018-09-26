@@ -14,9 +14,21 @@ const articleTable = 'ni_article'
 
 class ArticleController {
 
-  async List({view}) {
+  async List({view, request}) {
+    const query = request.get()
+    const page = query.page || 1
+    const perPage = 4
+    const category_id = query.category_id || 0
+    const keywords = query.keywords || ''
+
     const articleItem = await Article
       .query()
+      .where((builder) => {
+        if (keywords) {
+          builder.where('title', 'like', `%${keywords}%`)
+        }
+        return builder
+      })
       .with('types', builder => {
         builder.select('type_name')
       })
@@ -25,11 +37,24 @@ class ArticleController {
       })
       .with('category', builder => {
         builder.select('ni_id', 'column_name')
+        console.log(builder.category)
+        if (category_id > 0) {
+          //builder.where('ni_id', category_id)
+        }
+        return builder
       })
       //.fetch()
-      .paginate(1)
+      .paginate(page, perPage)
 
-    return view.render('article.list', {articleItem: articleItem.toJSON()})
+    const categoryItem = await Category.query().fetch()
+    const formatData = await Handle.treeSoleSort(categoryItem.toJSON())
+
+    //console.log(articleItem.toJSON())
+    return view.render('article.list', {
+      categoryItem: formatData,
+      articleItem: articleItem.toJSON(),
+      query
+    })
   }
 
   async Add({view, auth}) {

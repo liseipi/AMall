@@ -4,11 +4,43 @@
 <div class="ui container">
   <div class="main">
     <h3 class="ui dividing header">文章列表</h3>
-    <table class="ui celled table">
+    <div class="ui center aligned container">
+      <form action="/article/list" class="ui form" method="get">
+        <div class="inline fields">
+          @!component('components.form.select', {
+            className: 'inline',
+            selectClassName: '',
+            label: '分类查询',
+            name: 'category_id',
+            items: categoryItem,
+            value_field: 'ni_id',
+            name_field: 'column_name',
+            defaultOption: query.category_id,
+            disabled: false,
+            level: true,
+            getErrorFor,
+            hasErrorFor,
+            old
+          })
+          @!component('components.form.input', {
+            className: 'inline',
+            label: '关键字',
+            name: 'keywords',
+            value: query.keywords||'',
+            placeholder: '查询关键字',
+            getErrorFor,
+            hasErrorFor,
+            old
+          })
+          <button class="ui button" type="submit">查询</button>
+        </div>
+      </form>
+    </div>
+    <table class="ui celled striped selectable table">
       <thead>
       <tr>
         <th class="one wide">#</th>
-        <th class="five wide">标题</th>
+        <th class="four wide">标题</th>
         <th class="two wide">分类</th>
         <th class="four wide">信息</th>
         <th>排列</th>
@@ -39,20 +71,63 @@
           @endeach
         </td>
         <td class="two wide">
-          <i class="arrow alternate circle up outline icon"></i>
-          <i class="arrow circle up icon"></i>
-          <i class="arrow circle down icon"></i>
-          <i class="arrow alternate circle down outline icon"></i>
+          <div class="ui center aligned">{{item.sort}}</div>
+          <div class="ui divider"></div>
+          置顶 |
+          <i class="arrow large circle up icon"></i>
+          <i class="arrow large circle down icon"></i>
         </td>
         <td>
-          <a href="/manager/userEdit/{{user.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
-          <a href="/manager/userDestroy/{{user.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+          <a href="/manager/userEdit/{{user.ni_id}}" class="ui mini blue button"><i
+            class="edit icon"></i> 编辑</a>
+          <a href="/manager/userDestroy/{{user.ni_id}}" data-csrf="{{csrfToken}}"
+             class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
         </td>
       </tr>
       @endeach
       </tbody>
     </table>
+    <div class="ui divider"></div>
+    <div class="ui center aligned container pages-bottom">
+      <div id="pages" class="ui large pagination menu"></div>
+      <div class="ui list"><span>共有 {{articleItem.total}} 条文章，{{articleItem.page}}/{{articleItem.lastPage}}页</span></div>
+    </div>
+    <style>
+      .pages-bottom{
+        margin-bottom: 5em;
+      }
+      #pages input {
+        width: 60px;
+        text-align: center;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    </style>
   </div>
 </div>
 
+<script>
+
+  require(['main'], function () {
+    require(['semantic', 'pagination'], function (semantic) {
+
+      $('#pages').pagination({
+        pageCount: {{articleItem.lastPage}},
+        jump: true,
+        coping: true,
+        count: 7,
+        // mode: 'fixed',
+        homePage: '<i class="fast backward icon"></i>',
+        endPage: '<i class="fast forward icon"></i>',
+        prevContent: '<i class="chevron left icon"></i>',
+        nextContent: '<i class="chevron right icon"></i>',
+        callback: function (api) {
+          console.log(api.getCurrent())
+        }
+      });
+
+    });
+  });
+
+</script>
 @endsection

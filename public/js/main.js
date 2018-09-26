@@ -10,7 +10,7 @@ require.config({
     'semantic': 'semantic/semantic.min',
     'ScrollReveal': 'libs/scrollreveal.min',
     'ckeditor': 'libs/ckeditor/ckeditor',
-
+    'pagination': 'libs/jquery.pagination',
     'pace': 'libs/pace/pace.min',
     'swiper': 'libs/swiper/swiper.min',
     'swal': 'libs/swal/sweetalert.min',
@@ -28,6 +28,9 @@ require.config({
     },
     laydate: {
       deps: ['css!libs/laydate/theme/default/laydate.css']
+    },
+    pagination: {
+      deps: ['jquery']
     }
   }
 });
