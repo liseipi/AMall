@@ -19,7 +19,7 @@ class ArticleCagegorySchema extends Schema {
   }
 
   down () {
-    this.drop('ni_article_categories')
+    this.drop('ni_article_category')
   }
 }
 

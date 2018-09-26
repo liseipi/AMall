@@ -6,7 +6,8 @@ class ArticleSchema extends Schema {
   up () {
     this.create('ni_article', (table) => {
       table.increments('ni_id')
-      table.integer('category_id').notNullable().comment('分类栏目ID')
+      table.integer('category_id').notNullable().unsigned().comment('分类栏目ID')
+      table.foreign('category_id').references('ni_article_category.ni_id')
       table.string('title').notNullable().comment('文章标题')
       table.string('vice_title').comment('文章副标题')
       table.string('author').comment('文章作者')
