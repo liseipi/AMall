@@ -7,6 +7,9 @@ const Type = use('App/Models/Article/Type')
 const Source = use('App/Models/Article/Source')
 const User = use('App/Models/User')
 
+const Env = use('Env')
+const Helpers = use('Helpers')
+const Drive = use('Drive')
 const lodash = use('lodash')
 const Handle = use('App/Helpers/Handle')
 const {alertPrompt} = use('App/Helpers/AlertPrompt')
@@ -247,6 +250,42 @@ class ArticleController {
       })
     }
 
+  }
+
+  async Destroy({request, response, session, params: {id}}) {
+    try {
+      const article = await Article.findOrFail(id)
+      await article.types().detach()
+      await article.labels().detach()
+
+      if (article.toJSON().thumb_img) {
+        const filePath = Helpers.appRoot(Env.get('UPLOAD_DIR', 'uploads') + article.toJSON().thumb_img)
+        const exists = await Drive.exists(filePath)
+        if (exists) {
+          await Drive.delete(filePath)
+        }
+      }
+
+      await article.delete()
+
+      alertPrompt({
+        session,
+        response,
+        title: 'OK',
+        type: 'success',
+        message: '删除成功!',
+        responseURL: 'back'
+      })
+    } catch (error) {
+      alertPrompt({
+        session,
+        response,
+        title: 'Error',
+        type: 'error',
+        message: `删除失败! ${error}`,
+        responseURL: 'back'
+      })
+    }
   }
 
   async Sort({request, response, session, params: {id}}) {

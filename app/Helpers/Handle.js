@@ -1,5 +1,6 @@
 'use strict'
 
+const Env = use('Env')
 const Database = use('Database')
 const Helpers = use('Helpers')
 const underscore = use('underscore')
@@ -73,7 +74,7 @@ class HandleClass {
   }
 
   //单个图片上传处理
-  static async uploadPic(request, field, config = {}, path = '/uploads') {
+  static async uploadPic(request, field, config = {}, path = Env.get('UPLOAD_DIR', 'uploads')) {
 
     const {size, width, height} = {
       size: config.size || 2,

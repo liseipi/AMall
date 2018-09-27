@@ -62,6 +62,7 @@ Route.group(() => {
   Route.post('/article/add', 'Article/ArticleController.AddSave').validator('article')
   Route.get('/article/edit/:id', 'Article/ArticleController.Edit')
   Route.post('/article/edit/:id', 'Article/ArticleController.EditSave').validator('article')
+  Route.delete('/article/destroy/:id', 'Article/ArticleController.Destroy')
   Route.put('/article/sort/:id', 'Article/ArticleController.Sort')
 
   //管理员栏目
