@@ -76,11 +76,19 @@
         </td>
         <td class="two wide center aligned">
           <div class="ui center aligned">
+            @if(item.sort)
             <span class="ui circular label">{{item.sort}}</span>
-            <a href="/article/sort/{{item.ni_id}}}?type=top" data-csrf="{{csrfToken}}" class="ui mini button articleSort">置顶</a>
+            @else
+            最顶
+            @endif
+            @if(item.sort)
+            <a href="/article/sort/{{item.ni_id}}}?type=top" data-csrf="{{csrfToken}}" class="ui mini green button articleSort">置顶</a>
+            @endif
           </div>
           <div class="ui divider"></div>
+          @if(item.sort)
           <a href="/article/sort/{{item.ni_id}}}?type=plus" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle up icon"></i></a>
+          @endif
           <a href="/article/sort/{{item.ni_id}}}?type=less" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle down icon"></i></a>
         </td>
         <td class="center aligned">

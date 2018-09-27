@@ -42,8 +42,8 @@ class ArticleController {
       .with('category', builder => {
         builder.select('ni_id', 'column_name')
       })
-      //.orderBy('ni_id', 'desc')
-      .orderByRaw('ni_id DESC NULLS FIRST')
+      //.orderBy('sort', 'desc')
+      .orderByRaw('case when sort is null then 0 else 1 end, sort desc, ni_id desc')
       .paginate(page, perPage)
 
     const categoryItem = await Category.query().fetch()
@@ -90,6 +90,10 @@ class ArticleController {
 
     const saveData = await Handle.filterFieldData(articleTable, request.post())
     const {type_id, label_id} = request.only(['type_id', 'label_id'])
+
+    if (!saveData.sort) {
+      saveData.sort = null
+    }
 
     const thumbImg = await Handle.uploadPic(request, 'thumb_img')
     if (thumbImg.status == 'moved') {
@@ -187,6 +191,10 @@ class ArticleController {
     const {type_id} = request.only(['type_id'])
     const {label_id} = request.only(['label_id'])
 
+    if (!saveData.sort) {
+      saveData.sort = null
+    }
+
     const thumbImg = await Handle.uploadPic(request, 'thumb_img')
     if (thumbImg.status == 'moved') {
       saveData.thumb_img = thumbImg.fileName
@@ -242,32 +250,43 @@ class ArticleController {
   }
 
   async Sort({request, response, session, params: {id}}) {
-    const { type } = request.get()
+    const {type} = request.get()
     const article = await Article.findOrFail(id)
 
+    const {sort} = await Article
+      .query()
+      .select('sort')
+      .where('sort', function () {
+        this.max('sort')
+      })
+      .first()
+
     const saveData = {}
-    if(type == 'top'){
-      saveData.sort = 100
+    if (type == 'top') {
+      saveData.sort = null
     }
-    if(type == 'plus'){
-      saveData.sort = article.toJSON().sort + 1
+    if (type == 'plus') {
+      saveData.sort = article.toJSON().sort ? article.toJSON().sort + 1 : null
     }
-    if(type == 'less'){
-      saveData.sort = article.toJSON().sort - 1 == 100 ? 101 : article.toJSON().sort - 1
+    if (type == 'less') {
+      saveData.sort = article.toJSON().sort ? article.toJSON().sort - 1 == 100 ? 101 : article.toJSON().sort - 1 : sort + 1
     }
 
     try {
       article.merge(saveData)
       await article.save()
 
-      alertPrompt({
-        session,
-        response,
-        title: 'OK',
-        type: 'success',
-        message: '排序完成!',
-        responseURL: 'back'
-      })
+      // alertPrompt({
+      //   session,
+      //   response,
+      //   title: 'OK',
+      //   type: 'success',
+      //   message: '排序完成!',
+      //   responseURL: 'back'
+      // })
+
+      return response.redirect('back')
+
     } catch (error) {
       alertPrompt({
         session,
