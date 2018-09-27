@@ -18,10 +18,11 @@ class ArticleSchema extends Schema {
       table.string('thumb_img').comment('缩略图片')
       table.string('keywords').comment('关键字')
       table.text('summary_content').comment('概要')
-      table.text('content').comment('正文内容')
+      table.text('content', 'longtext').comment('正文内容')
       table.integer('view_count').defaultTo(0).comment('查看次数')
       table.timestamps()
     })
+      .raw("ALTER TABLE `ni_article` AUTO_INCREMENT=6000")
   }
 
   down () {

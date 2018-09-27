@@ -6,6 +6,7 @@
     *name: '',
     -value: '',
     -rows: 0,
+    -disabled: false,
     *getErrorFor,
     *hasErrorFor,
     *old
@@ -16,6 +17,10 @@
   @if(label)
   <label for="{{name}}">{{ label }}</label>
   @endif
-  <textarea name="{{name}}" placeholder="{{placeholder}}" {{ rows ? 'rows='+rows : '' }}>{{value}}</textarea>
+  <textarea
+    name="{{name}}"
+    placeholder="{{placeholder}}"
+    {{ rows ? 'rows='+rows : '' }}
+    {{ disabled ? 'disabled' : '' }}>{{value}}</textarea>
   {{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor(name), hasErrorFor(name)) }}
 </div>

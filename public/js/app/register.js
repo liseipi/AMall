@@ -1,7 +1,9 @@
 require(['main'], function () {
   require(['semantic'], function () {
+    //头像选择
     $('.ui.ev_dropdown').dropdown();
 
+    //注册验证表单
     if(page=='add'){
       $('form').form({
       on: 'blur',
@@ -54,6 +56,8 @@ require(['main'], function () {
       }
     });
     }
+
+    //选择权限
     $("#user_role").change(function () {
       var roleOption = $(this).val();
       $(".selMenu input[type='checkbox']").prop("checked", false).prop("disabled", false);
@@ -71,6 +75,15 @@ require(['main'], function () {
           }
         }
       }
+
+      if(menus.length>0){
+        $(".selMenu input[type='checkbox']").each(function (i) {
+          if(menus.indexOf(parseInt($(this).val()))>=0){
+            $(this).prop("checked", true)
+          }
+        })
+      }
+
     })
 
     //编辑时 默认点击

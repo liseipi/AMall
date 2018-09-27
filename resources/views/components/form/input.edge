@@ -22,8 +22,8 @@
     name="{{ name }}"
     id="{{ name }}"
     type="{{ type || 'text' }}"
-    {{ disabled ? 'disabled' : '' }}
     placeholder="{{ placeholder || label || '' }}"
+    {{ disabled ? 'disabled' : '' }}
     value="{{ old(name, value) }}">
   {{ elIf('<div class="ui basic red pointing prompt label transition visible"><span>$self</span></div>', getErrorFor(name), hasErrorFor(name)) }}
 </div>

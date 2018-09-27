@@ -15,6 +15,10 @@
             items: categoryItem,
             value_field: 'ni_id',
             name_field: 'column_name',
+            defaultFirst: {
+              value: 0,
+              name: '全部分类'
+            },
             defaultOption: query.category_id,
             disabled: false,
             level: true,
@@ -38,23 +42,23 @@
     </div>
     <table class="ui celled striped selectable table">
       <thead>
-      <tr>
+      <tr class="center aligned">
         <th class="one wide">#</th>
         <th class="four wide">标题</th>
         <th class="two wide">分类</th>
         <th class="four wide">信息</th>
-        <th>排列</th>
+        <th>排序</th>
         <th>操作</th>
       </tr>
       </thead>
       <tbody>
       @each(item in articleItem.data)
       <tr>
-        <td>{{item.ni_id}}</td>
+        <td class="center aligned">{{item.ni_id}}</td>
         <td>{{item.title}}</td>
-        <td>{{item.category.column_name}}</td>
+        <td class="center aligned">{{item.category.column_name}}</td>
         <td>
-          状态：<span class="ui black circular label">{{item.status==1?'显示':'下线'}}</span>
+          状态：<span class="ui black circular label">{{item.status==0?'显示':'下线'}}</span>
           <div class="ui divider"></div>
           类型：
           @each(type in item.types)
@@ -70,17 +74,19 @@
           无
           @endeach
         </td>
-        <td class="two wide">
-          <div class="ui center aligned">{{item.sort}}</div>
+        <td class="two wide center aligned">
+          <div class="ui center aligned">
+            <span class="ui circular label">{{item.sort}}</span>
+            <a href="/article/sort/{{item.ni_id}}}?type=top" data-csrf="{{csrfToken}}" class="ui mini button articleSort">置顶</a>
+          </div>
           <div class="ui divider"></div>
-          置顶 |
-          <i class="arrow large circle up icon"></i>
-          <i class="arrow large circle down icon"></i>
+          <a href="/article/sort/{{item.ni_id}}}?type=plus" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle up icon"></i></a>
+          <a href="/article/sort/{{item.ni_id}}}?type=less" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle down icon"></i></a>
         </td>
-        <td>
-          <a href="/manager/userEdit/{{user.ni_id}}" class="ui mini blue button"><i
+        <td class="center aligned">
+          <a href="/article/edit/{{item.ni_id}}" class="ui mini blue button"><i
             class="edit icon"></i> 编辑</a>
-          <a href="/manager/userDestroy/{{user.ni_id}}" data-csrf="{{csrfToken}}"
+          <a href="/article/destroy/{{item.ni_id}}" data-csrf="{{csrfToken}}"
              class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
         </td>
       </tr>
@@ -107,27 +113,11 @@
 </div>
 
 <script>
-
-  require(['main'], function () {
-    require(['semantic', 'pagination'], function (semantic) {
-
-      $('#pages').pagination({
-        pageCount: {{articleItem.lastPage}},
-        jump: true,
-        coping: true,
-        count: 7,
-        // mode: 'fixed',
-        homePage: '<i class="fast backward icon"></i>',
-        endPage: '<i class="fast forward icon"></i>',
-        prevContent: '<i class="chevron left icon"></i>',
-        nextContent: '<i class="chevron right icon"></i>',
-        callback: function (api) {
-          console.log(api.getCurrent())
-        }
-      });
-
-    });
-  });
-
+  var query = {{{toJSON(query)}}};
+  var lastPage = {{articleItem.lastPage}} || 0;
+  var page = {{articleItem.page}} || 1;
 </script>
+
+{{ script('js/app/article_list') }}
+
 @endsection

@@ -27,7 +27,7 @@ class Article extends Model {
       .withTimestamps()
   }
 
-  // 类型
+  // 标签
   labels() {
     return this
       .belongsToMany('App/Models/Article/Label')

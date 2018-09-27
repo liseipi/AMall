@@ -53,10 +53,24 @@ class UserController {
         await user.roles().attach([saveData.user_role])
       }
 
-      alertPrompt({session, response, title: 'OK', type: 'success', message: '创建成功!', responseURL: '/manager/user'})
+      alertPrompt({
+        session,
+        response,
+        title: 'OK',
+        type: 'success',
+        message: '创建成功!',
+        responseURL: '/manager/user'
+      })
     } catch (error) {
       console.log(error)
-      alertPrompt({session, response, title: 'Error', type: 'error', message: `创建失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({
+        session,
+        response,
+        title: 'Error',
+        type: 'error',
+        message: `创建失败! Error: ${error}`,
+        responseURL: 'back'
+      })
     }
   }
 
@@ -79,7 +93,12 @@ class UserController {
     const menusData = await Menu.query()
     const formatData = await Handle.treeSort(menusData)
 
-    return view.render('user.edit', {roles: roles.toJSON(), menusData: formatData, userInfo: userInfo.toJSON(), userMenu})
+    return view.render('user.edit', {
+      roles: roles.toJSON(),
+      menusData: formatData,
+      userInfo: userInfo.toJSON(),
+      userMenu
+    })
   }
 
   async EditSave({request, response, session, params: {id}}) {
@@ -99,14 +118,30 @@ class UserController {
       user.merge(saveData)
       await user.save()
 
-      await user.menus().sync(menu_id)
       if (user_role > 0) {
         await user.roles().sync(user_role)
+      } else {
+        await user.menus().sync(menu_id||[])
+        await user.roles().detach()
       }
 
-      alertPrompt({session, response, title: 'OK', type: 'success', message: '编辑成功!', responseURL: '/manager/user'})
+      alertPrompt({
+        session,
+        response,
+        title: 'OK',
+        type: 'success',
+        message: '编辑成功!',
+        responseURL: '/manager/user'
+      })
     } catch (error) {
-      alertPrompt({session, response, title: 'Error', type: 'error', message: `编辑失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({
+        session,
+        response,
+        title: 'Error',
+        type: 'error',
+        message: `编辑失败! Error: ${error}`,
+        responseURL: 'back'
+      })
     }
   }
 
@@ -118,9 +153,23 @@ class UserController {
       await user.roles().detach()
       await user.delete()
 
-      alertPrompt({session, response, title: 'OK', type: 'success', message: '删除成功!', responseURL: '/manager/user'})
+      alertPrompt({
+        session,
+        response,
+        title: 'OK',
+        type: 'success',
+        message: '删除成功!',
+        responseURL: '/manager/user'
+      })
     } catch (error) {
-      alertPrompt({session, response, title: 'Error', type: 'error', message: `删除失败! Error: ${error}`, responseURL: 'back'})
+      alertPrompt({
+        session,
+        response,
+        title: 'Error',
+        type: 'error',
+        message: `删除失败! Error: ${error}`,
+        responseURL: 'back'
+      })
     }
   }
 
@@ -152,9 +201,23 @@ class UserController {
       user.merge(saveData)
       await user.save()
 
-      alertPrompt({response, session, "title": "OK", "type": "success", "message": "保存成功!", "responseURL": "back"})
+      alertPrompt({
+        response,
+        session,
+        "title": "OK",
+        "type": "success",
+        "message": "保存成功!",
+        "responseURL": "back"
+      })
     } catch (error) {
-      alertPrompt({response, session, "title": "Error", "type": "error", "message": `保存失败! Error: ${error}`, "responseURL": "back"})
+      alertPrompt({
+        response,
+        session,
+        "title": "Error",
+        "type": "error",
+        "message": `保存失败! Error: ${error}`,
+        "responseURL": "back"
+      })
     }
   }
 
