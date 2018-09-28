@@ -1,8 +1,24 @@
 @layout('layout')
 @section('content')
 <style>
-  .box{
-    padding: 0em 2em!important;
+  .box {
+    padding: 0em 2em !important;
+  }
+
+  .card {
+    width: 200px !important;
+  }
+
+  .card .image img {
+    max-height: 150px !important;
+    object-fit: contain;
+    margin-right: 5px !important;
+  }
+
+  .card .content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 </style>
 <div class="ui container fluid box">
@@ -10,24 +26,37 @@
     <h3 class="ui dividing header">资源列表</h3>
     <table class="ui celled table">
       <thead class="center aligned">
-        <th class="three wide">目录</th>
-        <th>资源</th>
+      <th class="three wide">目录</th>
+      <th>资源</th>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <div class="ui list">
-              @each(dir in DirItem)
-              <div class="item">
-                <i class="folder icon"></i>
-                <div class="content">
-                  <div class="header">{{dir}}</div>
-                </div>
+      <tr>
+        <td class="top aligned">
+          <div class="ui list">
+            @each(dir in Directory)
+            <div class="item">
+              <i class="folder icon"></i>
+              <div class="content">
+                <div class="header">{{dir.filename}}</div>
               </div>
-              @endeach
-          </td>
-          <td></td>
-        </tr>
+            </div>
+            @endeach
+        </td>
+        <td>
+          <div class="ui link cards">
+            @each(img in images)
+            <a href="#" class="ui card" title="{{img}}">
+              <div class="image">
+                <img src="/assets/images/{{img}}">
+              </div>
+              <div class="extra content">
+                {{img}}
+              </div>
+            </a>
+            @endeach
+          </div>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

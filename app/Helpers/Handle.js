@@ -205,12 +205,15 @@ class HandleClass {
     }
 
     //获取文件夹下的所有图片
-    //return getFiles.getImageFiles(dir);
+    //return getFiles.getImageFiles(dir)
 
     //获取文件夹下的所有文件
     //return getFiles.getFileList(dir)
 
-    return getFiles.getDirectory(dir)
+    //获取文件夹
+    //return getFiles.getDirectory(dir)
+
+    return { Directory: getFiles.getDirectory(dir), images: getFiles.getImageFiles(dir)}
 
   }
 

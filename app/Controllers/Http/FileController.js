@@ -3,7 +3,7 @@
 const Env = use('Env')
 const Helpers = use('Helpers')
 const Drive = use('Drive')
-const { readFile } = use('App/Helpers/Handle')
+const {readFile} = use('App/Helpers/Handle')
 
 class FileController {
 
@@ -20,11 +20,9 @@ class FileController {
   async Browse({view}) {
     const dir = await Helpers.appRoot('uploads')
 
-    const src = await readFile(dir)
-    console.log(src)
-    return view.render('file.list', {
-      src
-    })
+    const {Directory, images} = await readFile(dir)
+    console.log(images)
+    return view.render('file.list', {Directory, images})
   }
 
   //上传图片FORM
