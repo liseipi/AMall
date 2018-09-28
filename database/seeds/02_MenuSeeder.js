@@ -40,8 +40,6 @@ class MenuSeeder {
       {ni_id:212,menu_name:"编辑标签",parent_id:200,controller:"/article/labelEdit",run_status:1,menu_sort:100},
       {ni_id:213,menu_name:"删除标签",parent_id:200,controller:"/article/labelDestroy",run_status:1,menu_sort:100},
 
-
-
       {ni_id:350,menu_name:"会员管理",parent_id:0,controller:"/member",run_status:0,menu_sort:100},
       {ni_id:351,menu_name:"增加会员",parent_id:350,controller:"/member/add",run_status:0,menu_sort:100},
       {ni_id:352,menu_name:"会员列表",parent_id:350,controller:"/member/list",run_status:0,menu_sort:100},
@@ -68,8 +66,9 @@ class MenuSeeder {
       {ni_id:458,menu_name:"删除管理员",parent_id:450,controller:"/manager/userDestroy",run_status:1,menu_sort:100},
       {ni_id:459,menu_name:"编辑个人信息",parent_id:450,controller:"/manager/profile",run_status:1,menu_sort:100},
 
-      {ni_id:500,menu_name:"资源管理",parent_id:0,controller:"/file",run_status:1,menu_sort:100},
-      {ni_id:501,menu_name:"上传资源",parent_id:500,controller:"/file/save",run_status:0,menu_sort:100},
+      {ni_id:500,menu_name:"资源管理",parent_id:0,controller:"/assets",run_status:0,menu_sort:100},
+      {ni_id:501,menu_name:"浏览资源",parent_id:500,controller:"/assets/browseServer",run_status:0,menu_sort:100},
+      {ni_id:502,menu_name:"上传图片",parent_id:500,controller:"/assets/uploadImage",run_status:0,menu_sort:100},
 
       {ni_id:600,menu_name:"系统管理",parent_id:0,controller:"/system",run_status:0,menu_sort:100},
       {ni_id:601,menu_name:"商店信息",parent_id:600,controller:"/system/store",run_status:0,menu_sort:100}

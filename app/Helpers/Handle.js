@@ -3,6 +3,9 @@
 const Env = use('Env')
 const Database = use('Database')
 const Helpers = use('Helpers')
+const fs = use('fs')
+const path = use('path')
+const image = use("imageinfo")
 const underscore = use('underscore')
 
 class HandleClass {
@@ -149,6 +152,65 @@ class HandleClass {
     }
 
     return
+
+  }
+
+  static async readFile(dir) {
+
+    function readFileList(path, filesList) {
+      let files = fs.readdirSync(path)
+      files.forEach(function (itm) {
+        let stat = fs.statSync(`${path}/${itm}`)
+        if (stat.isDirectory()) {
+          //递归读取文件
+          //readFileList(`${path}/${itm}/`, filesList)
+        } else {
+          filesList.push({path: path, filename: itm})
+        }
+      })
+    }
+
+    function readDirectoryList(path, dirList) {
+      let files = fs.readdirSync(path)
+      files.forEach(function (itm) {
+        let stat = fs.statSync(`${path}/${itm}`)
+        if (stat.isDirectory()) {
+          dirList.push({path: path, filename: itm})
+        }
+      })
+    }
+
+    const getFiles = {
+      //获取文件夹下的所有文件
+      getFileList: function (path) {
+        let filesList = []
+        readFileList(path, filesList)
+        return filesList
+      },
+      //获取文件夹下的所有图片
+      getImageFiles: function (path) {
+        let imageList = []
+        this.getFileList(path).forEach((item) => {
+          let ms = image(fs.readFileSync(`${item.path}/${item.filename}`))
+          ms.mimeType && (imageList.push(item.filename))
+        })
+        return imageList
+      },
+      //目录
+      getDirectory: function (path) {
+        let dirList = []
+        readDirectoryList(path, dirList)
+        return dirList
+      }
+    }
+
+    //获取文件夹下的所有图片
+    //return getFiles.getImageFiles(dir);
+
+    //获取文件夹下的所有文件
+    //return getFiles.getFileList(dir)
+
+    return getFiles.getDirectory(dir)
 
   }
 

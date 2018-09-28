@@ -26,12 +26,17 @@ Route.get('/logout', 'AuthController.Logout')
 
 Route.group(() => {
 
+  //首页
   Route.get('/', 'HomeController.Index')
 
+  //控制台
   Route.get('/dashboard', 'HomeController.Dashboard')
 
   //File
   Route.get('/assets/images/(.*/?)', 'FileController.Images')
+  Route.get('/assets/browseServer', 'FileController.Browse')
+  Route.get('/assets/uploadImage', 'FileController.Upload')
+  Route.post('/assets/uploadImage', 'FileController.UploadSave')
 
   //菜单管理
   Route.get('/menu/list', 'MenuController.List')

@@ -14,10 +14,8 @@ class HomeController {
   async Index({ view, auth }) {
     const noMenus = await Menu.query().whereIn('controller', Config.get('customData.noAuthMenus')).fetch()
 
-    //const menus = await auth.user.menus().fetch()
     const menus = await auth.user
       .menus()
-      //.where('run_status', 0)
       .where(function () {
         this.where('run_status', 0)
           .whereNotIn('controller', Config.get('customData.noAuthMenus'))
@@ -28,11 +26,9 @@ class HomeController {
       return item.run_status==0
     })
 
-
     const menusData = await Handle.treeSort(authMenus)
 
     return view.render('index', { menusData })
-
   }
 
   async Dashboard({ view }) {

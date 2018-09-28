@@ -1,0 +1,36 @@
+@layout('layout')
+@section('content')
+<style>
+  .box{
+    padding: 0em 2em!important;
+  }
+</style>
+<div class="ui container fluid box">
+  <div class="main">
+    <h3 class="ui dividing header">资源列表</h3>
+    <table class="ui celled table">
+      <thead class="center aligned">
+        <th class="three wide">目录</th>
+        <th>资源</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="ui list">
+              @each(dir in DirItem)
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  <div class="header">{{dir}}</div>
+                </div>
+              </div>
+              @endeach
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@endsection
