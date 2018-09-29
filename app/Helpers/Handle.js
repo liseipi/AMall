@@ -155,7 +155,7 @@ class HandleClass {
 
   }
 
-  static async readFile(dir) {
+  static async readFile(dir, type) {
 
     function readFileList(path, filesList) {
       let files = fs.readdirSync(path)
@@ -192,7 +192,7 @@ class HandleClass {
         let imageList = []
         this.getFileList(path).forEach((item) => {
           let ms = image(fs.readFileSync(`${item.path}/${item.filename}`))
-          ms.mimeType && (imageList.push(item.filename))
+          ms.mimeType && (imageList.push({filename: item.filename}))
         })
         return imageList
       },
@@ -212,6 +212,14 @@ class HandleClass {
 
     //获取文件夹
     //return getFiles.getDirectory(dir)
+
+    if(type){
+      if(type == 'image'){
+        return { Directory: getFiles.getDirectory(dir), images: getFiles.getImageFiles(dir)}
+      }
+    }else{
+      return { Directory: getFiles.getDirectory(dir), images: getFiles.getFileList(dir)}
+    }
 
     return { Directory: getFiles.getDirectory(dir), images: getFiles.getImageFiles(dir)}
 

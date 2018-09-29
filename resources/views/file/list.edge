@@ -3,10 +3,28 @@
 <style>
   .box {
     padding: 0em 2em !important;
+    height: 100%;
+  }
+
+  .main {
+    height: 100%;
+  }
+
+  .table {
+    height: 90%;
+  }
+
+  .cards {
+    overflow-y: auto;
+    height: 100%;
+    margin: 0 !important;
+    padding: 5px !important;
+    border: 1px solid #ddd;
+    border-radius: 5px;
   }
 
   .card {
-    width: 200px !important;
+    width: 190px !important;
   }
 
   .card .image img {
@@ -20,10 +38,35 @@
     overflow: hidden;
     white-space: nowrap;
   }
+
+  .items a {
+    color: #000;
+  }
+
+  .breadcrumb a {
+    color: #000;
+    text-decoration: underline;
+  }
 </style>
 <div class="ui container fluid box">
   <div class="main">
-    <h3 class="ui dividing header">资源列表</h3>
+    <h3 class="ui header">
+      <div class="ui ignored info message mini breadcrumb"
+           style="line-height: 1.5em; display: block;">
+        路径：
+        @each(p in path.split('/'))
+        @set('selectPath', selectPath ? (selectPath+'/'+p) : p)
+        @if($loop.last)
+        <div class="section active">{{ p }}</div>
+        @else
+        <a href="{{ params ? (url+params+'&path='+selectPath) : (url+'?path='+selectPath) }}"
+           class="section">{{ p }}</a>
+        <i class="right chevron icon divider"></i>
+        @endif
+        @endeach
+      </div>
+      <!--资源列表-->
+    </h3>
     <table class="ui celled table">
       <thead class="center aligned">
       <th class="three wide">目录</th>
@@ -32,27 +75,34 @@
       <tbody>
       <tr>
         <td class="top aligned">
-          <div class="ui list">
+          <div class="ui divided segment items">
             @each(dir in Directory)
-            <div class="item">
-              <i class="folder icon"></i>
-              <div class="content">
-                <div class="header">{{dir.filename}}</div>
+            <a
+              href="{{  params ? (url+params+'&path='+path+'/'+dir.filename) : (url+'?path='+path+'/'+dir.filename) }}"
+              class="item">
+              <div class="ui tiny">
+                <i class="folder yellow large icon"></i>
               </div>
-            </div>
+              <div class="middle aligned content">{{dir.filename}}</div>
+            </a>
+            @elseeach
+            无
             @endeach
+          </div>
         </td>
-        <td>
-          <div class="ui link cards">
+        <td class="top aligned">
+          <div class="ui link segment cards">
             @each(img in images)
-            <a href="#" class="ui card" title="{{img}}">
+            <div class="ui card selectImg" data-pic="{{img.filename}}" title="{{img.filename}}">
               <div class="image">
-                <img src="/assets/images/{{img}}">
+                <img src="/assets/images/{{img.filename}}">
               </div>
               <div class="extra content">
-                {{img}}
+                {{img.filename}}
               </div>
-            </a>
+            </div>
+            @elseeach
+            空
             @endeach
           </div>
         </td>
@@ -61,5 +111,23 @@
     </table>
   </div>
 </div>
+
+<script>
+  require(['main'], function () {
+    require(['semantic', 'ckeditor'], function (semantic, CKEDITOR) {
+
+      $(function () {
+        $('.selectImg').on('dblclick', function () {
+          var file = $(this).data('pic');
+
+          // window.opener.CKEDITOR.tools.callFunction('', '/assets/images/'+file);
+          // window.close();
+        })
+
+      })
+
+    });
+  });
+</script>
 
 @endsection

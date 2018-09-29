@@ -1,5 +1,6 @@
 'use strict'
 
+const querystring = use('querystring')
 const Env = use('Env')
 const Helpers = use('Helpers')
 const Drive = use('Drive')
@@ -17,17 +18,38 @@ class FileController {
   }
 
   //浏览图片集
-  async Browse({view}) {
-    const dir = await Helpers.appRoot('uploads')
+  async Browse({view, request}) {
+    const url = request.url()
+    const query = request.get()
+    let params = {}
+    if (query) {
+      params = {...query}
+      if(params.path){
+        delete params.path
+      }
+    }
+    const {type, path} = request.get()
+    let rootPath = ''
+    if(path){
+      rootPath = path
+    }else{
+      rootPath = Env.get('', 'uploads')
+    }
+    const dir = await Helpers.appRoot(rootPath)
 
-    const {Directory, images} = await readFile(dir)
-    console.log(images)
-    return view.render('file.list', {Directory, images})
+    let data = {}
+    if (type) {
+      data = await readFile(dir, type)
+    } else {
+      data = await readFile(dir)
+    }
+
+    return view.render('file.list', {...data, path: rootPath, url, params: '?'+querystring.stringify(params)})
   }
 
-  //上传图片FORM
+  //上传FORM
   async Upload({view}) {
-
+    return view.render('file.upload')
   }
 
   //上传图片
