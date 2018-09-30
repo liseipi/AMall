@@ -3,7 +3,7 @@ require(['main'], function () {
 
     CKEDITOR.replace('summary_content');
     CKEDITOR.replace('content', {
-      height: 500
+      "height": 500
     });
 
   });

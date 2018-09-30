@@ -6,7 +6,7 @@
 CKEDITOR.editorConfig = function( config ) {
   config.language = 'zh-cn';
   // config.uiColor = '#AADC6E';
-  config.filebrowserImageUploadUrl= "/assets/uploadImage";
+  // config.filebrowserImageUploadUrl= "/assets/uploadImage";
   config.filebrowserImageBrowseUrl = '/assets/browseServer?type=image';
 
   config.toolbarGroups = [

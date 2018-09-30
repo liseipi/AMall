@@ -27,6 +27,10 @@
     width: 190px !important;
   }
 
+  .card .image {
+    min-height: 150px;
+  }
+
   .card .image img {
     max-height: 150px !important;
     object-fit: contain;
@@ -46,6 +50,14 @@
   .breadcrumb a {
     color: #000;
     text-decoration: underline;
+  }
+
+  .plus.icon, .minus.icon {
+    cursor: pointer;
+  }
+
+  .ui.images > img {
+    margin: 2px !important;
   }
 </style>
 <div class="ui container fluid box">
@@ -67,10 +79,44 @@
       </div>
       <!--资源列表-->
     </h3>
+    <div id="upload-form" style="display: none;" class="ui placeholder segment">
+      <div class="ui two column very relaxed grid">
+        <div class="column">
+          <form class="ui form" action="{{'/assets/uploadImage?path='+path}}" method="post"
+                enctype="multipart/form-data">
+            {{ csrfField() }}
+            <div class="ui segment" id="selectFile">
+              <div class="inline field">
+                <label><i class="plus large circle icon" data-n="0"></i></label>
+                <input name="thumb_img[]" class="selectImg" accept="image/*" type="file">
+              </div>
+              <!--<div class="inline field">-->
+              <!--<label><i class="minus large circle icon"></i></label>-->
+              <!--<input name="thumb_img[]" type="file">-->
+              <!--</div>-->
+            </div>
+            <div class="ui divider"></div>
+            <button class="ui blue submit button" type="submit"><i class="upload icon"></i>提交上传
+            </button>
+          </form>
+        </div>
+        <div class="column">
+          <div class="ui small images" id="tempImages">
+            <!--<img class="ui image" src="/images/image.png">-->
+          </div>
+        </div>
+      </div>
+      <div class="ui vertical divider">IMG</div>
+    </div>
     <table class="ui celled table">
       <thead class="center aligned">
       <th class="three wide">目录</th>
-      <th>资源</th>
+      <th>
+        <span style="padding-right: 30px;">资源 - {{ path }} </span>
+        <div class="ui icon button" id="show-form">
+          <i class="upload icon"></i> 上传图片
+        </div>
+      </th>
       </thead>
       <tbody>
       <tr>
@@ -91,11 +137,11 @@
           </div>
         </td>
         <td class="top aligned">
-          <div class="ui link segment cards">
+          <div class="ui link segment cards" style="align-items: self-start;">
             @each(img in images)
             <div class="ui card selectImg" data-pic="{{img.filename}}" title="{{img.filename}}">
               <div class="image">
-                <img src="/assets/images/{{img.filename}}">
+                <img src="/assets/images{{ path.replace('uploads', '') }}/{{img.filename}}">
               </div>
               <div class="extra content">
                 {{img.filename}}
@@ -116,15 +162,65 @@
   require(['main'], function () {
     require(['semantic', 'ckeditor'], function (semantic, CKEDITOR) {
 
+      var getQueryStringParam = function (name) {
+        var regex = new RegExp('[?&]' + name + '=([^&]*)'),
+          result = window.location.search.match(regex);
+        return (result && result.length > 1 ? decodeURIComponent(result[1]) : null);
+      };
+
       $(function () {
         $('.selectImg').on('dblclick', function () {
-          var file = $(this).data('pic');
-
-          // window.opener.CKEDITOR.tools.callFunction('', '/assets/images/'+file);
-          // window.close();
+          var isEditor = getQueryStringParam('CKEditor')
+          if (isEditor) {
+            var file = $(this).data('pic');
+            var callback = getQueryStringParam('CKEditorFuncNum');
+            window.opener.CKEDITOR.tools.callFunction(callback, '/assets/images/' + file);
+            window.close();
+          }
         })
 
-      })
+      });
+
+      //显示/隐藏上传FORM
+      $('#show-form').on('click', function () {
+        $('#upload-form').toggle();
+      });
+
+      //点击添加
+      $('.plus.icon').on('click', function () {
+        arguments.callee.n = arguments.callee.n ? arguments.callee.n + 1 : 1
+        if ($('#selectFile .selectImg').length < 20) {
+          $('#selectFile').append('<div class="inline field"><label><i class="minus large circle icon" data-n="' + arguments.callee.n + '"></i></label><input name="thumb_img[]" class="selectImg" accept="image/*" type="file"></div>');
+        } else {
+          alert('单次上传最多20个.');
+        }
+      });
+      //点击删除一个
+      $('#selectFile').on('click', '.minus.icon', function () {
+        // var index = $('#selectFile .icon').index($(this));
+        // if ($('#temp-img-' + index).length > 0) {
+        //   $('#temp-img-' + index).remove();
+        // }
+        var index = $(this).data('n');
+        $('#temp-img-' + index).remove();
+        $(this).parents('.field').remove();
+      });
+
+      //选择图片
+      $('#selectFile').on('change', '.selectImg', function () {
+        //var index = $('#selectFile .selectImg').index($(this));
+        var index = $(this).siblings('label').children('i').data('n');
+        var file = $(this).get(0).files[0];
+        if (file) {
+          var img = new Image();
+          var imgUrl = window.URL.createObjectURL(file);
+          if ($('#temp-img-' + index).length > 0) {
+            $('#temp-img-' + index).attr('src', imgUrl);
+          } else {
+            $('#tempImages').append('<img class="ui image" id="temp-img-' + index + '" src="' + imgUrl + '">');
+          }
+        }
+      });
 
     });
   });

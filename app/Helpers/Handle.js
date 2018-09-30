@@ -81,8 +81,8 @@ class HandleClass {
 
     const {size, width, height} = {
       size: config.size || 2,
-      width: config.width || 200,
-      height: config.height || 200
+      width: config.width || 2000,
+      height: config.height || 2000
     }
 
     const profilePic = request.file(field, {
@@ -123,7 +123,7 @@ class HandleClass {
   }
 
   //多个图片上传处理
-  static async uploadMultiplePic(requestFile, picFile, {width = 450, height = 450, upSize = 2}, path = "uploads") {
+  static async uploadMultiplePic(request, field, config = {}, path = Env.get('UPLOAD_DIR', 'uploads')) {
 
     const profilePics = requestFile.file(picFile, {
       types: ['image'],
