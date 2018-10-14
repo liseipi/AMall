@@ -7,172 +7,189 @@
       {{ csrfField() }}
 
       @!component('components.form.select', {
-        className: '',
-        selectClassName: 'fluid',
-        label: '选择文章栏目',
-        name: 'category_id',
-        items: categoryItem,
-        value_field: 'ni_id',
-        name_field: 'column_name',
-        disabled: false,
-        level: true,
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: '',
+      selectClassName: 'fluid',
+      label: '选择文章栏目',
+      name: 'category_id',
+      items: categoryItem,
+      value_field: 'ni_id',
+      name_field: 'column_name',
+      disabled: false,
+      level: true,
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.input', {
-        className: '',
-        label: '文章标题',
-        name: 'title',
-        placeholder: '填写文章标题',
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: '',
+      label: '文章标题',
+      name: 'title',
+      placeholder: '填写文章标题',
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.input', {
-        className: '',
-        label: '副标题',
-        name: 'vice_title',
-        placeholder: '填写文章副标题',
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: '',
+      label: '副标题',
+      name: 'vice_title',
+      placeholder: '填写文章副标题',
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.textarea', {
-        label: '文章关键词 (，分割)',
-        name: 'keywords',
-        placeholder: '填写文章关键词',
-        rows: 2,
-        getErrorFor,
-        hasErrorFor,
-        old
+      label: '文章关键词 (，分割)',
+      name: 'keywords',
+      placeholder: '填写文章关键词',
+      rows: 2,
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.radio', {
-        className: 'inline',
-        label: '文章状态',
-        name: 'status',
-        items: [
-          {
-            value: 0,
-            option: '显示'
-          },
-          {
-            value: 1,
-            option: '下线'
-          }
-        ],
-        value_field: 'value',
-        name_field: 'option',
-        defaultOption: 0,
-        disabledOption: [],
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: 'inline',
+      label: '文章状态',
+      name: 'status',
+      items: [
+      {
+      value: 0,
+      option: '显示'
+      },
+      {
+      value: 1,
+      option: '下线'
+      }
+      ],
+      value_field: 'value',
+      name_field: 'option',
+      defaultOption: 0,
+      disabledOption: [],
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.input', {
-        className: '',
-        label: '排序',
-        name: 'sort',
-        value: maxSort.sort+1,
-        placeholder: '排序',
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: '',
+      label: '排序',
+      name: 'sort',
+      value: maxSort.sort+1,
+      placeholder: '排序',
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       <div class="ui divider"></div>
 
       @!component('components.form.checkbox', {
-        className: 'inline',
-        label: '文章类型',
-        name: 'type_id[]',
-        items: TypeItem,
-        value_field: 'ni_id',
-        name_field: 'type_name',
-        defaultOption: [1],
-        disabledOption: [],
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: 'inline',
+      label: '文章类型',
+      name: 'type_id[]',
+      items: TypeItem,
+      value_field: 'ni_id',
+      name_field: 'type_name',
+      defaultOption: [1],
+      disabledOption: [],
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.radio', {
-        className: 'inline',
-        label: '文章来源',
-        name: 'source',
-        items: SourceItem,
-        value_field: 'ni_id',
-        name_field: 'source_name',
-        defaultOption: 1,
-        disabledOption: [],
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: 'inline',
+      label: '文章来源',
+      name: 'source',
+      items: SourceItem,
+      value_field: 'ni_id',
+      name_field: 'source_name',
+      defaultOption: 1,
+      disabledOption: [],
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.radio', {
-        className: 'inline',
-        label: '文章作者',
-        name: 'author',
-        items: UserItem,
-        value_field: 'ni_id',
-        name_field: 'username',
-        defaultOption: user_id,
-        disabledOption: [],
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: 'inline',
+      label: '文章作者',
+      name: 'author',
+      items: UserItem,
+      value_field: 'ni_id',
+      name_field: 'username',
+      defaultOption: user_id,
+      disabledOption: [],
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.checkbox', {
-        className: 'inline',
-        label: '文章标签',
-        name: 'label_id[]',
-        items: LabelItem,
-        value_field: 'ni_id',
-        name_field: 'label_name',
-        defaultOption: 0,
-        disabledOption: [],
-        getErrorFor,
-        hasErrorFor,
-        old
+      className: 'inline',
+      label: '文章标签',
+      name: 'label_id[]',
+      items: LabelItem,
+      value_field: 'ni_id',
+      name_field: 'label_name',
+      defaultOption: 0,
+      disabledOption: [],
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       <div class="ui divider"></div>
-      @!component('components.form.input', {
-        className: '',
-        label: '文章图片',
-        name: 'thumb_img',
-        type: 'file',
-        getErrorFor,
-        hasErrorFor,
-        old
-      })
+      <!--@!component('components.form.input', {-->
+      <!--className: '',-->
+      <!--label: '文章图片',-->
+      <!--name: 'thumb_img',-->
+      <!--type: 'file',-->
+      <!--getErrorFor,-->
+      <!--hasErrorFor,-->
+      <!--old-->
+      <!--})-->
+      <div id="upload-form" style="" class="ui placeholder segment">
+        <div class="ui two column very relaxed grid">
+          <div class="column">
+            <div class="inline field">
+              <label>上传图片</label>
+              <input name="thumb_img[]" class="selectImg" accept="image/*" type="file">
+            </div>
+            <div class="ui divider"></div>
+            <div class="ui center aligned container"><a href="#" class="ui button">浏览图片集</a></div>
+          </div>
+          <div class="column">
+            <div class="ui small images" id="tempImages">
+            </div>
+          </div>
+        </div>
+        <div class="ui vertical divider">IMG</div>
+      </div>
       <div class="ui divider"></div>
 
       @!component('components.form.textarea', {
-        label: '文章摘要',
-        name: 'summary_content',
-        placeholder: '填写文章摘要',
-        rows: 5,
-        getErrorFor,
-        hasErrorFor,
-        old
+      label: '文章摘要',
+      name: 'summary_content',
+      placeholder: '填写文章摘要',
+      rows: 5,
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       @!component('components.form.textarea', {
-        label: '文章内容',
-        name: 'content',
-        placeholder: '填写文章内容',
-        rows: 10,
-        getErrorFor,
-        hasErrorFor,
-        old
+      label: '文章内容',
+      name: 'content',
+      placeholder: '填写文章内容',
+      rows: 10,
+      getErrorFor,
+      hasErrorFor,
+      old
       })
 
       <div class="ui divider"></div>

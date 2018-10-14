@@ -4,9 +4,10 @@ const Env = use('Env')
 const Database = use('Database')
 const Helpers = use('Helpers')
 const fs = use('fs')
-const path = use('path')
+const Drive = use('Drive')
 const image = use("imageinfo")
-const underscore = use('underscore')
+//const underscore = use('underscore')
+const lodash = use('lodash')
 
 class HandleClass {
 
@@ -47,8 +48,8 @@ class HandleClass {
   static treeSoleSort(data, pid = 0, level = 1) {
     let originData = [].concat(data)
 
-    //originData.sort((a, b) => a.ni_id - b.ni_id)
-    underscore(originData, item => item.ni_id)
+    originData.sort((a, b) => a.ni_id - b.ni_id)
+    //underscore(originData, item => item.ni_id)
 
     let result = []
 
@@ -125,15 +126,22 @@ class HandleClass {
   //多个图片上传处理
   static async uploadMultiplePic(request, field, config = {}, path = Env.get('UPLOAD_DIR', 'uploads')) {
 
-    const profilePics = requestFile.file(picFile, {
+    const {size, width, height} = {
+      size: config.size || 2,
+      width: config.width || 2000,
+      height: config.height || 2000
+    }
+
+    const profilePics = request.file(field, {
       types: ['image'],
-      size: upSize + 'mb'
+      size: `${size}mb`
     })
 
     if (profilePics) {
       await profilePics.moveAll(Helpers.appRoot(path), (file) => {
+        const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
         return {
-          name: `${(new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)}.${file.clientName.replace(/^.+\./, '')}`
+          name: `${PicName}.${file.subtype}`
         }
       })
       if (!profilePics.movedAll()) {
@@ -145,27 +153,38 @@ class HandleClass {
           }
         })
       }
-      let proData = profilePics._files.map(item => {
-        return {fileName: item.fileName, status: item.status, error: item._error}
-      })
-      return proData
-    }
 
-    return
+      const resolveData = profilePics._files.filter(item => item.clientName).map(item => {
+        return {
+          clientName: item.clientName,
+          fileName: item.fileName,
+          size: item.size,
+          status: item.status
+        }
+      })
+
+      return resolveData
+
+    } else {
+      const rejectData = {}
+      return rejectData
+    }
 
   }
 
+  //浏览文件
   static async readFile(dir, type) {
 
     function readFileList(path, filesList) {
       let files = fs.readdirSync(path)
-      files.forEach(function (itm) {
-        let stat = fs.statSync(`${path}/${itm}`)
+      //files.forEach((item)=> {
+      lodash.reverse(files).forEach((item) => {
+        let stat = fs.statSync(`${path}/${item}`)
         if (stat.isDirectory()) {
           //递归读取文件
           //readFileList(`${path}/${itm}/`, filesList)
         } else {
-          filesList.push({path: path, filename: itm})
+          filesList.push({path: path, filename: item})
         }
       })
     }
@@ -213,15 +232,15 @@ class HandleClass {
     //获取文件夹
     //return getFiles.getDirectory(dir)
 
-    if(type){
-      if(type == 'image'){
-        return { Directory: getFiles.getDirectory(dir), images: getFiles.getImageFiles(dir)}
+    if (type) {
+      if (type == 'image') {
+        return {Directory: getFiles.getDirectory(dir), images: getFiles.getImageFiles(dir)}
       }
-    }else{
-      return { Directory: getFiles.getDirectory(dir), images: getFiles.getFileList(dir)}
+    } else {
+      return {Directory: getFiles.getDirectory(dir), images: getFiles.getFileList(dir)}
     }
 
-    return { Directory: getFiles.getDirectory(dir), images: getFiles.getImageFiles(dir)}
+    return {Directory: getFiles.getDirectory(dir), images: getFiles.getImageFiles(dir)}
 
   }
 

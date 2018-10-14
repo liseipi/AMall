@@ -4,7 +4,7 @@ const querystring = use('querystring')
 const Env = use('Env')
 const Helpers = use('Helpers')
 const Drive = use('Drive')
-const {readFile} = use('App/Helpers/Handle')
+const {readFile, uploadMultiplePic} = use('App/Helpers/Handle')
 
 class FileController {
 
@@ -24,15 +24,15 @@ class FileController {
     let params = {}
     if (query) {
       params = {...query}
-      if(params.path){
+      if (params.path) {
         delete params.path
       }
     }
     const {type, path} = request.get()
     let rootPath = ''
-    if(path){
+    if (path) {
       rootPath = path
-    }else{
+    } else {
       rootPath = Env.get('', 'uploads')
     }
     const dir = await Helpers.appRoot(rootPath)
@@ -44,7 +44,7 @@ class FileController {
       data = await readFile(dir)
     }
 
-    return view.render('file.list', {...data, path: rootPath, url, params: '?'+querystring.stringify(params)})
+    return view.render('file.list', {...data, path: rootPath, url, params: '?' + querystring.stringify(params)})
   }
 
   //上传FORM
@@ -54,7 +54,8 @@ class FileController {
 
   //上传图片
   async UploadSave({request, response}) {
-
+    const fileData = await uploadMultiplePic(request, 'thumb_img')
+    return response.redirect('back')
   }
 
 }

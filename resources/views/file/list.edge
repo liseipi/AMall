@@ -169,13 +169,19 @@
       };
 
       $(function () {
+
         $('.selectImg').on('dblclick', function () {
-          var isEditor = getQueryStringParam('CKEditor')
+          var isEditor = getQueryStringParam('CKEditor');
           if (isEditor) {
             var file = $(this).data('pic');
             var callback = getQueryStringParam('CKEditorFuncNum');
             window.opener.CKEDITOR.tools.callFunction(callback, '/assets/images/' + file);
             window.close();
+            return;
+          }
+          var isSelect = getQueryStringParam('SImage');
+          if (isSelect) {
+
           }
         })
 
