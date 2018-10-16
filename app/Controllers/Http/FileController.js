@@ -18,7 +18,7 @@ class FileController {
   }
 
   //浏览图片集
-  async Browse({view, request}) {
+  async Browse({view, request, response}) {
     const url = request.url()
     const query = request.get()
     let params = {}
@@ -29,13 +29,11 @@ class FileController {
       }
     }
     const {type, path} = request.get()
-    let rootPath = ''
-    if (path) {
-      rootPath = path
-    } else {
-      rootPath = Env.get('', 'uploads')
-    }
+    let rootPath = path ? path : Env.get('', 'uploads')
     const dir = await Helpers.appRoot(rootPath)
+    if (!await Drive.exists(dir)) {
+      return response.route('FileController.Browse')
+    }
 
     let data = {}
     if (type) {
@@ -52,9 +50,10 @@ class FileController {
     return view.render('file.upload')
   }
 
-  //上传图片
+  //多图片上传
   async UploadSave({request, response}) {
-    const fileData = await uploadMultiplePic(request, 'thumb_img')
+    const {path} = request.get()
+    await uploadMultiplePic(request, 'thumb_img', {}, path || Env.get('UPLOAD_DIR', 'uploads'))
     return response.redirect('back')
   }
 

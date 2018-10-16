@@ -8,6 +8,7 @@ const Drive = use('Drive')
 const image = use("imageinfo")
 //const underscore = use('underscore')
 const lodash = use('lodash')
+const moment = use('moment')
 
 class HandleClass {
 
@@ -93,7 +94,11 @@ class HandleClass {
 
     if (profilePic) {
       const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
-      await profilePic.move(Helpers.appRoot(path), {
+      let filePath = (await Drive.exists(Helpers.appRoot(path))) ? path : Env.get('UPLOAD_DIR', 'uploads')
+      if('uploads'===filePath){
+        filePath = `${filePath}/${moment().get('year')}/${moment().format('MM')}/${moment().format('DD')}`
+      }
+      await profilePic.move(Helpers.appRoot(filePath), {
         name: `${PicName}.${profilePic.subtype}`
       })
     } else {
@@ -138,7 +143,11 @@ class HandleClass {
     })
 
     if (profilePics) {
-      await profilePics.moveAll(Helpers.appRoot(path), (file) => {
+      let filePath = (await Drive.exists(Helpers.appRoot(path))) ? path : Env.get('UPLOAD_DIR', 'uploads')
+      if('uploads'===filePath){
+        filePath = `${filePath}/${moment().get('year')}/${moment().format('MM')}/${moment().format('DD')}`
+      }
+      await profilePics.moveAll(Helpers.appRoot(filePath), (file) => {
         const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
         return {
           name: `${PicName}.${file.subtype}`
@@ -174,6 +183,9 @@ class HandleClass {
 
   //浏览文件
   static async readFile(dir, type) {
+    if (!await Drive.exists(dir)) {
+      return {Directory: [], images: []}
+    }
 
     function readFileList(path, filesList) {
       let files = fs.readdirSync(path)

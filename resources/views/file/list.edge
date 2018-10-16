@@ -132,7 +132,7 @@
               <div class="middle aligned content">{{dir.filename}}</div>
             </a>
             @elseeach
-            无
+            ...
             @endeach
           </div>
         </td>
@@ -168,24 +168,25 @@
         return (result && result.length > 1 ? decodeURIComponent(result[1]) : null);
       };
 
-      $(function () {
+      //$(function () {
 
-        $('.selectImg').on('dblclick', function () {
-          var isEditor = getQueryStringParam('CKEditor');
-          if (isEditor) {
-            var file = $(this).data('pic');
-            var callback = getQueryStringParam('CKEditorFuncNum');
-            window.opener.CKEDITOR.tools.callFunction(callback, '/assets/images/' + file);
-            window.close();
-            return;
-          }
-          var isSelect = getQueryStringParam('SImage');
-          if (isSelect) {
+      $('.selectImg').on('dblclick', function () {
+        var isEditor = getQueryStringParam('CKEditor');
+        if (isEditor) {
+          var file = $(this).data('pic');
+          var callback = getQueryStringParam('CKEditorFuncNum');
+          var path = '{{path}}'.replace(/uploads/, '');
+          window.opener.CKEDITOR.tools.callFunction(callback, '/assets/images/'+ path + '/' + file);
+          window.close();
+          return;
+        }
+        var isSelect = getQueryStringParam('SImage');
+        if (isSelect) {
 
-          }
-        })
+        }
+      })
 
-      });
+      //});
 
       //显示/隐藏上传FORM
       $('#show-form').on('click', function () {
