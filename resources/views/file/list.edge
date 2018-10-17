@@ -176,13 +176,13 @@
           var file = $(this).data('pic');
           var callback = getQueryStringParam('CKEditorFuncNum');
           var path = '{{path}}'.replace(/uploads/, '');
-          window.opener.CKEDITOR.tools.callFunction(callback, '/assets/images/'+ path + '/' + file);
+          window.opener.CKEDITOR.tools.callFunction(callback, '/assets/images'+ path + '/' + file);
           window.close();
           return;
         }
         var isSelect = getQueryStringParam('SImage');
-        if (isSelect) {
-
+        if (isSelect && window.opener) {
+          console.log(window.opener.document)
         }
       })
 

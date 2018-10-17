@@ -96,7 +96,7 @@ class HandleClass {
       const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
       let filePath = (await Drive.exists(Helpers.appRoot(path))) ? path : Env.get('UPLOAD_DIR', 'uploads')
       if('uploads'===filePath){
-        filePath = `${filePath}/${moment().get('year')}/${moment().format('MM')}/${moment().format('DD')}`
+        filePath = `${filePath}/${moment().get('year')}/${moment().format('MMM')}/${moment().format('w')}`
       }
       await profilePic.move(Helpers.appRoot(filePath), {
         name: `${PicName}.${profilePic.subtype}`
@@ -145,7 +145,7 @@ class HandleClass {
     if (profilePics) {
       let filePath = (await Drive.exists(Helpers.appRoot(path))) ? path : Env.get('UPLOAD_DIR', 'uploads')
       if('uploads'===filePath){
-        filePath = `${filePath}/${moment().get('year')}/${moment().format('MM')}/${moment().format('DD')}`
+        filePath = `${filePath}/${moment().get('year')}/${moment().format('MMM')}/${moment().format('w')}`
       }
       await profilePics.moveAll(Helpers.appRoot(filePath), (file) => {
         const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)

@@ -158,14 +158,18 @@
           <div class="column">
             <div class="inline field">
               <label>上传图片</label>
-              <input name="thumb_img[]" class="selectImg" accept="image/*" type="file">
+              <input name="thumb_img" class="selectImg" accept="image/*" type="file">
             </div>
             <div class="ui divider"></div>
-            <div class="ui center aligned container"><a href="#" class="ui button">浏览图片集</a></div>
+            <div class="ui center aligned container">
+              <div class="ui action input">
+                <input type="text" name="thumb_img">
+                <button type="button" data-labelledby="thumb_img" class="ui button SImage">浏览图片集</button>
+              </div>
+            </div>
           </div>
           <div class="column">
-            <div class="ui small images" id="tempImages">
-            </div>
+            <div class="ui small images" id="tempImages"></div>
           </div>
         </div>
         <div class="ui vertical divider">IMG</div>

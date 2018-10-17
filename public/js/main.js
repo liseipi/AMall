@@ -36,17 +36,16 @@ require.config({
 });
 
 require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, swal) {
-  //
+  //加载条
   pace.start({
     document: false
   });
 
-  //
+  //图片lozad
   const observer = lozad();
   observer.observe();
 
   $(function () {
-
     //删除确认
     $('.destroyConfirm').on('click', function () {
       var _this = $(this);
@@ -58,11 +57,11 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
         dangerMode: true,
       })
         .then(function (willDelete) {
-          if(willDelete){
+          if (willDelete) {
             var _url = _this.attr('href');
             var _csrf = _this.data('csrf');
 
-            var formHtml = '<form id="deleteForm" action="'+ _url +'?_method=DELETE" method="post"><input type="hidden" name="_csrf" value="'+_csrf+'"></form>'
+            var formHtml = '<form id="deleteForm" action="' + _url + '?_method=DELETE" method="post"><input type="hidden" name="_csrf" value="' + _csrf + '"></form>'
             $('body').append(formHtml)
             $('#deleteForm').submit().remove();
 
@@ -76,6 +75,18 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
 
     //select
     $('select.dropdown').dropdown();
+
+    //点击弹出资料浏览窗口
+    $('button.SImage').on('click', function () {
+      var SImage = $(this).data('labelledby');
+      var screenH = window.screen.availHeight;
+      var screenW= window.screen.availWidth;
+      window.open(
+        '/assets/browseServer?type=image&SImage=' + SImage,
+        'imagesWin',
+        'modal=yes,height='+ (screenH*0.8) +'%,width='+ (screenW*0.8) +'%,top='+ (screenH*0.15) +'%,left='+ (screenW*0.1) +'%,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=yes,status=yes'
+      );
+    });
   })
 
 
