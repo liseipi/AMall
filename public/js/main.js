@@ -77,7 +77,7 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
     $('select.dropdown').dropdown();
 
     //accordion
-    $('.ui.accordion').accordion();
+
 
     //点击弹出资料浏览窗口
     $('button.SImage').on('click', function () {
@@ -91,13 +91,20 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
       );
     });
 
-    //单文件选择方式
-    $(".SingleFileUpload .ui.radio").on('click', function () {
-      var index = $(this).find("input[type='radio']").val();
-      if(index){
+    //单个选择上传方式
+    $('.ui.accordion.upload').accordion({
+      onOpen: function () {
+        $(this).find(".ui.input").removeClass('disabled');
+        $(this).find("input, button").removeAttr('disabled');
 
+        $(this).siblings(".content").find(".ui.input").addClass('disabled');
+        $(this).siblings(".content").find("input, button").attr("disabled", "disabled");
+      },
+      onClose: function () {
+        $(this).find(".ui.input").addClass('disabled');
+        $(this).find("input, button").attr("disabled", "disabled");
       }
-    })
+    });
 
   })
 
