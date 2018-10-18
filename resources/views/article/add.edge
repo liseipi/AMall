@@ -144,36 +144,51 @@
       })
 
       <div class="ui divider"></div>
-      <!--@!component('components.form.input', {-->
-      <!--className: '',-->
-      <!--label: '文章图片',-->
-      <!--name: 'thumb_img',-->
-      <!--type: 'file',-->
-      <!--getErrorFor,-->
-      <!--hasErrorFor,-->
-      <!--old-->
-      <!--})-->
-      <div id="upload-form" style="" class="ui placeholder segment">
-        <div class="ui two column very relaxed grid">
-          <div class="column">
-            <div class="inline field">
-              <label>上传图片</label>
-              <input name="thumb_img" class="selectImg" accept="image/*" type="file">
-            </div>
-            <div class="ui divider"></div>
-            <div class="ui center aligned container">
-              <div class="ui action input">
-                <input type="text" name="thumb_img">
-                <button type="button" data-labelledby="thumb_img" class="ui button SImage">浏览图片集</button>
+
+      <div class="SingleFileUpload">
+        <div class="field">
+          <label>文章图片</label>
+        </div>
+        <div class="ui styled fluid accordion">
+          <div class="title active">
+            <i class="dropdown icon"></i>
+            上传图片
+          </div>
+          <div class="content active">
+            <div class="transition visible">
+              <div class="ui segment">
+                <div class="ui two column very relaxed grid">
+                  <div class="column">
+                    <div class="ui small images" id="tempImages"></div>
+                  </div>
+                  <div class="column">
+                    <div class="field">
+                      <input name="thumb_img" class="selectImg" accept="image/*" type="file">
+                    </div>
+                  </div>
+                </div>
+                <div class="ui vertical divider">IMG</div>
               </div>
             </div>
           </div>
-          <div class="column">
-            <div class="ui small images" id="tempImages"></div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            浏览资源
+          </div>
+          <div class="content">
+            <div class="transition hidden">
+              <div class="ui segment">
+                <div class="ui fluid action left input disabled">
+                  <input type="text" name="thumb_img" disabled>
+                  <button type="button" data-labelledby="thumb_img" disabled class="ui button SImage">浏览图片集
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="ui vertical divider">IMG</div>
       </div>
+
       <div class="ui divider"></div>
 
       @!component('components.form.textarea', {

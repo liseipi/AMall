@@ -76,6 +76,9 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
     //select
     $('select.dropdown').dropdown();
 
+    //accordion
+    $('.ui.accordion').accordion();
+
     //点击弹出资料浏览窗口
     $('button.SImage').on('click', function () {
       var SImage = $(this).data('labelledby');
@@ -87,6 +90,15 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
         'modal=yes,height='+ (screenH*0.8) +'%,width='+ (screenW*0.8) +'%,top='+ (screenH*0.15) +'%,left='+ (screenW*0.1) +'%,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=yes,status=yes'
       );
     });
+
+    //单文件选择方式
+    $(".SingleFileUpload .ui.radio").on('click', function () {
+      var index = $(this).find("input[type='radio']").val();
+      if(index){
+
+      }
+    })
+
   })
 
 
