@@ -77,17 +77,17 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
     $('select.dropdown').dropdown();
 
     //accordion
-
+    $('.ui.accordion').accordion();
 
     //点击弹出资料浏览窗口
     $('button.SImage').on('click', function () {
       var SImage = $(this).data('labelledby');
       var screenH = window.screen.availHeight;
-      var screenW= window.screen.availWidth;
+      var screenW = window.screen.availWidth;
       window.open(
         '/assets/browseServer?type=image&SImage=' + SImage,
         'imagesWin',
-        'modal=yes,height='+ (screenH*0.8) +'%,width='+ (screenW*0.8) +'%,top='+ (screenH*0.15) +'%,left='+ (screenW*0.1) +'%,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=yes,status=yes'
+        'modal=yes,height=' + (screenH * 0.8) + '%,width=' + (screenW * 0.8) + '%,top=' + (screenH * 0.15) + '%,left=' + (screenW * 0.1) + '%,toolbar=no,menubar=no,scrollbars=no,resizable=yes,location=yes,status=yes'
       );
     });
 
@@ -103,6 +103,14 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
       onClose: function () {
         $(this).find(".ui.input").addClass('disabled');
         $(this).find("input, button").attr("disabled", "disabled");
+      }
+    });
+    $('.sfUpload').on('change', '.selectImg', function () {
+      var file = $(this).get(0).files[0];
+      if (file) {
+        var img = new Image();
+        var imgUrl = window.URL.createObjectURL(file);
+        $(".tempImages img").attr("src", imgUrl);
       }
     });
 

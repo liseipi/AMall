@@ -1,0 +1,57 @@
+{{--
+参数：(*必填，-可选)
+-------------------------
+-className: '',
+-label: '',
+*name: ''
+-value: ''
+-------------------------
+--}}
+
+<div class="{{ className }} sfUpload">
+  @if(label)
+  <div class="field">
+    <label>{{ label }}</label>
+  </div>
+  @endif
+  <div class="ui styled fluid accordion upload">
+    <div class="title active">
+      <i class="dropdown icon"></i>
+      上传图片
+    </div>
+    <div class="content active">
+      <div class="transition visible">
+        <div class="ui segment">
+          <div class="ui two column very relaxed grid">
+            <div class="column">
+              <div class="ui small images center aligned container tempImages">
+                <img class="ui images" src="/images/image.png" alt="">
+              </div>
+            </div>
+            <div class="middle aligned column">
+              <div class="field">
+                <input name="{{ name }}" class="selectImg" accept="image/*" type="file">
+              </div>
+            </div>
+          </div>
+          <div class="ui vertical divider">IMG</div>
+        </div>
+      </div>
+    </div>
+    <div class="title">
+      <i class="dropdown icon"></i>
+      浏览资源
+    </div>
+    <div class="content">
+      <div class="transition hidden">
+        <div class="ui segment">
+          <div class="ui fluid action input disabled">
+            <input type="text" name="{{ name }}" disabled>
+            <button type="button" data-labelledby="thumb_img" disabled class="ui button SImage">浏览图片集
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

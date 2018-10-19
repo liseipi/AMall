@@ -183,7 +183,7 @@
         var isSelect = getQueryStringParam('SImage');
         if (isSelect && window.opener) {
           //console.log(window.opener.document);
-          var inputTag = $(window.opener.document).find("input[name='"+ isSelect +"']");
+          var inputTag = $(window.opener.document).find("input[type='text'][name='"+ isSelect +"']");
           var file = $(this).data('pic');
           var path = '{{path}}'.replace(/uploads/, '');
           inputTag.val('/assets/images'+ path + '/' + file);

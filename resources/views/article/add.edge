@@ -145,49 +145,12 @@
 
       <div class="ui divider"></div>
 
-      <div class="SingleFileUpload">
-        <div class="field">
-          <label>文章图片</label>
-        </div>
-        <div class="ui styled fluid accordion upload">
-          <div class="title active">
-            <i class="dropdown icon"></i>
-            上传图片
-          </div>
-          <div class="content active">
-            <div class="transition visible">
-              <div class="ui segment">
-                <div class="ui two column very relaxed grid">
-                  <div class="column">
-                    <div class="ui small images" id="tempImages"></div>
-                  </div>
-                  <div class="column">
-                    <div class="field">
-                      <input name="thumb_img" class="selectImg" accept="image/*" type="file">
-                    </div>
-                  </div>
-                </div>
-                <div class="ui vertical divider">IMG</div>
-              </div>
-            </div>
-          </div>
-          <div class="title">
-            <i class="dropdown icon"></i>
-            浏览资源
-          </div>
-          <div class="content">
-            <div class="transition hidden">
-              <div class="ui segment">
-                <div class="ui fluid action input disabled">
-                  <input type="text" name="thumb_img" disabled>
-                  <button type="button" data-labelledby="thumb_img" disabled class="ui button SImage">浏览图片集
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      @!component('components.form.singlefile', {
+        className: '',
+        label: '文章图片',
+        name: 'thumb_img',
+        value: ''
+      })
 
       <div class="ui divider"></div>
 
