@@ -42,19 +42,24 @@ class FileController {
       data = await readFile(dir)
     }
 
-    return view.render('file.list', {...data, path: rootPath, url, params: '?' + querystring.stringify(params)})
+    return view.render('file.list', {...data, path: rootPath, url, params: querystring.stringify(params)})
   }
 
   //上传FORM
-  async Upload({view}) {
+  async Upload({view, response}) {
     return view.render('file.upload')
   }
 
   //多图片上传
   async UploadSave({request, response}) {
     const {path} = request.get()
-    await uploadMultiplePic(request, 'thumb_img', {}, path || Env.get('UPLOAD_DIR', 'uploads'))
-    return response.redirect('back')
+    const fileData = await uploadMultiplePic(request, 'thumb_img', {}, path || Env.get('UPLOAD_DIR', 'uploads'))
+
+    //return response.redirect('back')
+
+    const scanParams = {...request.get(), path: fileData.filePath}
+    const scanUrl = querystring.unescape(querystring.stringify(scanParams))
+    return response.route(`/assets/browseServer?${scanUrl}`)
   }
 
 }

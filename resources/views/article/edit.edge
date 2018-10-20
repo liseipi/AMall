@@ -149,22 +149,14 @@
       })
 
       <div class="ui divider"></div>
-      <div class="ui segment">
-        @if(articleInfo.thumb_img)
-        <img class="ui centered medium image" src="/assets/images/{{articleInfo.thumb_img}}" alt="">
-        @else
-        <img class="ui centered small image" src="/images/image.png" alt="">
-        @endif
-        @!component('components.form.input', {
-          className: '',
-          label: '文章图片',
-          name: 'thumb_img',
-          type: 'file',
-          getErrorFor,
-          hasErrorFor,
-          old
-        })
-      </div>
+
+      @!component('components.form.singlefile', {
+      className: '',
+      label: '文章图片',
+      name: 'thumb_img',
+      value: articleInfo.thumb_img
+      })
+
       <div class="ui divider"></div>
 
       @!component('components.form.textarea', {

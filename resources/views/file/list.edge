@@ -71,7 +71,7 @@
         @if($loop.last)
         <div class="section active">{{ p }}</div>
         @else
-        <a href="{{ params ? (url+params+'&path='+selectPath) : (url+'?path='+selectPath) }}"
+        <a href="{{ params ? (url+'?'+params+'&path='+selectPath) : (url+'?path='+selectPath) }}"
            class="section">{{ p }}</a>
         <i class="right chevron icon divider"></i>
         @endif
@@ -82,7 +82,7 @@
     <div id="upload-form" style="display: none;" class="ui placeholder segment">
       <div class="ui two column very relaxed grid">
         <div class="column">
-          <form class="ui form" action="{{'/assets/uploadImage?path='+path}}" method="post"
+          <form class="ui form" action="{{ params ? ('/assets/uploadImage?'+params+'&path='+path) : ('/assets/uploadImage?path='+path) }}" method="post"
                 enctype="multipart/form-data">
             {{ csrfField() }}
             <div class="ui segment" id="selectFile">
@@ -124,7 +124,7 @@
           <div class="ui divided segment items">
             @each(dir in Directory)
             <a
-              href="{{  params ? (url+params+'&path='+path+'/'+dir.filename) : (url+'?path='+path+'/'+dir.filename) }}"
+              href="{{  params ? (url+'?'+params+'&path='+path+'/'+dir.filename) : (url+'?path='+path+'/'+dir.filename) }}"
               class="item">
               <div class="ui tiny">
                 <i class="folder yellow large icon"></i>
@@ -170,6 +170,7 @@
 
       //$(function () {
 
+      //双击图片选择
       $('.selectImg').on('dblclick', function () {
         var isEditor = getQueryStringParam('CKEditor');
         if (isEditor) {
@@ -187,6 +188,7 @@
           var file = $(this).data('pic');
           var path = '{{path}}'.replace(/uploads/, '');
           inputTag.val('/assets/images'+ path + '/' + file);
+          $(window.opener.document).find(".scanImages img").attr("src", '/assets/images'+ path + '/' + file);
           window.close();
           return;
         }

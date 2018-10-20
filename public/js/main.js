@@ -113,6 +113,7 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
         $(".tempImages img").attr("src", imgUrl);
       }
     });
+    //END - 单个选择上传方式
 
   })
 

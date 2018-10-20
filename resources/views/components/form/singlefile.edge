@@ -23,14 +23,14 @@
       <div class="transition visible">
         <div class="ui segment">
           <div class="ui two column very relaxed grid">
-            <div class="column">
-              <div class="ui small images center aligned container tempImages">
-                <img class="ui images" src="/images/image.png" alt="">
-              </div>
-            </div>
-            <div class="middle aligned column">
+            <div class="column middle aligned">
               <div class="field">
                 <input name="{{ name }}" class="selectImg" accept="image/*" type="file">
+              </div>
+            </div>
+            <div class="column">
+              <div class="ui small images center aligned container tempImages">
+                <img class="ui images" src="{{ value || '/images/image.png' }}" alt="">
               </div>
             </div>
           </div>
@@ -45,11 +45,21 @@
     <div class="content">
       <div class="transition hidden">
         <div class="ui segment">
-          <div class="ui fluid action input disabled">
-            <input type="text" name="{{ name }}" disabled>
-            <button type="button" data-labelledby="thumb_img" disabled class="ui button SImage">浏览图片集
-            </button>
+          <div class="ui two column very relaxed grid">
+            <div class="column middle aligned">
+              <div class="ui fluid action input disabled">
+                <input type="text" name="{{ name }}" class="scan-input" value="{{ value }}" disabled>
+                <button type="button" data-labelledby="thumb_img" disabled class="ui button SImage">浏览图片集
+                </button>
+              </div>
+            </div>
+            <div class="column">
+              <div class="ui small images center aligned container scanImages">
+                <img class="ui images" src="{{ value || '/images/image.png' }}" alt="">
+              </div>
+            </div>
           </div>
+          <div class="ui vertical divider">IMG</div>
         </div>
       </div>
     </div>

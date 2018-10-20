@@ -92,9 +92,10 @@ class HandleClass {
       size: `${size}mb`
     })
 
+    let filePath = (await Drive.exists(Helpers.appRoot(path))) ? path : Env.get('UPLOAD_DIR', 'uploads')
+
     if (profilePic) {
       const PicName = (new Date().getTime()).toString(32) + Math.random().toString(16).substr(2)
-      let filePath = (await Drive.exists(Helpers.appRoot(path))) ? path : Env.get('UPLOAD_DIR', 'uploads')
       if('uploads'===filePath){
         filePath = `${filePath}/${moment().get('year')}/${moment().format('MMM')}/${moment().format('w')}`
       }
@@ -122,10 +123,9 @@ class HandleClass {
     if (!profilePic.moved()) {
       return profileInfo
     }
-
-    profileInfo.fileName = profilePic.fileName
+    let webPath = filePath.replace(/uploads/, '/assets/images')
+    profileInfo.fileName = `${webPath}/${profilePic.fileName}`
     return profileInfo
-
   }
 
   //多个图片上传处理
@@ -172,7 +172,10 @@ class HandleClass {
         }
       })
 
-      return resolveData
+      return {
+        resolveData,
+        filePath
+      }
 
     } else {
       const rejectData = {}
