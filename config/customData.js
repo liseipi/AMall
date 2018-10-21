@@ -10,7 +10,7 @@ module.exports = {
     '/manager/profile',
     '/logout',
     '/login',
-    '/assets/images'
+    '/assets/images/(.*/?)'
   ]
 
 }

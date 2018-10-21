@@ -3,6 +3,8 @@
 const {flatten, uniq} = use('lodash')
 const Config = use('Config')
 
+const pathToRegexp = use('path-to-regexp')
+
 class Can {
   register(Model, customOptions = {}) {
     const defaultOptions = {}
@@ -13,16 +15,33 @@ class Can {
   }
 
   async can(menus, all = true) {
-    const usermenu = await this.getMenus()
+    const regMenu = await this.getMenus()
 
+    // if (Array.isArray(menus)) {
+    //   const result = menus.map(menu => {
+    //     return regMenu.includes(menu)
+    //   })
+    //   return all ? !result.includes(false) : result.includes(true)
+    // }
+    // return regMenu.includes(menus)
+
+    let result = []
     if (Array.isArray(menus)) {
-      const result = menus.map(menu => {
-        return usermenu.includes(menu)
+      const regsItem = regMenu.map(regRoute => {
+        return pathToRegexp(regRoute, [])
+      })
+      result = menus.map(menu => {
+        return regsItem.some(reg => reg.test(menu))
       })
       return all ? !result.includes(false) : result.includes(true)
-    }
+    } else {
+      result = regMenu.map(menu => {
+        //return request.match([menu])
 
-    return usermenu.includes(menus)
+        return pathToRegexp(menu, []).test(menus)
+      })
+    }
+    return result.includes(true)
   }
 
   async getMenus() {
