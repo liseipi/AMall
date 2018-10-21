@@ -16,16 +16,8 @@ class Can {
 
   async can(menus, all = true) {
     const regMenu = await this.getMenus()
-
-    // if (Array.isArray(menus)) {
-    //   const result = menus.map(menu => {
-    //     return regMenu.includes(menu)
-    //   })
-    //   return all ? !result.includes(false) : result.includes(true)
-    // }
-    // return regMenu.includes(menus)
-
     let result = []
+
     if (Array.isArray(menus)) {
       const regsItem = regMenu.map(regRoute => {
         return pathToRegexp(regRoute, [])
