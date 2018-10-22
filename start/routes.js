@@ -35,7 +35,6 @@ Route.group(() => {
   //File
   Route.get('/assets/images/(.*/?)', 'FileController.Images')
   Route.get('/assets/browseServer', 'FileController.Browse')
-  Route.get('/assets/uploadImage', 'FileController.Upload')
   Route.post('/assets/uploadImage', 'FileController.UploadSave')
 
   //菜单管理

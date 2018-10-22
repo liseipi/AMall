@@ -45,11 +45,6 @@ class FileController {
     return view.render('file.list', {...data, path: rootPath, url, params: querystring.stringify(params)})
   }
 
-  //上传FORM
-  async Upload({view, response}) {
-    return view.render('file.upload')
-  }
-
   //多图片上传
   async UploadSave({request, response}) {
     const {path} = request.get()
