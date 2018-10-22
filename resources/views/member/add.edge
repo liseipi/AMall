@@ -1,0 +1,190 @@
+@layout('layout')
+@section('content')
+
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">创建会员</h3>
+    <div class="ui equal width grid">
+      <div class="column">
+        <div class="panel">
+          <div class="panel-alone-content">
+            <form class="ui form" id="sendForm" method="post" action="/member/add">
+              {{ csrfField() }}
+              <div class="two fields">
+                @!component('components.form.input', {
+                className: 'required',
+                label: '用户名',
+                name: 'username',
+                type: 'text',
+                placeholder: '用户名最小6位',
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+                @!component('components.form.input', {
+                className: 'required',
+                label: '邮箱',
+                name: 'email',
+                type: 'email',
+                placeholder: '正常使用的邮箱',
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+              </div>
+              <div class="two fields">
+                @!component('components.form.input', {
+                className: 'required',
+                label: '密码',
+                name: 'password',
+                type: 'password',
+                placeholder: '密码最小8位',
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+                @!component('components.form.input', {
+                className: 'required',
+                label: '重复密码',
+                name: 'repassword',
+                type: 'password',
+                placeholder: '密码最小8位',
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+              </div>
+              @!component('components.form.input', {
+              label: '手机',
+              name: 'mobile',
+              type: 'text',
+              placeholder: '手机号码',
+              getErrorFor,
+              hasErrorFor,
+              old
+              })
+              <div class="two fields">
+                @!component('components.form.select', {
+                label: '允许登录状态',
+                name: 'user_status',
+                items: [
+                {
+                value: 0,
+                name: '开启登录'
+                },
+                {
+                value: 1,
+                name: '关闭登录'
+                }
+                ],
+                value_field: 'value',
+                name_field: 'name',
+                disabled: false,
+                defaultOption: 0,
+                disabledOption: 'A',
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+                @!component('components.form.select', {
+                label: '性别',
+                name: 'user_sex',
+                items: [
+                {
+                value: 0,
+                name: '帅哥'
+                },
+                {
+                value: 1,
+                name: '美女'
+                }
+                ],
+                value_field: 'value',
+                name_field: 'name',
+                disabled: false,
+                defaultOption: 0,
+                disabledOption: 'A',
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+              </div>
+              @!component('components.form.select', {
+              selectClassName: 'selectRole',
+              label: '会员级别',
+              name: 'level',
+              items: roles,
+              value_field: 'ni_id',
+              name_field: 'role_name',
+              defaultFirst: {
+                value: 0,
+                name: '无级别'
+              },
+              disabled: false,
+              defaultOption: 0,
+              disabledOption: 'A',
+              getErrorFor,
+              hasErrorFor,
+              old
+              })
+
+              <div class="two fields">
+                @!component('components.form.radio', {
+                className: 'inline',
+                label: '是否已经验证手机',
+                name: 'is_verify_mobile',
+                items: [{
+                  value: 0,
+                label:'否'
+                },{
+                value: 1,
+                label:'是'
+                }],
+                value_field: 'value',
+                name_field: 'label',
+                defaultOption: 0,
+                disabledOption: [],
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+                @!component('components.form.radio', {
+                className: 'inline',
+                label: '是否已经验证邮箱',
+                name: 'is_verify_email',
+                items: [{
+                value: 0,
+                label:'否'
+                },{
+                value: 1,
+                label:'是'
+                }],
+                value_field: 'value',
+                name_field: 'label',
+                defaultOption: 0,
+                disabledOption: [],
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+              </div>
+
+              <div class="ui divider"></div>
+              <div class="ui error message"></div>
+              <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ script('/js/app/role.js') }}
+<script>
+  var page = 'add';
+  var roles = {{{toJSON(roles)}}};
+  var menus = [];
+</script>
+{{ script('/js/app/register.js') }}
+@endsection

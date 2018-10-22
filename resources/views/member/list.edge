@@ -1,0 +1,147 @@
+@layout('layout')
+@section('content')
+
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">会员列表</h3>
+    <div class="ui center aligned container">
+      <form action="/member/list" class="ui form" method="get">
+        <div class="inline fields">
+          @!component('components.form.select', {
+          className: 'inline',
+          selectClassName: '',
+          label: '会员查询',
+          name: 'type',
+          items: [
+            {
+              value: 'all',
+              label: '全部会员'
+            },
+            {
+              value: 'ni_id',
+              label: '会员ID'
+            },
+            {
+              value: 'username',
+              label: '会员名称'
+            },
+            {
+              value: 'email',
+              label: 'Email'
+            },
+            {
+              value: 'mobile',
+              label: '手机'
+            }
+          ],
+          value_field: 'value',
+          name_field: 'label',
+          defaultOption: query.type||'all',
+          disabled: false,
+          getErrorFor,
+          hasErrorFor,
+          old
+          })
+          @!component('components.form.input', {
+          className: 'inline',
+          label: '关键字',
+          name: 'keywords',
+          value: query.keywords||'',
+          placeholder: '查询关键字',
+          getErrorFor,
+          hasErrorFor,
+          old
+          })
+          <button class="ui button" type="submit">查询</button>
+        </div>
+      </form>
+    </div>
+    <table class="ui celled striped selectable table">
+      <thead>
+      <tr class="center aligned">
+        <th>会员ID</th>
+        <th>会员信息</th>
+        <th>验证</th>
+        <th>购物</th>
+        <th>评论</th>
+        <th>查看</th>
+      </tr>
+      </thead>
+      <tbody>
+      @each(item in articleItem.data)
+      <tr>
+        <td class="center aligned">{{item.ni_id}}</td>
+        <td>{{item.title}}</td>
+        <td class="center aligned">{{item.category.column_name}}</td>
+        <td>
+          状态：<span class="ui black circular label">{{item.status==0?'显示':'下线'}}</span>
+          <div class="ui divider"></div>
+          类型：
+          @each(type in item.types)
+          <span class="ui red horizontal label">{{type.type_name}}</span>
+          @elseeach
+          无
+          @endeach
+          <div class="ui divider"></div>
+          标签：
+          @each(label in item.labels)
+          <span class="ui blue horizontal label">{{label.label_name}}</span>
+          @elseeach
+          无
+          @endeach
+        </td>
+        <td class="two wide center aligned">
+          <div class="ui center aligned">
+            @if(item.sort)
+            <span class="ui circular label">{{item.sort}}</span>
+            @else
+            最顶
+            @endif
+            @if(item.sort)
+            <a href="/article/sort/{{item.ni_id}}}?type=top" data-csrf="{{csrfToken}}" class="ui mini green button articleSort">置顶</a>
+            @endif
+          </div>
+          <div class="ui divider"></div>
+          @if(item.sort)
+          <a href="/article/sort/{{item.ni_id}}}?type=plus" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle up icon"></i></a>
+          @endif
+          <a href="/article/sort/{{item.ni_id}}}?type=less" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle down icon"></i></a>
+        </td>
+        <td class="center aligned">
+          <a href="/article/edit/{{item.ni_id}}" class="ui mini blue button"><i
+            class="edit icon"></i> 编辑</a>
+          <a href="/article/destroy/{{item.ni_id}}" data-csrf="{{csrfToken}}"
+             class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+        </td>
+      </tr>
+      @endeach
+      </tbody>
+    </table>
+    <div class="ui divider"></div>
+    <div class="ui center aligned container pages-bottom">
+      <div id="pages" class="ui large pagination menu"></div>
+      <div class="ui list"><span>共有 {{articleItem.total}} 条文章，{{articleItem.page}}/{{articleItem.lastPage}}页</span></div>
+    </div>
+    <style>
+      .pages-bottom{
+        margin-bottom: 5em;
+      }
+      #pages input {
+        width: 60px;
+        text-align: center;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    </style>
+  </div>
+</div>
+
+<script>
+  var query = {{{toJSON(query)}}};
+  var lastPage = {{articleItem.lastPage}} || 0;
+  var page = {{articleItem.page}} || 1;
+</script>
+
+{{ script('js/app/article_list') }}
+
+@endsection
