@@ -103,12 +103,12 @@ Route.group(() => {
   Route.get('/member/getRegion', 'MemberController.getRegion')
   Route.get('/member/cart/:id', 'MemberController.cart')
   Route.post('/member/cartSave/:id', 'MemberController.cartSave')
-  Route.get('/member/level', 'MemberController.level')
-  Route.get('/member/levelAdd', 'MemberController.levelAdd')
-  Route.post('/member/levelAdd', 'MemberController.levelAddSave').validator('memberLevel')
-  Route.get('/member/levelEdit/:id', 'MemberController.levelEdit')
-  Route.post('/member/levelEdit/:id', 'MemberController.levelEditSave').validator('memberLevel')
-  Route.get('/member/levelDestroy/:id', 'MemberController.levelDestroy')
+  Route.get('/member/level', 'Member/LevelController.list')
+  Route.get('/member/levelAdd', 'Member/LevelController.add')
+  Route.post('/member/levelAdd', 'Member/LevelController.addSave').validator('member_level')
+  Route.get('/member/levelEdit/:id', 'Member/LevelController.edit')
+  Route.post('/member/levelEdit/:id', 'Member/LevelController.editSave').validator('member_level')
+  Route.get('/member/levelDestroy/:id', 'Member/LevelController.destroy')
 
   //系统管理
   Route.get('/system/store', 'SystemController.Store')

@@ -1,0 +1,33 @@
+@layout('layout')
+@section('content')
+
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">会员级别列表</h3>
+    <table class="ui five column celled table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>级别名称</th>
+        <th>级别规则</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      @each(level in levelData)
+      <tr>
+        <td>{{level.ni_id}}</td>
+        <td>{{level.level_name}}</td>
+        <td>{{level.role_name}}</td>
+        <td>
+          <a href="/manager/levelEdit/{{level.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+          <a href="/manager/levelDestroy/{{level.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+        </td>
+      </tr>
+      @endeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@endsection

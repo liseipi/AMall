@@ -1,0 +1,68 @@
+@layout('layout')
+@section('content')
+
+<div class="ui container">
+  <div class="main">
+    <h3 class="ui dividing header">增加会员级别</h3>
+    <form class="ui form" action="/member/levelEdit/{{levelInfo.ni_id}}" method="post">
+      {{ csrfField() }}
+
+      @!component('components.form.input', {
+      label: '级别名称',
+      name: 'level_name',
+      value: levelInfo.level_name,
+      placeholder: '填写级别名称',
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
+      @!component('components.form.input', {
+      label: '最少成功订单量',
+      name: 'min_order',
+      value: levelInfo.min_order,
+      placeholder: '填写级别订单量',
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
+      @!component('components.form.input', {
+      label: '最小交易金额',
+      name: 'min_amount',
+      value: levelInfo.min_amount,
+      placeholder: '填写级别交易金额',
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
+      @!component('components.form.input', {
+      label: '最小交易积分',
+      name: 'min_points',
+      value: levelInfo.min_points,
+      placeholder: '填写级别积分',
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
+      @!component('components.form.textarea', {
+      label: '备注',
+      name: 'level_note',
+      value: levelInfo.level_note,
+      placeholder: '填写备注',
+      rows: 3,
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
+      <div class="ui divider"></div>
+      <input type="submit" value="提交" class="ui big blue button">
+
+    </form>
+  </div>
+</div>
+
+@endsection
