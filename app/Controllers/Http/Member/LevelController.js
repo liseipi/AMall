@@ -63,7 +63,7 @@ class LevelController {
     }
   }
 
-  async destroy() {
+  async destroy({params: {id}, response, session}) {
 
   }
 

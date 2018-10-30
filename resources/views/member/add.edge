@@ -109,19 +109,16 @@
                 old
                 })
               </div>
+
               @!component('components.form.select', {
               selectClassName: 'selectRole',
               label: '会员级别',
               name: 'level',
-              items: roles,
+              items: levelData,
               value_field: 'ni_id',
-              name_field: 'role_name',
-              defaultFirst: {
-                value: 0,
-                name: '无级别'
-              },
+              name_field: 'level_name',
               disabled: false,
-              defaultOption: 0,
+              defaultOption: 1,
               disabledOption: 'A',
               getErrorFor,
               hasErrorFor,

@@ -18,10 +18,15 @@
       <tr>
         <td>{{level.ni_id}}</td>
         <td>{{level.level_name}}</td>
-        <td>{{level.role_name}}</td>
         <td>
-          <a href="/manager/levelEdit/{{level.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
-          <a href="/manager/levelDestroy/{{level.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+          <p>订单数量：{{level.min_order}}</p>
+          <p>订单金额：{{level.min_amount}}</p>
+          <p>积分：{{level.min_points}}</p>
+        </td>
+        <td>
+          <a href="/member/levelEdit/{{level.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
+          <a href="/member/levelDestroy/{{level.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i
+            class="trash alternate icon"></i> 删除</a>
         </td>
       </tr>
       @endeach

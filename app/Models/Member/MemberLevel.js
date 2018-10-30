@@ -2,11 +2,11 @@
 
 const Model = use('Model')
 
-class Profile extends Model {
+class MemberLevel extends Model {
 
   //设置表名
   static get table() {
-    return 'ni_member_profile'
+    return 'ni_member_relations_level'
   }
 
   //设置表主键为ni_id
@@ -14,10 +14,6 @@ class Profile extends Model {
     return 'ni_id'
   }
 
-  member() {
-    return this.belongsTo('App/Models/Member/Member')
-  }
-
 }
 
-module.exports = Profile
+module.exports = MemberLevel

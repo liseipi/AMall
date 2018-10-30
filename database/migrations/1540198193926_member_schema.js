@@ -9,7 +9,6 @@ class MemberSchema extends Schema {
       table.string('username').notNullable().unique().comment('会员名称')
       table.string('password').notNullable().comment('密码')
       table.string('email').notNullable().unique().comment('邮箱')
-      table.bigInteger('mobile').unique().comment('手机')
       table.timestamps()
     })
   }
