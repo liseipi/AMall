@@ -42,6 +42,24 @@
           hasErrorFor,
           old
           })
+          @!component('components.form.select', {
+          className: 'inline',
+          selectClassName: '',
+          label: '会员等级',
+          name: 'level_id',
+          items: levelData,
+          value_field: 'ni_id',
+          name_field: 'level_name',
+          defaultFirst: {
+            value: -1,
+            name: '所有等级'
+          },
+          defaultOption: query.level_id||-1,
+          disabled: false,
+          getErrorFor,
+          hasErrorFor,
+          old
+          })
           @!component('components.form.input', {
           className: 'inline',
           label: '关键字',
@@ -68,50 +86,62 @@
       </tr>
       </thead>
       <tbody>
-      @each(item in articleItem.data)
+      @each(item in memberData.data)
       <tr>
         <td class="center aligned">{{item.ni_id}}</td>
-        <td>{{item.title}}</td>
-        <td class="center aligned">{{item.category.column_name}}</td>
         <td>
-          状态：<span class="ui black circular label">{{item.status==0?'显示':'下线'}}</span>
-          <div class="ui divider"></div>
-          类型：
-          @each(type in item.types)
-          <span class="ui red horizontal label">{{type.type_name}}</span>
-          @elseeach
-          无
-          @endeach
-          <div class="ui divider"></div>
-          标签：
-          @each(label in item.labels)
-          <span class="ui blue horizontal label">{{label.label_name}}</span>
-          @elseeach
-          无
-          @endeach
-        </td>
-        <td class="two wide center aligned">
-          <div class="ui center aligned">
-            @if(item.sort)
-            <span class="ui circular label">{{item.sort}}</span>
-            @else
-            最顶
-            @endif
-            @if(item.sort)
-            <a href="/article/sort/{{item.ni_id}}}?type=top" data-csrf="{{csrfToken}}" class="ui mini green button articleSort">置顶</a>
-            @endif
-          </div>
-          <div class="ui divider"></div>
-          @if(item.sort)
-          <a href="/article/sort/{{item.ni_id}}}?type=plus" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle up icon"></i></a>
-          @endif
-          <a href="/article/sort/{{item.ni_id}}}?type=less" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle down icon"></i></a>
+          <p>名称：{{item.username}}</p>
+          <p>邮箱：{{item.email}}</p>
+          <p>手机：{{item.profile.mobile}}</p>
+          <p>等级：{{item.level.level_id}}</p>
         </td>
         <td class="center aligned">
-          <a href="/article/edit/{{item.ni_id}}" class="ui mini blue button"><i
-            class="edit icon"></i> 编辑</a>
-          <a href="/article/destroy/{{item.ni_id}}" data-csrf="{{csrfToken}}"
-             class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+          <p>用户状态：
+          @if(item.profile.status==0)
+            <i class="circular mini inverted teal check icon"></i>
+          @else
+            <i class="circular mini inverted red close icon"></i>
+          @endif
+          </p>
+          <p>手机验证：
+            @if(item.profile.is_verify_mobile)
+            <i class="circular mini inverted teal check icon"></i>
+            @else
+            <i class="circular mini inverted red close icon"></i>
+            @endif
+          </p>
+          <p>邮箱验证：
+            @if(item.profile.is_verify_email)
+            <i class="circular mini inverted teal check icon"></i>
+            @else
+            <i class="circular mini inverted red close icon"></i>
+            @endif
+          </p>
+        </td>
+        <td>
+          <div class="ui center aligned">
+            <p>总订单：</p>
+            <p>未付款：</p>
+            <p>处理中：</p>
+          </div>
+          <div class="ui divider"></div>
+          <p class="ui center aligned">收货地址库：5</p>
+        </td>
+        <td class="center aligned">
+          <div class="ui center aligned">
+            <p>评论文章：</p>
+            <p>文章总评数：</p>
+            <div class="ui divider"></div>
+            <p>评论商品：</p>
+            <p>商品总评数：</p>
+          </div>
+        </td>
+        <td class="center aligned">
+          <a href="#" class="ui mini grey button"><i class="cart icon"></i>订单</a>
+          <a href="#" class="ui mini brown button"><i class="home icon"></i>地址</a>
+          <div class="ui divider"></div>
+          <a href="#" class="ui mini blue button">文章评论</a>
+          <a href="#" class="ui mini blue button">商品评论</a>
         </td>
       </tr>
       @endeach
@@ -120,7 +150,7 @@
     <div class="ui divider"></div>
     <div class="ui center aligned container pages-bottom">
       <div id="pages" class="ui large pagination menu"></div>
-      <div class="ui list"><span>共有 {{articleItem.total}} 条文章，{{articleItem.page}}/{{articleItem.lastPage}}页</span></div>
+      <div class="ui list"><span>共有 {{memberData.total}} 条文章，{{memberData.page}}/{{memberData.lastPage}}页</span></div>
     </div>
     <style>
       .pages-bottom{
@@ -138,10 +168,10 @@
 
 <script>
   var query = {{{toJSON(query)}}};
-  var lastPage = {{articleItem.lastPage}} || 0;
-  var page = {{articleItem.page}} || 1;
+  var lastPage = {{memberData.lastPage}} || 0;
+  var page = {{memberData.page}} || 1;
 </script>
 
-{{ script('js/app/article_list') }}
+{{ script('js/app/member_list') }}
 
 @endsection
