@@ -82,7 +82,7 @@
             最顶
             @endif
             @if(item.sort)
-            <a href="/article/sort/{{item.ni_id}}}?type=top" data-csrf="{{csrfToken}}" class="ui mini green button articleSort">置顶</a>
+            <a href="/article/sort/{{item.ni_id}}}?type=top" data-csrf="{{csrfToken}}" class="ui mini compact green button articleSort">置顶</a>
             @endif
           </div>
           <div class="ui divider"></div>
@@ -92,10 +92,12 @@
           <a href="/article/sort/{{item.ni_id}}}?type=less" data-csrf="{{csrfToken}}" class="articleSort"><i class="arrow large circle down icon"></i></a>
         </td>
         <td class="center aligned">
-          <a href="/article/edit/{{item.ni_id}}" class="ui mini blue button"><i
+          <a href="/article/edit/{{item.ni_id}}" class="ui mini compact blue button"><i
             class="edit icon"></i> 编辑</a>
           <a href="/article/destroy/{{item.ni_id}}" data-csrf="{{csrfToken}}"
-             class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+             class="ui mini compact red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
+          <div class="ui divider"></div>
+          <a href="/article/comment/{{item.ni_id}}" class="ui mini compact button"><i class="eye icon"></i>评论</a>
         </td>
       </tr>
       @endeach

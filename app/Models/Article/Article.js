@@ -15,7 +15,7 @@ class Article extends Model {
   }
 
   // 分类
-  category () {
+  category() {
     return this.belongsTo('App/Models/Article/Category')
   }
 
@@ -32,6 +32,14 @@ class Article extends Model {
     return this
       .belongsToMany('App/Models/Article/Label')
       .pivotTable('ni_article_relations_label')
+      .withTimestamps()
+  }
+
+  // 评论
+  comment() {
+    return this
+      .belongsToMany('App/Models/Article/Comment')
+      .pivotTable('ni_article_comment')
       .withTimestamps()
   }
 
