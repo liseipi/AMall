@@ -103,4 +103,10 @@
       height: 100%;
       overflow: hidden; }
 
+#pages input {
+  width: 60px;
+  text-align: center;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
 /*# sourceMappingURL=common.css.map */

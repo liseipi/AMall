@@ -43,6 +43,14 @@ class Article extends Model {
       .withTimestamps()
   }
 
+  // 管理员
+  user() {
+    return this
+      .belongsTo('App/Models/User')
+  }
+
+
+
 }
 
 module.exports = Article

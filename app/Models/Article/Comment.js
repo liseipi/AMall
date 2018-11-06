@@ -12,6 +12,11 @@ class Comment extends Model {
   static get primaryKey() {
     return 'ni_id'
   }
+
+  // 会员
+  member() {
+    return this.belongsTo('App/Models/Member/Member')
+  }
 }
 
 module.exports = Comment

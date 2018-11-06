@@ -18,6 +18,7 @@ class MemberProfileSchema extends Schema {
       table.string('verify_send_code').comment('发送的验证码')
       table.string('verify_send_number').comment('连续发送的次数')
       table.string('verify_send_time').comment('上次发送的时间')
+      table.integer('comment_state').defaultTo(0).comment('用户文章评论状：开启/禁用')
       table.integer('access_count').defaultTo(0).comment('登录次数')
       table.integer('source').defaultTo(0).comment('注册来源')
       table.integer('device').defaultTo(0).comment('注册终端设备(0:PC)(1:Mobile)(2:APP)')

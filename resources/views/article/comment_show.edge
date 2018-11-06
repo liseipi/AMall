@@ -1,0 +1,95 @@
+@layout('layout')
+@section('content')
+
+<style>
+  .ui.header ~ .comment {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+
+</style>
+
+<div class="ui container">
+  <div class="main">
+    {{ toJSON(article) }}
+    {{ toJSON(commentData) }}
+    <h3 class="ui dividing header">文章评论</h3>
+    <h1 class="ui center aligned dividing header">{{ article.title }}</h1>
+    <div class="sub header">
+      发布作者：{{ user.username }}
+      <span class="ui right floated statistic">发布时间：{{ article.created_at }}</span>
+    </div>
+
+    <div class="ui comments segment container">
+      <h3 class="ui dividing header">用户评论</h3>
+      <div class="comment">
+        <a class="avatar">
+          <img src="/images/avatar/small/elliot.jpg">
+        </a>
+        <div class="content">
+          <a class="author">Elliot Fu</a>
+          <div class="metadata">
+            <span class="date">昨天上午12:30</span>
+          </div>
+          <div class="text">
+            <p>這對我的研究是非常有用.謝謝!</p>
+          </div>
+          <div class="buttons">
+            <a class="ui button black compact">禁止</a>
+          </div>
+        </div>
+        <div class="comments">
+          <div class="comment">
+            <a class="avatar">
+              <img src="/images/avatar/small/jenny.jpg">
+            </a>
+            <div class="content">
+              <a class="author">Jenny Hess</a>
+              <div class="metadata">
+                <span class="date">刚刚</span>
+              </div>
+              <div class="text">艾略特你永远是多么正确 :)</div>
+              <div class="buttons">
+                <a class="ui button black compact">禁止</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @each(comment in commentData.data)
+      <div class="comment">
+        <a class="avatar">
+          <img src="/images/avatar/small/joe.jpg">
+        </a>
+        <div class="content">
+          <a class="author">Joe Henderson</a>
+          <div class="metadata">
+            <span class="date">5 天以前</span>
+          </div>
+          <span class="ui right floated statistic">广州市 IP：121.23.45.234</span>
+          <div class="text">老兄，这太棒了。非常感谢。</div>
+          <div class="buttons">
+            <a class="ui button black compact">禁止</a>
+          </div>
+        </div>
+      </div>
+      @endeach
+    </div>
+
+    <div class="ui divider"></div>
+    <div class="ui center aligned container pages-bottom">
+      <div id="pages" class="ui large pagination menu"></div>
+      <div class="ui list"><span>共有 {{commentData.total}} 条文章，{{commentData.page}}/{{commentData.lastPage}}页</span></div>
+    </div>
+
+  </div>
+
+  <script>
+    var query = {{{toJSON(query)}}};
+    var lastPage = {{commentData.lastPage}} || 0;
+    var page = {{commentData.page}} || 1;
+  </script>
+
+  {{ script('js/app/member_list') }}
+
+@endsection

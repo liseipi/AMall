@@ -21,7 +21,13 @@
         <th width="15%"><i class="list alternate outline icon"></i></th>
         <th width="25%">{{menu.menu_name}}</th>
         <th width="25%">{{menu.controller}}</th>
-        <th width="15%">{{menu.runStatus==0?'前台显示':'后台处理'}}</th>
+        <th width="15%">
+          @if(menu.run_status==0)
+          <span class="ui label">前台显示</span>
+          @else
+          <span class="ui black label">后台处理</span>
+          @endif
+        </th>
         <th>
           <a href="/menu/edit/{{menu.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
           <a href="/menu/destroy/{{menu.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
@@ -34,7 +40,13 @@
         <td width="15%">{{{'&nbsp;&nbsp;'.repeat(menu.level_id)}}}&brvbar;&ndash;</td>
         <td width="25%">{{menu.menu_name}}</td>
         <td width="25%">{{menu.controller}}</td>
-        <td width="15%">{{menu.runStatus==0?'前台显示':'后台处理'}}</td>
+        <td width="15%">
+          @if(menu.run_status==0)
+          <span class="ui label">前台显示</span>
+          @else
+          <span class="ui black label">后台处理</span>
+          @endif
+        </td>
         <td>
           <a href="/menu/edit/{{menu.ni_id}}" class="ui mini blue button"><i class="edit icon"></i> 编辑</a>
           <a href="/menu/destroy/{{menu.ni_id}}" data-csrf="{{csrfToken}}" class="ui mini red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>

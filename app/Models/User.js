@@ -30,6 +30,12 @@ class User extends Model {
       .pivotTable('ni_admin_role')
   }
 
+  // 文章
+  article() {
+    return this
+      .hasMany('App/Models/Article/Article')
+  }
+
   static boot() {
     super.boot()
 
