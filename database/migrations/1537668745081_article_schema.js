@@ -6,11 +6,11 @@ class ArticleSchema extends Schema {
   up () {
     this.create('ni_article', (table) => {
       table.increments('ni_id')
-      table.integer('category_id').notNullable().unsigned().comment('分类栏目ID')
+      table.integer('category_id').unsigned().index().comment('分类栏目ID')
       table.foreign('category_id').references('ni_article_category.ni_id')
       table.string('title').notNullable().comment('文章标题')
       table.string('vice_title').comment('文章副标题')
-      table.integer('author').unsigned().index().comment('文章作者')
+      table.integer('author').unsigned().index().comment('文章作者-管理员')
       table.foreign('author').references('ni_admin_user.ni_id')
       table.boolean('status').defaultTo(0).comment('状态：(0=显示，1=下线)')
       table.integer('source').comment('文章来源: (1=站内原创，2=改编，3=采集， 4=爬虫)')

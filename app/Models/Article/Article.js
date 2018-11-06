@@ -35,18 +35,25 @@ class Article extends Model {
       .withTimestamps()
   }
 
+  // 管理员
+  user () {
+    return this.belongsTo('App/Models/User')
+  }
+
+  // 会员用户
+  member(){
+    return this
+      .belongsToMany('App/Models/Member/Member')
+      .pivotTable('ni_member')
+      //.withTimestamps()
+  }
+
   // 评论
   comment() {
     return this
       .belongsToMany('App/Models/Article/Comment')
       .pivotTable('ni_article_comment')
       .withTimestamps()
-  }
-
-  // 管理员
-  user() {
-    return this
-      .belongsTo('App/Models/User')
   }
 
 

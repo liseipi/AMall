@@ -23,14 +23,15 @@ class CommentController {
     const article = await Article
       .query()
       .select('ni_id', 'title', 'author', 'created_at')
-      .with('user', builder => {
-        builder.select('username')
-      })
       .firstOrFail(id)
 
+    const userArticle = await article.user().fetch()
+
+    console.log(article.toJSON())
+    console.log(userArticle)
 
     return view.render('article.comment_show', {
-      article: article.toJSON(),
+      //article: article.toJSON(),
       //user: user.toJSON(),
       //commentData: commentData.toJSON(),
       query

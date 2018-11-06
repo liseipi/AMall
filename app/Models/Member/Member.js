@@ -4,17 +4,17 @@ const Model = use('Model')
 
 class Member extends Model {
 
-  //设置表名
+  // 设置表名
   static get table() {
     return 'ni_member'
   }
 
-  //设置表主键为ni_id
+  // 设置表主键为ni_id
   static get primaryKey() {
     return 'ni_id'
   }
 
-  //判断会员是否有详细信息
+  // 判断会员是否有详细信息
   async hasProfile() {
     const profile = await this.profile().fetch()
     if (!profile) {
@@ -29,7 +29,7 @@ class Member extends Model {
     //.withTimestamps()
   }
 
-  //判断会员是否有级别
+  // 判断会员是否有级别
   async hasLevel() {
     const profile = await this.level().fetch()
     if (!profile) {

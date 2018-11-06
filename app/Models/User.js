@@ -32,8 +32,7 @@ class User extends Model {
 
   // 文章
   article() {
-    return this
-      .hasMany('App/Models/Article/Article')
+    return this.hasMany('App/Models/Article/Article')
   }
 
   static boot() {

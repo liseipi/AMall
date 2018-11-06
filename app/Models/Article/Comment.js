@@ -13,6 +13,11 @@ class Comment extends Model {
     return 'ni_id'
   }
 
+  // 文章
+  article() {
+    return this.belongsTo('App/Models/Article/Article')
+  }
+
   // 会员
   member() {
     return this.belongsTo('App/Models/Member/Member')
