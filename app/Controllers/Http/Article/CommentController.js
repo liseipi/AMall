@@ -2,8 +2,6 @@
 
 const Article = use('App/Models/Article/Article')
 const Comment = use('App/Models/Article/Comment')
-const User = use('App/Models/User')
-const Member = use('App/Models/Member/Member')
 
 class CommentController {
 
@@ -12,28 +10,34 @@ class CommentController {
     const page = query.page || 1
     const perPage = 20
 
-    // const article = await Article.query().select('ni_id', 'title', 'author', 'created_at').firstOrFail(id)
-    // const articleData = article.toJSON()
-    // const user = await User.query().select('ni_id', 'username').firstOrFail(articleData.author)
-    // const commentData = await Comment
-    //   .query()
-    //   .where('article_id', articleData.ni_id)
-    //   .paginate()
-
     const article = await Article
       .query()
-      .select('ni_id', 'title', 'author', 'created_at')
+      .select('ni_id', 'title', 'user_id', 'created_at')
+      .with('user', builder => {
+        builder.select('ni_id', 'username')
+      })
       .firstOrFail(id)
 
-    const userArticle = await article.user().fetch()
+    // const articleUser = await article
+    //   .user()
+    //   .select('username')
+    //   .fetch()
 
-    console.log(article.toJSON())
-    console.log(userArticle)
+    const comment = await Comment
+      .query()
+      .where('article_id', id)
+      .where('parent_comment_id', 0)
+      .with('member', builder => {
+        builder.select('ni_id', 'username')
+          .with('profile', builder => {
+            builder.select('member_id', 'avatar')
+          })
+      })
+      .paginate(page, perPage)
 
     return view.render('article.comment_show', {
-      //article: article.toJSON(),
-      //user: user.toJSON(),
-      //commentData: commentData.toJSON(),
+      article: article.toJSON(),
+      comment: comment.toJSON(),
       query
     })
   }

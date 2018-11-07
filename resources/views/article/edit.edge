@@ -122,11 +122,11 @@
       @!component('components.form.radio', {
         className: 'inline',
         label: '文章作者',
-        name: 'author',
+        name: 'user_id',
         items: UserItem,
         value_field: 'ni_id',
         name_field: 'username',
-        defaultOption: articleInfo.author,
+        defaultOption: articleInfo.user_id,
         disabledOption: [],
         disabled: !isAdmin,
         getErrorFor,

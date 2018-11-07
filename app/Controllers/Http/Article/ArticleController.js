@@ -164,7 +164,7 @@ class ArticleController {
     const isAdmin = await auth.user.is(['admin'])
     const UserItem = await User.query().select('ni_id', 'username').where(builder => {
       if (!isAdmin) {
-        builder.whereIn('ni_id', [auth.user.ni_id, articleInfo.toJSON().author])
+        builder.whereIn('ni_id', [auth.user.ni_id, articleInfo.toJSON().user_id])
       }
     }).fetch()
 

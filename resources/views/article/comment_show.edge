@@ -11,12 +11,11 @@
 
 <div class="ui container">
   <div class="main">
-    {{ toJSON(article) }}
-    {{ toJSON(commentData) }}
+    {{ toJSON(comment) }}
     <h3 class="ui dividing header">文章评论</h3>
     <h1 class="ui center aligned dividing header">{{ article.title }}</h1>
     <div class="sub header">
-      发布作者：{{ user.username }}
+      发布作者：{{ article.user.username }}
       <span class="ui right floated statistic">发布时间：{{ article.created_at }}</span>
     </div>
 
@@ -56,18 +55,24 @@
           </div>
         </div>
       </div>
-      @each(comment in commentData.data)
+      @each(comment in comment.data)
       <div class="comment">
         <a class="avatar">
-          <img src="/images/avatar/small/joe.jpg">
+          <img src="{{ comment.profile.avatar }}">
         </a>
         <div class="content">
-          <a class="author">Joe Henderson</a>
+          <a class="author">{{ comment.member.username }}</a>
           <div class="metadata">
             <span class="date">5 天以前</span>
           </div>
-          <span class="ui right floated statistic">广州市 IP：121.23.45.234</span>
-          <div class="text">老兄，这太棒了。非常感谢。</div>
+          <span class="ui right floated statistic">广州市 IP：{{ comment.member_ip }}</span>
+          <div class="text">
+            @if(comment.current_comment_state==1)
+            <del>{{ comment.content }}</del>
+            @else
+            {{ comment.content }}
+            @endif
+          </div>
           <div class="buttons">
             <a class="ui button black compact">禁止</a>
           </div>
@@ -79,15 +84,15 @@
     <div class="ui divider"></div>
     <div class="ui center aligned container pages-bottom">
       <div id="pages" class="ui large pagination menu"></div>
-      <div class="ui list"><span>共有 {{commentData.total}} 条文章，{{commentData.page}}/{{commentData.lastPage}}页</span></div>
+      <div class="ui list"><span>共有 {{comment.total}} 条文章，{{comment.page}}/{{comment.lastPage}}页</span></div>
     </div>
 
   </div>
 
   <script>
     var query = {{{toJSON(query)}}};
-    var lastPage = {{commentData.lastPage}} || 0;
-    var page = {{commentData.page}} || 1;
+    var lastPage = {{comment.lastPage}} || 0;
+    var page = {{comment.page}} || 1;
   </script>
 
   {{ script('js/app/member_list') }}
