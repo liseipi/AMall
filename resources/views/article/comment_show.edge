@@ -11,7 +11,9 @@
 
 <div class="ui container">
   <div class="main">
-    {{ toJSON(comment) }}
+    <pre>
+      {{ toJSON(comment) }}
+    </pre>
     <h3 class="ui dividing header">文章评论</h3>
     <h1 class="ui center aligned dividing header">{{ article.title }}</h1>
     <div class="sub header">

@@ -22,6 +22,11 @@ class Comment extends Model {
   member() {
     return this.belongsTo('App/Models/Member/Member')
   }
+
+  // 回复层/回复ID
+  reply(){
+    return this.hasMany('App/Models/Article/Reply')
+  }
 }
 
 module.exports = Comment

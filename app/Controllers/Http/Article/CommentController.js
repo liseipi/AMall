@@ -26,13 +26,20 @@ class CommentController {
     const comment = await Comment
       .query()
       .where('article_id', id)
-      .where('parent_comment_id', 0)
+      .where('this_parent_comment_id', 0)
       .with('member', builder => {
         builder.select('ni_id', 'username')
           .with('profile', builder => {
             builder.select('member_id', 'avatar')
           })
       })
+      .withCount('reply')
+      .with('reply', builder => {
+        builder.select('comment_id', 'reply_id').with('comment', builder => {
+          builder.where('ni_id', 1)
+        })
+      })
+      //.with('reply.comment')
       .paginate(page, perPage)
 
     return view.render('article.comment_show', {
