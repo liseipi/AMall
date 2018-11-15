@@ -2,6 +2,7 @@ require.config({
   baseUrl: '/js/',
   paths: {
     'libs': 'libs',
+    'public': 'public',
     'components': './semantic/components',
     'jquery': 'libs/jquery-3.3.1.min',
     'lozad': 'libs/lozad.min',
@@ -115,10 +116,9 @@ require(['pace', 'semantic', 'lozad', 'swal'], function (pace, semantic, lozad, 
     });
     //END - 单个选择上传方式
 
-  })
+  });
 
-
-})
+});
 
 
 

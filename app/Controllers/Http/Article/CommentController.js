@@ -16,17 +16,12 @@ class CommentController {
       .with('user', builder => {
         builder.select('ni_id', 'username')
       })
+      .withCount('like')
       .firstOrFail(id)
-
-    // const articleUser = await article
-    //   .user()
-    //   .select('username')
-    //   .fetch()
 
     const comment = await Comment
       .query()
       .where('article_id', id)
-      .where('this_parent_comment_id', 0)
       .with('member', builder => {
         builder.select('ni_id', 'username')
           .with('profile', builder => {
@@ -34,12 +29,17 @@ class CommentController {
           })
       })
       .withCount('reply')
+      .withCount('like')
       .with('reply', builder => {
-        builder.select('comment_id', 'reply_id').with('comment', builder => {
-          builder.where('ni_id', 1)
-        })
+        builder
+          .withCount('like')
+          .with('member', builder => {
+            builder.select('ni_id', 'username')
+              .with('profile', builder => {
+                builder.select('member_id', 'avatar')
+              })
+          })
       })
-      //.with('reply.comment')
       .paginate(page, perPage)
 
     return view.render('article.comment_show', {

@@ -12,6 +12,9 @@
 <div class="ui container">
   <div class="main">
     <pre>
+      {{ toJSON(article) }}
+    </pre>
+    <pre>
       {{ toJSON(comment) }}
     </pre>
     <h3 class="ui dividing header">文章评论</h3>
@@ -23,40 +26,6 @@
 
     <div class="ui comments segment container">
       <h3 class="ui dividing header">用户评论</h3>
-      <div class="comment">
-        <a class="avatar">
-          <img src="/images/avatar/small/elliot.jpg">
-        </a>
-        <div class="content">
-          <a class="author">Elliot Fu</a>
-          <div class="metadata">
-            <span class="date">昨天上午12:30</span>
-          </div>
-          <div class="text">
-            <p>這對我的研究是非常有用.謝謝!</p>
-          </div>
-          <div class="buttons">
-            <a class="ui button black compact">禁止</a>
-          </div>
-        </div>
-        <div class="comments">
-          <div class="comment">
-            <a class="avatar">
-              <img src="/images/avatar/small/jenny.jpg">
-            </a>
-            <div class="content">
-              <a class="author">Jenny Hess</a>
-              <div class="metadata">
-                <span class="date">刚刚</span>
-              </div>
-              <div class="text">艾略特你永远是多么正确 :)</div>
-              <div class="buttons">
-                <a class="ui button black compact">禁止</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       @each(comment in comment.data)
       <div class="comment">
         <a class="avatar">
@@ -65,9 +34,9 @@
         <div class="content">
           <a class="author">{{ comment.member.username }}</a>
           <div class="metadata">
-            <span class="date">5 天以前</span>
+            <span class="date">{{ comment.updated_at }}</span>
           </div>
-          <span class="ui right floated statistic">广州市 IP：{{ comment.member_ip }}</span>
+          <span class="ui right floated statistic user_ip" data-ip="{{ comment.member_ip }}"><sub>[广州市]</sub> {{ comment.member_ip }}</span>
           <div class="text">
             @if(comment.current_comment_state==1)
             <del>{{ comment.content }}</del>
@@ -79,6 +48,34 @@
             <a class="ui button black compact">禁止</a>
           </div>
         </div>
+        @if(comment.reply)
+        @each(reply in comment.reply)
+        <div class="comments">
+          <div class="comment">
+            <a class="avatar">
+              <img src="/images/avatar/small/jenny.jpg">
+            </a>
+            <div class="content">
+              <a class="author">{{ reply.member.username }}</a>
+              <div class="metadata">
+                <span class="date">{{ reply.updated_at }}</span>
+              </div>
+              <span class="ui right floated statistic user_ip" data-ip="{{ reply.member_ip }}"><i>[广州市]</i> {{ reply.member_ip }}</span>
+              <div class="text">
+                @if(reply.current_comment_state==1)
+                <del>{{ reply.content }}</del>
+                @else
+                {{ reply.content }}
+                @endif
+              </div>
+              <div class="buttons">
+                <a class="ui button black compact">禁止</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endeach
+        @endif
       </div>
       @endeach
     </div>
@@ -97,6 +94,6 @@
     var page = {{comment.page}} || 1;
   </script>
 
-  {{ script('js/app/member_list') }}
+  {{ script('js/app/comment_show') }}
 
 @endsection

@@ -36,7 +36,7 @@ class Article extends Model {
   }
 
   // 管理员
-  user () {
+  user() {
     return this.belongsTo('App/Models/User')
   }
 
@@ -45,9 +45,14 @@ class Article extends Model {
     return this
       .belongsToMany('App/Models/Article/Comment')
       .pivotTable('ni_article_comment')
-      //.withTimestamps()
+    //.withTimestamps()
   }
 
+  // 点赞
+  like() {
+    return this
+      .hasMany('App/Models/Article/Like')
+  }
 
 
 }
