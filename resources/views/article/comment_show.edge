@@ -11,12 +11,6 @@
 
 <div class="ui container">
   <div class="main">
-    <pre>
-      {{ toJSON(article) }}
-    </pre>
-    <pre>
-      {{ toJSON(comment) }}
-    </pre>
     <h3 class="ui dividing header">文章评论</h3>
     <h1 class="ui center aligned dividing header">{{ article.title }}</h1>
     <div class="sub header">
@@ -36,7 +30,7 @@
           <div class="metadata">
             <span class="date">{{ comment.updated_at }}</span>
           </div>
-          <span class="ui right floated statistic user_ip" data-ip="{{ comment.member_ip }}"><sub>[广州市]</sub> {{ comment.member_ip }}</span>
+          <div class="ui right floated shape statistic user_ip" data-ip="{{ comment.member_ip }}"><span></span> {{ comment.member_ip }}</div>
           <div class="text">
             @if(comment.current_comment_state==1)
             <del>{{ comment.content }}</del>
@@ -60,7 +54,7 @@
               <div class="metadata">
                 <span class="date">{{ reply.updated_at }}</span>
               </div>
-              <span class="ui right floated statistic user_ip" data-ip="{{ reply.member_ip }}"><i>[广州市]</i> {{ reply.member_ip }}</span>
+              <div class="ui right floated statistic shape user_ip" data-ip="{{ reply.member_ip }}"><span></span> {{ reply.member_ip }}</div>
               <div class="text">
                 @if(reply.current_comment_state==1)
                 <del>{{ reply.content }}</del>

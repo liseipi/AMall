@@ -3,16 +3,16 @@ require(['main'], function () {
 
     $(".user_ip").each(function (k, v) {
       var ip = $(this).data('ip');
+      var _this = $(this);
       if (public.isValidIP(ip)) {
         $.ajax({
-          type: "options",
-          // dataType: "jsonp",
-          // jsonp: "callback",
-          // jsonpCallback: "success_jsonpCallback",
-          // url: "https://ip.ws.126.net/ipquery?ip=119.130.70.55",
-          url: "http://ip.taobao.com/service/getIpInfo.php?ip=119.130.70.55",
-          success: function (res) {
-            console.log(res)
+          url: 'http://api.map.baidu.com/location/ip?ip=' + ip + '&ak=ID1G8fGMKeX80k6QH3NpYtDGyGwEnDh6',
+          type: 'POST',
+          dataType: 'jsonp',
+          success: function (data) {
+            if (data.status == 0) {
+              _this.children("span").html("[" + data.content.address + "]");
+            }
           }
         });
       }
