@@ -97,7 +97,10 @@
           <a href="/article/destroy/{{item.ni_id}}" data-csrf="{{csrfToken}}"
              class="ui mini compact red button destroyConfirm"> <i class="trash alternate icon"></i> 删除</a>
           <div class="ui divider"></div>
-          <a href="/article/comment/{{item.ni_id}}" class="ui mini compact button"><i class="eye icon"></i>评论</a>
+          @if(item.comment_status==1)
+          <span class="ui red label">禁评中</span>
+          @endif
+          <a href="/article/comment/{{item.ni_id}}" class="ui mini compact button"><i class="eye icon"></i>查看评论</a>
         </td>
       </tr>
       @endeach

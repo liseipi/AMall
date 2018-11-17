@@ -68,8 +68,11 @@ Route.group(() => {
   Route.post('/article/edit/:id', 'Article/ArticleController.EditSave').validator('article')
   Route.delete('/article/destroy/:id', 'Article/ArticleController.Destroy')
   Route.put('/article/sort/:id', 'Article/ArticleController.Sort')
-  //评论
+  //文章评论列表
   Route.get('/article/comment/:id', 'Article/CommentController.show')
+  //禁止评论
+  Route.get('/article/ban/:id', 'Article/BanController.comment')
+
 
   //管理员栏目
   //--角色

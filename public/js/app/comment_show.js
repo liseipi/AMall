@@ -1,5 +1,28 @@
 require(['main'], function () {
-  require(['semantic', 'public', 'jquery'], function (semantic, public, $) {
+  require(['semantic', 'public', 'jquery', 'pagination'], function (semantic, public, $) {
+
+    $(function () {
+      //分页
+      $('#pages').pagination({
+        pageCount: lastPage,
+        current: page,
+        jump: true,
+        coping: true,
+        count: 7,
+        // mode: 'fixed',
+        homePage: '<i class="fast backward icon"></i>',
+        endPage: '<i class="fast forward icon"></i>',
+        prevContent: '<i class="chevron left icon"></i>',
+        nextContent: '<i class="chevron right icon"></i>',
+        callback: function (api) {
+          //console.log(api.getCurrent())
+          query.page = api.getCurrent()
+          var url = '/article/list?' + $.param(query);
+          window.location.href = url;
+        }
+      });
+
+    });
 
     $(".user_ip").each(function (k, v) {
       var ip = $(this).data('ip');

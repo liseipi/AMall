@@ -74,6 +74,29 @@
       old
       })
 
+      @!component('components.form.radio', {
+      className: 'inline',
+      label: '开启评论',
+      name: 'comment_status',
+      items: [
+      {
+      value: 0,
+      option: '评论'
+      },
+      {
+      value: 1,
+      option: '禁评'
+      }
+      ],
+      value_field: 'value',
+      name_field: 'option',
+      defaultOption: 0,
+      disabledOption: [],
+      getErrorFor,
+      hasErrorFor,
+      old
+      })
+
       @!component('components.form.input', {
       className: '',
       label: '排序',

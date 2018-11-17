@@ -166,6 +166,28 @@
                 })
               </div>
 
+              <div class="field">
+                @!component('components.form.radio', {
+                className: 'inline',
+                label: '用户开启评论',
+                name: 'comment_state',
+                items: [{
+                value: 0,
+                label:'评论'
+                },{
+                value: 1,
+                label:'禁评'
+                }],
+                value_field: 'value',
+                name_field: 'label',
+                defaultOption: 0,
+                disabledOption: [],
+                getErrorFor,
+                hasErrorFor,
+                old
+                })
+              </div>
+
               <div class="ui divider"></div>
               <div class="ui error message"></div>
               <button class="ui blue submit button" type="submit"><i class="save icon"></i>提交保存</button>

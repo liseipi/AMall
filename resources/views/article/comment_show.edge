@@ -23,7 +23,11 @@
       @each(comment in comment.data)
       <div class="comment">
         <a class="avatar">
-          <img src="{{ comment.profile.avatar }}">
+          @if(comment.profile.avatar)
+          <img src="/images/image.png">
+          @else
+          <img src="/images/image.png">
+          @endif
         </a>
         <div class="content">
           <a class="author">{{ comment.member.username }}</a>
@@ -38,8 +42,8 @@
             {{ comment.content }}
             @endif
           </div>
-          <div class="buttons">
-            <a class="ui button black compact">禁止</a>
+          <div class="ban">
+            <a href="/article/ban/{{ comment.ni_id }}?type=comment" class="ui mini button compact {{ comment.current_comment_state==0 ? 'secondary' : 'red' }}">{{ comment.current_comment_state==0 ? "禁评" : "解禁" }}</a>
           </div>
         </div>
         @if(comment.reply)
@@ -47,7 +51,11 @@
         <div class="comments">
           <div class="comment">
             <a class="avatar">
-              <img src="/images/avatar/small/jenny.jpg">
+              @if(reply.profile.avatar)
+              <img src="/images/image.png">
+              @else
+              <img src="/images/image.png">
+              @endif
             </a>
             <div class="content">
               <a class="author">{{ reply.member.username }}</a>
@@ -62,8 +70,8 @@
                 {{ reply.content }}
                 @endif
               </div>
-              <div class="buttons">
-                <a class="ui button black compact">禁止</a>
+              <div class="ban">
+                <a href="/article/ban/{{ reply.ni_id }}?type=reply" class="ui mini button compact {{ reply.current_comment_state==0 ? 'secondary' : 'red' }}">{{ reply.current_comment_state==0 ? "禁评" : "解禁" }}</a>
               </div>
             </div>
           </div>

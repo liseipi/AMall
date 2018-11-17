@@ -30,7 +30,7 @@ class MenuSeeder {
       {ni_id:202,menu_name:"文章列表",parent_id:200,controller:"/article/list",run_status:0,menu_sort:100},
       {ni_id:203,menu_name:"编辑文章",parent_id:200,controller:"/article/edit/:id",run_status:1,menu_sort:100},
       {ni_id:204,menu_name:"删除文章",parent_id:200,controller:"/article/destroy/:id",run_status:1,menu_sort:100},
-      {ni_id:205,menu_name:"更新文章排序",parent_id:200,controller:"/article/sort/:id",run_status:1,menu_sort:100},
+      {ni_id:205,menu_name:"更新排序",parent_id:200,controller:"/article/sort/:id",run_status:1,menu_sort:100},
       {ni_id:206,menu_name:"增加栏目",parent_id:200,controller:"/article/categoryAdd",run_status:0,menu_sort:100},
       {ni_id:207,menu_name:"栏目列表",parent_id:200,controller:"/article/category",run_status:0,menu_sort:100},
       {ni_id:208,menu_name:"编辑栏目",parent_id:200,controller:"/article/categoryEdit/:id",run_status:1,menu_sort:100},
@@ -40,7 +40,8 @@ class MenuSeeder {
       {ni_id:212,menu_name:"编辑标签",parent_id:200,controller:"/article/labelEdit/:id",run_status:1,menu_sort:100},
       {ni_id:213,menu_name:"删除标签",parent_id:200,controller:"/article/labelDestroy/:id",run_status:1,menu_sort:100},
 
-      {ni_id:214,menu_name:"查看评论",parent_id:200,controller:"/article/comment/:id",run_status:1,menu_sort:100},
+      {ni_id:214,menu_name:"查看文章评论",parent_id:200,controller:"/article/comment/:id",run_status:1,menu_sort:100},
+      {ni_id:215,menu_name:"禁止文章评论",parent_id:200,controller:"/article/ban/:id",run_status:1,menu_sort:100},
 
       {ni_id:350,menu_name:"会员管理",parent_id:0,controller:"/member",run_status:0,menu_sort:100},
       {ni_id:351,menu_name:"会员列表",parent_id:350,controller:"/member/list",run_status:0,menu_sort:100},
